@@ -1,11 +1,15 @@
 let canvas;
 let ctx;
-let charcter = new Image();
+let charcter = new Character();
+let enemies = [
+new Chicken(),
+new Chicken(),
+new Chicken()
+];
 
 function init() {
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext("2d");
-    charcter.src = '../img/2_character_pepe/2_walk/W-21.png';
-
-    ctx.drawImage(charcter, 20, 20, 50, 150);
+    console.log('My charcter is', charcter);
+    
 }
