@@ -9,7 +9,9 @@ class World {
         new Cloud()
     ]
     backgroundObjects = [
-        new BackgroundObject('../img/5_background/layers/1_first_layer/1.png', 0, 80)
+        new BackgroundObject('../img/5_background/layers/3_third_layer/1.png', 0),
+        new BackgroundObject('../img/5_background/layers/2_second_layer/1.png', 0),
+        new BackgroundObject('../img/5_background/layers/1_first_layer/1.png', 0)
     ];
     canvas;
     ctx;
@@ -22,7 +24,9 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height) // Welt löschen
-        this.addToMap(this.character);
+        this.addObjectsToMap(this.backgroundObjects);
+        this.addObjectsToMap(this.clouds);
+
         // for (let index = 0; index < this.enemies.length; index++) {
         //  this.ctx.drawImage(this.enemies[index].img, this.enemies[index].x, this.enemies[index].y, this.enemies[index].width, this.enemies[index].height);
 
@@ -32,8 +36,8 @@ class World {
         // });
 
         this.addObjectsToMap(this.enemies);
-        this.addObjectsToMap(this.clouds);
-        this.addObjectsToMap(this.backgroundObjects);
+        this.addToMap(this.character);
+
 
         //Draw() wird immer wieder aufgerufen
         let self = this; //wichtig!!!! kennt sonst in der Funktion darunter this nicht mehr
