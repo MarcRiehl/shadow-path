@@ -53,7 +53,11 @@ class World {
         if (mo.otherDirection) {
             this.flipImage(mo);
         }
-        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+
+        mo.draw(this.ctx);
+        mo.showFrameHelper(this.ctx); //Frame Help
+
+
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
