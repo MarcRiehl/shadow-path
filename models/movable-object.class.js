@@ -30,19 +30,28 @@ class MovableObject {
         this.img.src = path;
     }
 
-    draw(ctx){
+    draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
-    showFrameHelper(ctx){
+    showFrameHelper(ctx) {
         //Helfer 
-        ctx.beginPath();
-        ctx.lineWidth = '5';
-        ctx.strokeStyle = 'blue';
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
-
+        if (this instanceof Character || this instanceof Chicken) { //Helper nur bei Character und Chicken
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
     }
+    //character.isColliding(chicken)
+    isColliding(mo) {
+        return this.x + this.width > mo.x &&
+            this.y + this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.y + mo.height;
+    }
+
     // arr = 'img1.png, 'img2.png' usw.
     loadImages(arr) {
         arr.forEach((path) => {
@@ -54,12 +63,12 @@ class MovableObject {
 
     moveRight() {
         this.x += this.speed;
-        
+
     }
 
     moveLeft() {
         this.x -= this.speed;
-   
+
     }
 
     playAnimation(images) {
