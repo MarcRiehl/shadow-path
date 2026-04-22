@@ -35,11 +35,8 @@ class Character extends MovableObject {
 
         setInterval(() => {
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                let i = this.currentImage % this.IMAGES_WALKING.length; // Bsp. let i = 7 % 6; => 1, Rest 1 ist der Modulo-Operator
-                // i = 0, 1, 2, 3, 4, 5 dann nicht 6 sondern wieder 0
-                let path = this.IMAGES_WALKING[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
+
+                this.playAnimation(this.IMAGES_WALKING);
             }
         }, 40);
 

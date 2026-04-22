@@ -35,4 +35,12 @@ class MovableObject {
         }, 1000 / 60);
     }
 
+    playAnimation(images) {
+        let i = this.currentImage % this.IMAGES_WALKING.length; // Bsp. let i = 7 % 6; => 1, Rest 1 ist der Modulo-Operator
+        // i = 0, 1, 2, 3, 4, 5 dann nicht 6 sondern wieder 0
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
+    }
 }
+
