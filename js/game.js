@@ -4,9 +4,9 @@ let world;
 let keyboard = new Keyboard();
 
 function init() {
-    canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
-    console.log('My charcter is', world.character);
+  canvas = document.getElementById('canvas');
+  world = new World(canvas, keyboard);
+  console.log('My charcter is', world.character);
 }
 
 window.addEventListener('keydown', (event) => {
@@ -23,13 +23,17 @@ window.addEventListener('keydown', (event) => {
     case 'ArrowDown':
       keyboard.DOWN = true;
       break;
+    case 'd':
+    case 'D':
+      keyboard.KEY_D = true;
+      break;
     case ' ':
     case 'Spacebar':
     case 'Space':
       keyboard.SPACE = true;
       break;
   }
-//   console.log('key:', JSON.stringify(event.key), 'code:', event.code);
+// console.log('key:', JSON.stringify(event.key), 'code:', event.code);
 });
 
 window.addEventListener('keyup', (event) => {
@@ -46,10 +50,14 @@ window.addEventListener('keyup', (event) => {
     case 'ArrowDown':
       keyboard.DOWN = false;
       break;
+    case 'd':
+    case 'D':
+      keyboard.KEY_D = false;
+      break;
     case ' ':
     case 'Spacebar':
     case 'Space':
       keyboard.SPACE = false;
       break;
   }
-  });
+});

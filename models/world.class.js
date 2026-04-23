@@ -6,6 +6,7 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new Statusbar();
+    throwableObjects = [];// Array ohne Funktion
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -13,29 +14,43 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
 
     setWorld() {
         this.character.world = this;
     }
 
-    checkCollisions() {
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    // console.log('Collision with Character', enemy);
-                    this.character.hit();
-                    this.character.isHurt();
-                    // console.log(this.character.energy);
-                    this.statusBar.setPercentage(this.character.energy); // Statusbar Health
-                }
-            });
+            this.checkCollisions();
+            this.checkThrowObjects();
+
         }, 200);
     }
 
+    checkThrowObjects() {
+        if(this.keyboard.KEY_D){
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100); //Start der Flasche
+            this.throwableObjects.push(bottle);
+        }
+    }
+
+    checkCollisions() {
+        //Check collision
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                // console.log('Collision with Character', enemy);
+                this.character.hit();
+                this.character.isHurt();
+                // console.log(this.character.energy);
+                this.statusBar.setPercentage(this.character.energy); // Statusbar Health
+            }
+        });
+    }
+
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height) // Welt löschen
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Welt löschen
         this.ctx.translate(this.camera_x, 0); //wichtig als zweiten Parameter 0 = y
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
@@ -54,6 +69,8 @@ class World {
         // });
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObjects);
+
         this.ctx.translate(-this.camera_x, 0);
 
 
