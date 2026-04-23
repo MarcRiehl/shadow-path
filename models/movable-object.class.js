@@ -1,11 +1,5 @@
-class MovableObject {
-    x = 120;
-    y = 280;
-    img;
-    height = 150;
-    width = 100;
-    imageCache = [];
-    currentImage = 0;
+class MovableObject extends DrawableObject {
+
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
@@ -30,16 +24,6 @@ class MovableObject {
 
     isAboveGround() {
         return this.y < 155;
-    }
-
-    //loadImage('img/test.png')
-    loadImage(path) {
-        this.img = new Image(); // this.img = document.getElementById('image') <img id="image" src>
-        this.img.src = path;
-    }
-
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
     showFrameHelper(ctx) {
@@ -71,6 +55,7 @@ class MovableObject {
      timepassed = timepassed / 1000; // Differenz in sekunden
      return timepassed < 1;
     }
+
     //character.isColliding(chicken)
     isColliding(mo) {
         return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
@@ -79,23 +64,12 @@ class MovableObject {
             this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
     }
 
-    // arr = 'img1.png, 'img2.png' usw.
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-    }
-
     moveRight() {
         this.x += this.speed;
-
     }
 
     moveLeft() {
         this.x -= this.speed;
-
     }
 
     playAnimation(images) {
