@@ -26,16 +26,6 @@ class MovableObject extends DrawableObject {
         return this.y < 155;
     }
 
-    showFrameHelper(ctx) {
-        //Helfer 
-        if (this instanceof Character || this instanceof Chicken) { //Helper nur bei Character und Chicken
-            ctx.beginPath();
-            ctx.lineWidth = '3';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-    }
 
     hit() {
         this.energy -= 5;
