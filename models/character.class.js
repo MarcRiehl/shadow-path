@@ -1,6 +1,7 @@
 class Character extends MovableObject {
-    height = 280;
-    y = 155; //war 155
+    height = 200;
+    width = 150;
+    y = 240; //war 155
     speed = 10;
     world;
     offset = {
@@ -11,45 +12,120 @@ class Character extends MovableObject {
     }
 
     IMAGES_WALKING = [
-        './img/2_character_pepe/2_walk/W-21.png',
-        './img/2_character_pepe/2_walk/W-22.png',
-        './img/2_character_pepe/2_walk/W-23.png',
-        './img/2_character_pepe/2_walk/W-24.png',
-        './img/2_character_pepe/2_walk/W-25.png',
-        './img/2_character_pepe/2_walk/W-26.png'
+        './img/2_character_angel/walking/0_fallen_angels_walking_000.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_001.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_002.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_003.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_004.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_005.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_006.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_007.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_008.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_009.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_010.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_011.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_012.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_013.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_014.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_015.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_016.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_017.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_018.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_019.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_020.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_021.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_022.png',
+        './img/2_character_angel/walking/0_fallen_angels_walking_023.png'
+
+
     ];
 
     IMAGES_JUMPING = [
-        './img/2_character_pepe/3_jump/J-31.png',
-        './img/2_character_pepe/3_jump/J-32.png',
-        './img/2_character_pepe/3_jump/J-33.png',
-        './img/2_character_pepe/3_jump/J-34.png',
-        './img/2_character_pepe/3_jump/J-35.png',
-        './img/2_character_pepe/3_jump/J-36.png',
-        './img/2_character_pepe/3_jump/J-37.png',
-        './img/2_character_pepe/3_jump/J-38.png',
-        './img/2_character_pepe/3_jump/J-39.png'
+        './img/2_character_angel/jump_loop/0_fallen_angels_jump_loop_000.png',
+        './img/2_character_angel/jump_loop/0_fallen_angels_jump_loop_001.png',
+        './img/2_character_angel/jump_loop/0_fallen_angels_jump_loop_002.png',
+        './img/2_character_angel/jump_loop/0_fallen_angels_jump_loop_003.png',
+        './img/2_character_angel/jump_loop/0_fallen_angels_jump_loop_004.png',
+        './img/2_character_angel/jump_loop/0_fallen_angels_jump_loop_005.png'
     ];
 
     IMAGES_DEAD = [
-        './img/2_character_pepe/5_dead/D-51.png',
-        './img/2_character_pepe/5_dead/D-52.png',
-        './img/2_character_pepe/5_dead/D-53.png',
-        './img/2_character_pepe/5_dead/D-54.png',
-        './img/2_character_pepe/5_dead/D-55.png',
-        './img/2_character_pepe/5_dead/D-56.png',
-        './img/2_character_pepe/5_dead/D-57.png'
+        './img/2_character_angel/dying/0_fallen_angels_dying_000.png',
+        './img/2_character_angel/dying/0_fallen_angels_dying_001.png',
+        './img/2_character_angel/dying/0_fallen_angels_dying_002.png',
+        './img/2_character_angel/dying/0_fallen_angels_dying_003.png',
+        './img/2_character_angel/dying/0_fallen_angels_dying_004.png',
+        './img/2_character_angel/dying/0_fallen_angels_dying_005.png',
+        './img/2_character_angel/dying/0_fallen_angels_dying_006.png',
+        './img/2_character_angel/dying/0_fallen_angels_dying_007.png',
+        './img/2_character_angel/dying/0_fallen_angels_dying_008.png',
+        './img/2_character_angel/dying/0_fallen_angels_dying_009.png',
+        './img/2_character_angel/dying/0_fallen_angels_dying_010.png',
+        './img/2_character_angel/dying/0_fallen_angels_dying_011.png',
+        './img/2_character_angel/dying/0_fallen_angels_dying_012.png',
+        './img/2_character_angel/dying/0_fallen_angels_dying_013.png',
+        './img/2_character_angel/dying/0_fallen_angels_dying_014.png',
+
 
     ];
     IMAGES_HURT = [
-        './img/2_character_pepe/4_hurt/H-41.png',
-        './img/2_character_pepe/4_hurt/H-42.png',
-        './img/2_character_pepe/4_hurt/H-43.png'
+        './img/2_character_angel/hurt/0_fallen_angels_hurt_000.png',
+        './img/2_character_angel/hurt/0_fallen_angels_hurt_001.png',
+        './img/2_character_angel/hurt/0_fallen_angels_hurt_002.png',
+        './img/2_character_angel/hurt/0_fallen_angels_hurt_003.png',
+        './img/2_character_angel/hurt/0_fallen_angels_hurt_004.png',
+        './img/2_character_angel/hurt/0_fallen_angels_hurt_005.png',
+        './img/2_character_angel/hurt/0_fallen_angels_hurt_006.png',
+        './img/2_character_angel/hurt/0_fallen_angels_hurt_007.png',
+        './img/2_character_angel/hurt/0_fallen_angels_hurt_008.png',
+        './img/2_character_angel/hurt/0_fallen_angels_hurt_009.png',
+        './img/2_character_angel/hurt/0_fallen_angels_hurt_010.png',
+        './img/2_character_angel/hurt/0_fallen_angels_hurt_011.png'
+    ];
+    IMAGES_SHORT_IDLE = [
+        './img/2_character_angel/idle/0_fallen_angels_idle_001.png',
+        './img/2_character_angel/idle/0_fallen_angels_idle_002.png',
+        './img/2_character_angel/idle/0_fallen_angels_idle_003.png',
+        './img/2_character_angel/idle/0_fallen_angels_idle_004.png',
+        './img/2_character_angel/idle/0_fallen_angels_idle_005.png',
+        './img/2_character_angel/idle/0_fallen_angels_idle_006.png',
+        './img/2_character_angel/idle/0_fallen_angels_idle_007.png',
+        './img/2_character_angel/idle/0_fallen_angels_idle_008.png',
+        './img/2_character_angel/idle/0_fallen_angels_idle_009.png',
+        './img/2_character_angel/idle/0_fallen_angels_idle_010.png',
+        './img/2_character_angel/idle/0_fallen_angels_idle_011.png',
+        './img/2_character_angel/idle/0_fallen_angels_idle_012.png',
+        './img/2_character_angel/idle/0_fallen_angels_idle_013.png',
+        './img/2_character_angel/idle/0_fallen_angels_idle_014.png',
+        './img/2_character_angel/idle/0_fallen_angels_idle_015.png',
+        './img/2_character_angel/idle/0_fallen_angels_idle_016.png',
+        './img/2_character_angel/idle/0_fallen_angels_idle_017.png'
+    ];
+    IMAGES_LONG_IDLE = [
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_000.png',
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_001.png',
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_002.png',
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_003.png',
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_004.png',
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_005.png',
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_006.png',
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_007.png',
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_008.png',
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_009.png',
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_010.png',
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_011.png',
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_012.png',
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_013.png',
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_014.png',
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_015.png',
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_016.png',
+        './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_017.png'
+
     ];
 
 
     constructor() {
-        super().loadImage('./img/2_character_pepe/2_walk/W-21.png');
+        super().loadImage('./img/2_character_angel/walking/0_fallen_angels_walking_000.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
