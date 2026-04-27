@@ -1,14 +1,63 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@font-face {
+  font-family: 'Breath';
+  src: url('../assets/fonts/breathefire.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
 }
 
-body{
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Breath", sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: url("../assets/img_site/background.jpg") center center/cover no-repeat;
 }
-canvas{
+
+canvas {
     background-color: #000;
+    display: block;
+}
+
+h1{
+     font-family: "Breath", sans-serif;
+     font-size: 52px;
+     line-height: 120%;
+     letter-spacing: 2px;
+     color: #FFF;
+     filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.7));
+
+}
+.wrapper-content {
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper-inner {
+    max-width: 1440px;
+    width: 100%;
+    min-height: calc(100dvh);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh;
+    }
 }
