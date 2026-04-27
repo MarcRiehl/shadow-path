@@ -29,7 +29,7 @@ class DrawableObject {
 
     showFrameHelper(ctx) {
         //Helfer 
-        if (this instanceof Character || this instanceof Chicken) { //Helper nur bei Character und Chicken
+        if (this instanceof Character || this instanceof Zombie) { //Helper nur bei Character und Chicken
             ctx.beginPath();
             ctx.lineWidth = '3';
             ctx.strokeStyle = 'blue';

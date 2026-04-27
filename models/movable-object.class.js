@@ -26,7 +26,7 @@ class MovableObject extends DrawableObject {
         if (this instanceof ThrowableObject) { // fallen durch den Boden > bis hit
              return true;
         }else{
-             return this.y < 155;
+              return this.y < 240;
         }
        
     }
