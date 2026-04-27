@@ -1,4 +1,9 @@
-const level1 = new Level(
+let level1;
+
+// function initLevel(){
+
+
+level1 = new Level(
     [
         new Zombie(),
         new Zombie(),
@@ -26,3 +31,5 @@ const level1 = new Level(
         new BackgroundObject('./img/5_background_shadow_path/armory_street/layer_02.png', 720 * 3)
     ]
 );
+
+// }

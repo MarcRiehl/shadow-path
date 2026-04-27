@@ -31,8 +31,8 @@ class World {
 
     checkThrowObjects() {
         if(this.keyboard.KEY_D){
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100); //Start der Flasche
-            this.throwableObjects.push(bottle);
+            let magicBall = new ThrowableObject(this.character.x + 100, this.character.y + 100); //Start Zauber
+            this.throwableObjects.push(magicBall);
         }
     }
 
