@@ -62,6 +62,7 @@ class Endboss extends MovableObject {
 
         animate() {
                 let i = 0;
+                let currentX = 0;
                 setInterval(() => {
                         if (i < 10 && this.firstContact) {
                                 this.playAnimation(this.IMAGES_JUMP);
@@ -72,10 +73,12 @@ class Endboss extends MovableObject {
                                 this.x = world.character.x - Math.random() * 100;
                                 this.speed = 0.15 + Math.random() * 0.1;
                         }
-                        else {
+                        if (this.x < 2600){ 
+                                // currentX = this.x;                              
                                 this.playAnimation(this.IMAGES_WALKING);
                                 // this.x = world.character.x;
-                                this.x = 3200 + Math.random() * 50;
+                                // currentX = 3200 + Math.random() * 50;
+                                this.x += 300; // noch verbessern
                                 this.speed = 0.1 + Math.random() * 0.1;
                         }
                         i++;
