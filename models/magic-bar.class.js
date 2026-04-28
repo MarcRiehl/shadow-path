@@ -1,19 +1,19 @@
-class Statusbar extends DrawableObject {
+class Magicbar extends DrawableObject {
 
     percentage = 100;
 
     IMAGES_HEALTH_BAR = [
-        './img/7_statusbars/1_statusbar/01_hitbar/hitbar-00.png',
-        './img/7_statusbars/1_statusbar/01_hitbar/hitbar-01.png',
-        './img/7_statusbars/1_statusbar/01_hitbar/hitbar-02.png',
-        './img/7_statusbars/1_statusbar/01_hitbar/hitbar-03.png',
-        './img/7_statusbars/1_statusbar/01_hitbar/hitbar-04.png',
-        './img/7_statusbars/1_statusbar/01_hitbar/hitbar-05.png',
-        './img/7_statusbars/1_statusbar/01_hitbar/hitbar-06.png',
-        './img/7_statusbars/1_statusbar/01_hitbar/hitbar-07.png',
-        './img/7_statusbars/1_statusbar/01_hitbar/hitbar-08.png',
-        './img/7_statusbars/1_statusbar/01_hitbar/hitbar-09.png',
-        './img/7_statusbars/1_statusbar/01_hitbar/hitbar-10.png'
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-10.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-09.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-08.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-07.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-06.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-05.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-04.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-03.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-02.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-01.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-00.png'
     ];
 
     constructor() {
@@ -21,7 +21,7 @@ class Statusbar extends DrawableObject {
         this.loadImages(this.IMAGES_HEALTH_BAR);
         this.setPercentage(100);
         this.x = 20;
-        this.y = 20;
+        this.y = 65;
         this.width = 200;
         this.height = 35;
     }

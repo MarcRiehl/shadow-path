@@ -6,6 +6,8 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new Statusbar();
+    coinBar = new Coinbar();
+    magicBar = new Magicbar();
     throwableObjects = [];
     coins = [];
     magicPoints = [];
@@ -60,6 +62,8 @@ class World {
         this.ctx.translate(-this.camera_x, 0); //camera für Statusbar zurücksetzen
         // Space for fixed objects
         this.addToMap(this.statusBar);
+        this.addToMap(this.magicBar);
+        this.addToMap(this.coinBar);
         this.ctx.translate(this.camera_x, 0);  //und wieder nach vorne
 
         // for (let index = 0; index < this.enemies.length; index++) {

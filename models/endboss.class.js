@@ -73,7 +73,7 @@ class Endboss extends MovableObject {
                                 this.x = world.character.x - Math.random() * 100;
                                 this.speed = 0.15 + Math.random() * 0.1;
                         }
-                        if (this.x < 2600){ 
+                        if (this.x < 2600) {
                                 // currentX = this.x;                              
                                 this.playAnimation(this.IMAGES_WALKING);
                                 // this.x = world.character.x;
@@ -83,7 +83,7 @@ class Endboss extends MovableObject {
                         }
                         i++;
                         if (world.character.x > 2600 && world.character.isDead()) {
-                                 this.playAnimation(this.IMAGES_IDLE);
+                                this.playAnimation(this.IMAGES_IDLE);
                                 this.speed = 0;
                                 this.x = world.character.x + 120;
                         }

@@ -4,7 +4,7 @@ class Character extends MovableObject {
     y = 240; //war 155
     speed = 10;
     world;
-    
+
     offset = {
         top: 40,
         bottom: 35,
@@ -124,6 +124,9 @@ class Character extends MovableObject {
 
     ];
 
+    IMAGES_LONG_THROW = [
+
+    ];
 
     constructor() {
         super().loadImage('./img/2_character_angel/walking/0_fallen_angels_walking_000.png');
@@ -163,12 +166,12 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
         this.intervalIds = setInterval(() => {
-    
-            if (this.isDead()) {        
+
+            if (this.isDead()) {
                 i++;
                 if (i >= this.IMAGES_DEAD.length - 1) {
                     this.playAnimation(this.IMAGES_DEAD);
-                }else if(i = this.IMAGES_DEAD.length ){
+                } else if (i = this.IMAGES_DEAD.length) {
                     this.loadImage('./img/2_character_angel/dying/0_fallen_angels_dying_014.png'); // letztes Bild dauerhaft anzeigen und Intervall stoppen
                     clearInterval(this.intervalIds);
                     this.intervalIds = null;

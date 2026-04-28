@@ -2,7 +2,7 @@ class Zombie extends MovableObject {
     y = 255;
     height = 180;
     width = 127;
-    energy = 10;
+    energy = 5;
     offset = {
         top: 40,
         bottom: 30,
