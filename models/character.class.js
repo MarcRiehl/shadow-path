@@ -4,6 +4,7 @@ class Character extends MovableObject {
     y = 240; //war 155
     speed = 10;
     world;
+    character_walking_sound = new Audio('./audio/character/walk/stone-chain-walk-4.ogg');;
 
     offset = {
         top: 40,
@@ -145,17 +146,18 @@ class Character extends MovableObject {
         clearInterval(this.intervalIds);
         setInterval(() => {
 
-            // this.walking_sound.pause();
+            //  this.character_walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
                 this.moveRight();
                 this.otherDirection = false;
                 this.idleTimer = 0;
-                // this.walking_sound.play();
+                 this.character_walking_sound.play();
             }
             if (this.world.keyboard.LEFT && this.x > 0 && !this.isDead()) {
                 this.moveLeft();
                 this.otherDirection = true;
                 this.idleTimer = 0;
+                this.character_walking_sound.play();
             }
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();

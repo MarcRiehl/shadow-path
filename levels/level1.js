@@ -8,9 +8,7 @@ level1 = new Level(
         new Zombie(800),
         new Zombie(2000),
         new Crusader(600),
-        new Endboss(),
-        ...createMagicPoints(),
-        ...placeCoins()
+        new Endboss()
     ],
     [
         new Cloud(0),
@@ -42,8 +40,8 @@ level1 = new Level(
         new BackgroundObject('./img/5_background_shadow_path/armory_street/layer_02.png', 720 * 5)
     ],
     [
-        new CollectableCoins(200 + Math.random(), 300 + Math.random()),
-        new CollectableCoins(300 + Math.random(), 400 + Math.random()),
+        ...placeMagicStaff(),
+        ...placeCoins()
     ]
 
     // [
@@ -62,7 +60,7 @@ function placeCoins() {
     return coins;
 };
 //this.world.level.magicPoints.length
-function createMagicPoints() {
+function placeMagicStaff() {
     let magicPoints = [];
     for (let i = 0; i < 10; i++) {
         let x = 400 + Math.random() * 2000;

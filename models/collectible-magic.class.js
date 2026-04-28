@@ -1,18 +1,30 @@
 class CollectableMagic extends MovableObject {
-    IMAGES_MAGIC = [
+    y = 325;
+    offset = {
+        top: 30,
+        bottom: 30,
+        left: 5,
+        right: 10
+    }
+    IMAGES_STAFF = [
+        './img/6_magic/staff/staff-001.png',
+        './img/6_magic/staff/staff-002.png',
+        './img/6_magic/staff/staff-003.png',
+        './img/6_magic/staff/staff-004.png'
 
     ];
-    constructor(x ,y) {
-        super().loadImage('./img/6_magic/magic_01.png');
+    constructor(x) {
+        super().loadImage('./img/6_magic/staff/staff-001.png');
+        this.loadImages(this.IMAGES_STAFF);
         this.x = x;
-        this.y = y;
-        this.width = 130;
-        this.height = 130;
+        this.width = 100;
+        this.height = 100;
+        this.animate();
     }
 
     animate() {
         setInterval(() => {
-            this.playAnimation(this.IMAGES_MAGIC);
-        }, 300);
+            this.playAnimation(this.IMAGES_STAFF);
+        }, 500);
     }
 }
