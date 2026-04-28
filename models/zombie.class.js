@@ -17,12 +17,10 @@ class Zombie extends MovableObject {
     ];
 
 
-    constructor() {
+    constructor(x) {
         super().loadImage('./img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_000.png');
         this.loadImages(this.IMAGES_WALKING);
-
-
-        this.x = 200 + Math.random() * 500; // Zahl zwische 200 und 700 x
+        this.x = x + Math.random() * 200; // x = new Zombie(x) + Math
         this.speed = 0.15 + Math.random() * 0.5;
         this.otherDirection = true;
         this.animate();

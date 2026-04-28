@@ -6,7 +6,9 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new Statusbar();
-    throwableObjects = [];// Array ohne Funktion
+    throwableObjects = [];
+    coins = [];
+    magicPoints = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
