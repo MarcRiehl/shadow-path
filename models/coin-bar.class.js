@@ -21,9 +21,9 @@ class Coinbar extends DrawableObject {
         this.loadImages(this.IMAGES_HEALTH_BAR);
         this.setPercentage(100);
         this.x = 20;
-        this.y = 110;
-        this.width = 200;
-        this.height = 35;
+        this.y = 100;
+        this.width = 170;
+        this.height = 30;
     }
 
     //setPercentage(50) z.B. gesetzt
