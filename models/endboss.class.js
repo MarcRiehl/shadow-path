@@ -76,10 +76,10 @@ class Endboss extends MovableObject {
                                 this.playAnimation(this.IMAGES_WALKING);
                                 // this.x = world.character.x;
                                 this.x = 3200 + Math.random() * 50;
-                                this.speed = 0.15 + Math.random() * 0.1;
+                                this.speed = 0.1 + Math.random() * 0.1;
                         }
                         i++;
-                        if (world.character.isDead()) {
+                        if (world.character.x > 2600 && world.character.isDead()) {
                                  this.playAnimation(this.IMAGES_IDLE);
                                 this.speed = 0;
                                 this.x = world.character.x + 120;
@@ -89,6 +89,6 @@ class Endboss extends MovableObject {
                                 this.firstContact = true;
 
                         }
-                }, 150);
+                }, 200);
         }
 } 

@@ -3,7 +3,7 @@ class Zombie extends MovableObject {
     height = 180;
     width = 127;
     energy = 10;
-        offset = {
+    offset = {
         top: 40,
         bottom: 30,
         left: 30,
@@ -11,9 +11,17 @@ class Zombie extends MovableObject {
     }
     IMAGES_WALKING = [
         './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_000.png',
-        './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_001.png',
         './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_002.png',
-        './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_003.png',
+        './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_004.png',
+        './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_006.png',
+        './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_008.png',
+        './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_010.png',
+        './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_012.png',
+        './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_014.png',
+        './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_016.png',
+        './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_018.png',
+        './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_020.png',
+        './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_022.png'
     ];
 
 
@@ -30,10 +38,10 @@ class Zombie extends MovableObject {
         setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
-      
-        
+
+
         setInterval(() => {
-        this.playAnimation(this.IMAGES_WALKING);
+            this.playAnimation(this.IMAGES_WALKING);
         }, 300);
     }
 

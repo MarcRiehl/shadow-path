@@ -8,6 +8,7 @@ level1 = new Level(
         new Zombie(300),
         new Zombie(800),
         new Zombie(2000),
+        new Crusader(600),
         new Endboss()
     ],
     [
