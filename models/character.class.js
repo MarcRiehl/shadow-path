@@ -130,25 +130,31 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_SHORT_IDLE);
+        this.loadImages(this.IMAGES_LONG_IDLE);
         this.applyGravity();
         this.animate();
     }
 
     animate() {
         setInterval(() => {
+            
             // this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.otherDirection = false;
+                this.idleTimer = 0;
                 // this.walking_sound.play();
             }
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 this.otherDirection = true;
+                this.idleTimer = 0;
             }
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
-            }
+                this.idleTimer = 0;
+             }
 
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
@@ -166,7 +172,21 @@ class Character extends MovableObject {
                 }
             }
         }, 40);
+
+        setInterval(() => {
+            if (!this.isAboveGround() || !this.isDead()) {
+                this.idleTimer += 100;
+                if (this.idleTimer >= 15000) {
+                    this.playAnimation(this.IMAGES_LONG_IDLE);
+                } else if(this.idleTimer >= 5000) {
+                    this.playAnimation(this.IMAGES_SHORT_IDLE);
+                }
+            }
+        }, 100);
+
+
     }
+
 
     jump() {
         this.speedY = 30;

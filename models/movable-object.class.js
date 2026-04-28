@@ -7,6 +7,7 @@ class MovableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
     firstContact = false;
+    idleTimer = 0;
     offset = {
         top: 0,
         bottom: 0,
