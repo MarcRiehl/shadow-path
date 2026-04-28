@@ -11,7 +11,7 @@ class World {
     magicBar = new Magicbar();
     throwableObjects = [];
     coins = [];
-    magicPoints = [];
+    collectedCoins = 0;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
