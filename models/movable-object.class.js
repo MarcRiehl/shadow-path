@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5; //Beschleunigung
     energy = 100;
     lastHit = 0;
+    firstContact = false;
     offset = {
         top: 0,
         bottom: 0,

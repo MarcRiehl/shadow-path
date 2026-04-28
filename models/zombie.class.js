@@ -3,6 +3,12 @@ class Zombie extends MovableObject {
     height = 180;
     width = 127;
     energy = 10;
+        offset = {
+        top: 40,
+        bottom: 30,
+        left: 30,
+        right: 30
+    }
     IMAGES_WALKING = [
         './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_000.png',
         './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_001.png',
