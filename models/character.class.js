@@ -4,6 +4,7 @@ class Character extends MovableObject {
     y = 240; //war 155
     speed = 10;
     world;
+    
     offset = {
         top: 40,
         bottom: 35,
@@ -137,16 +138,18 @@ class Character extends MovableObject {
     }
 
     animate() {
+        let i = 0;
+        clearInterval(this.intervalIds);
         setInterval(() => {
-            
+
             // this.walking_sound.pause();
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
                 this.moveRight();
                 this.otherDirection = false;
                 this.idleTimer = 0;
                 // this.walking_sound.play();
             }
-            if (this.world.keyboard.LEFT && this.x > 0) {
+            if (this.world.keyboard.LEFT && this.x > 0 && !this.isDead()) {
                 this.moveLeft();
                 this.otherDirection = true;
                 this.idleTimer = 0;
@@ -154,14 +157,24 @@ class Character extends MovableObject {
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
                 this.idleTimer = 0;
-             }
+            }
 
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
-        setInterval(() => {
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
+        this.intervalIds = setInterval(() => {
+    
+            if (this.isDead()) {        
+                i++;
+                if (i >= this.IMAGES_DEAD.length - 1) {
+                    this.playAnimation(this.IMAGES_DEAD);
+                }else if(i = this.IMAGES_DEAD.length ){
+                    this.loadImage('./img/2_character_angel/dying/0_fallen_angels_dying_014.png'); // letztes Bild dauerhaft anzeigen und Intervall stoppen
+                    clearInterval(this.intervalIds);
+                    this.intervalIds = null;
+                    this.speed = 0;
+                }
+
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.isHurt()) {
@@ -171,14 +184,16 @@ class Character extends MovableObject {
                     this.playAnimation(this.IMAGES_WALKING);
                 }
             }
+
         }, 40);
 
+
         setInterval(() => {
-            if (!this.isAboveGround() || !this.isDead()) {
+            if (!this.isAboveGround() && !this.isDead()) {
                 this.idleTimer += 100;
                 if (this.idleTimer >= 15000) {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
-                } else if(this.idleTimer >= 5000) {
+                } else if (this.idleTimer >= 5000) {
                     this.playAnimation(this.IMAGES_SHORT_IDLE);
                 }
             }
