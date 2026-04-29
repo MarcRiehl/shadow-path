@@ -41,6 +41,7 @@ class World {
             let magicBall = new ThrowableObject(this.character.x + 100, this.character.y + 100); //Start Zauber
             this.collectedMagicPoints--;
             this.throwableObjects.push(magicBall);
+            this.character.playAnimation(this.character.IMAGES_THROW_MAGIC);
             this.magicBar.setNumberOfMagic(this.collectedMagicPoints);
         }
     }

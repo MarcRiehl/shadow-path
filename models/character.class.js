@@ -125,8 +125,19 @@ class Character extends MovableObject {
 
     ];
 
-    IMAGES_LONG_THROW = [
-
+    IMAGES_THROW_MAGIC = [
+    './img/2_character_angel/slashing/0_fallen_angels_slashing_000.png',
+    './img/2_character_angel/slashing/0_fallen_angels_slashing_001.png',
+    './img/2_character_angel/slashing/0_fallen_angels_slashing_002.png',
+    './img/2_character_angel/slashing/0_fallen_angels_slashing_003.png',
+    './img/2_character_angel/slashing/0_fallen_angels_slashing_004.png',
+    './img/2_character_angel/slashing/0_fallen_angels_slashing_005.png',
+    './img/2_character_angel/slashing/0_fallen_angels_slashing_006.png',
+    './img/2_character_angel/slashing/0_fallen_angels_slashing_007.png',
+    './img/2_character_angel/slashing/0_fallen_angels_slashing_008.png',
+    './img/2_character_angel/slashing/0_fallen_angels_slashing_009.png',
+    './img/2_character_angel/slashing/0_fallen_angels_slashing_010.png',
+    './img/2_character_angel/slashing/0_fallen_angels_slashing_011.png'
     ];
 
     constructor() {
@@ -137,6 +148,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_SHORT_IDLE);
         this.loadImages(this.IMAGES_LONG_IDLE);
+        this.loadImages(this.IMAGES_THROW_MAGIC);
         this.applyGravity();
         this.animate();
     }
