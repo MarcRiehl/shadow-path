@@ -1,63 +1,38 @@
 class Magicbar extends DrawableObject {
 
-    percentage = 100;
+    collectedMagicPoints = 0;
 
-    IMAGES_HEALTH_BAR = [
-        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-10.png',
-        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-09.png',
-        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-08.png',
-        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-07.png',
-        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-06.png',
-        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-05.png',
-        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-04.png',
-        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-03.png',
-        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-02.png',
+    IMAGES_MAGIC_BAR = [
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-00.png',
         './img/7_statusbars/1_statusbar/02_magicbar/magicbar-01.png',
-        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-00.png'
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-02.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-03.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-04.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-05.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-06.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-07.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-08.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-09.png',
+        './img/7_statusbars/1_statusbar/02_magicbar/magicbar-10.png'
     ];
 
     constructor() {
         super(); // muss immer rein um auf das Übergeordnete Objekt zugreifen zu können
-        this.loadImages(this.IMAGES_HEALTH_BAR);
-        this.setPercentage(100);
+        this.loadImages(this.IMAGES_MAGIC_BAR);
+        this.setNumberOfMagic(0);
         this.x = 20;
         this.y = 60;
         this.width = 170;
         this.height = 30;
     }
 
-    //setPercentage(50) z.B. gesetzt
-    setPercentage(percentage) {
-        this.percentage = percentage;
-        let path = this.IMAGES_HEALTH_BAR[this.resolveImageIndex()];
+    setNumberOfMagic(collectedMagicPoints) {
+        this.collectedMagicPoints = collectedMagicPoints;
+        let path = this.IMAGES_MAGIC_BAR[this.magicIndex()];
         this.img = this.imageCache[path];
     }
 
-    resolveImageIndex() {
-        if (this.percentage == 100) {
-            return 10;
-        } else if (this.percentage > 90) {
-            return 9;
-        } else if (this.percentage > 80) {
-            return 8;
-        } else if (this.percentage > 70) {
-            return 7;
-        } else if (this.percentage > 60) {
-            return 6;
-        } else if (this.percentage > 50) {
-            return 5;
-        } else if (this.percentage > 40) {
-            return 4;
-        } else if (this.percentage > 30) {
-            return 3;
-        } else if (this.percentage > 20) {
-            return 2;
-        } else if (this.percentage > 10) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-
+    magicIndex() {
+        return this.collectedMagicPoints;
     }
 }

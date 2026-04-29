@@ -40,8 +40,11 @@ level1 = new Level(
         new BackgroundObject('./img/5_background_shadow_path/armory_street/layer_02.png', 720 * 5)
     ],
     [
-        ...placeMagicStaff(),
         ...placeCoins()
+
+    ],
+    [
+        ...placeMagicStaff()
     ]
 
     // [
@@ -57,8 +60,10 @@ function placeCoins() {
         let y = 100 + Math.random() * 200;
         coins.push(new CollectableCoins(x, y));
     }
+    // console.log(coins);
     return coins;
 };
+
 //this.world.level.magicPoints.length
 function placeMagicStaff() {
     let magicPoints = [];
@@ -66,7 +71,7 @@ function placeMagicStaff() {
         let x = 400 + Math.random() * 2000;
         magicPoints.push(new CollectableMagic(x));
     }
-    console.log(magicPoints);
+    // console.log(magicPoints);
 
     return magicPoints;
 }

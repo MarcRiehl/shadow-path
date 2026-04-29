@@ -1,5 +1,5 @@
 class World {
-   
+
     character = new Character();
     level = level1;
     canvas;
@@ -30,14 +30,18 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+            this.collectCoins();
+            this.collectMagicPoints();
 
         }, 200);
     }
 
     checkThrowObjects() {
-        if(this.keyboard.KEY_D){
+        if (this.keyboard.KEY_D && this.collectedMagicPoints > 0) {
             let magicBall = new ThrowableObject(this.character.x + 100, this.character.y + 100); //Start Zauber
+            this.collectedMagicPoints--;
             this.throwableObjects.push(magicBall);
+            this.magicBar.setNumberOfMagic(this.collectedMagicPoints);
         }
     }
 
@@ -53,6 +57,32 @@ class World {
             }
         });
     }
+
+    collectCoins() {
+        for (let i = this.level.coins.length - 1; i >= 0; i--) {
+            const coin = this.level.coins[i];
+            if (this.character.isColliding(coin)) {
+                this.level.coins.splice(i, 1);
+                this.collectedCoins++;
+                this.coinBar.setNumberOfCoins(this.collectedCoins);
+                // console.log(this.collectedCoins);
+
+            }
+        }
+    }
+
+    collectMagicPoints() {
+        for (let i = this.level.magicPoints.length - 1; i >= 0; i--) {
+            const magic = this.level.magicPoints[i];
+            if (this.character.isColliding(magic)) {
+                this.level.magicPoints.splice(i, 1);
+                this.collectedMagicPoints++;
+                this.magicBar.setNumberOfMagic(this.collectedMagicPoints);
+
+            }
+        }
+    }
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Welt löschen
@@ -76,7 +106,8 @@ class World {
         // });
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.collectableItems);
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.magicPoints);
         this.addObjectsToMap(this.throwableObjects);
 
         this.ctx.translate(-this.camera_x, 0);

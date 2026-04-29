@@ -1,63 +1,38 @@
 class Coinbar extends DrawableObject {
 
-    percentage = 100;
+    collectedCoins = 0;
 
-    IMAGES_HEALTH_BAR = [
-        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-10.png',
-        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-09.png',
-        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-08.png',
-        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-07.png',
-        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-06.png',
-        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-05.png',
-        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-04.png',
-        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-03.png',
-        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-02.png',
+    IMAGES_COIN_BAR = [
+        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-00.png',
         './img/7_statusbars/1_statusbar/03_coinbar/coinbar-01.png',
-        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-00.png'
+        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-02.png',
+        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-03.png',
+        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-04.png',
+        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-05.png',
+        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-06.png',
+        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-07.png',
+        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-08.png',
+        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-09.png',
+        './img/7_statusbars/1_statusbar/03_coinbar/coinbar-10.png'
     ];
 
     constructor() {
-        super(); // muss immer rein um auf das Übergeordnete Objekt zugreifen zu können
-        this.loadImages(this.IMAGES_HEALTH_BAR);
-        this.setPercentage(100);
+        super();
+        this.loadImages(this.IMAGES_COIN_BAR);
+        this.setNumberOfCoins(0);
         this.x = 20;
         this.y = 100;
         this.width = 170;
         this.height = 30;
     }
 
-    //setPercentage(50) z.B. gesetzt
-    setPercentage(percentage) {
-        this.percentage = percentage;
-        let path = this.IMAGES_HEALTH_BAR[this.resolveImageIndex()];
+    setNumberOfCoins(collectedCoins) {
+        this.collectedCoins = collectedCoins;
+        let path = this.IMAGES_COIN_BAR[this.coinIndex()];
         this.img = this.imageCache[path];
     }
 
-    resolveImageIndex() {
-        if (this.percentage == 100) {
-            return 10;
-        } else if (this.percentage > 90) {
-            return 9;
-        } else if (this.percentage > 80) {
-            return 8;
-        } else if (this.percentage > 70) {
-            return 7;
-        } else if (this.percentage > 60) {
-            return 6;
-        } else if (this.percentage > 50) {
-            return 5;
-        } else if (this.percentage > 40) {
-            return 4;
-        } else if (this.percentage > 30) {
-            return 3;
-        } else if (this.percentage > 20) {
-            return 2;
-        } else if (this.percentage > 10) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-
+    coinIndex() {
+        return this.collectedCoins;
     }
 }

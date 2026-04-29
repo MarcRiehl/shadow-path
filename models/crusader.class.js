@@ -9,6 +9,7 @@ class Crusader extends MovableObject {
         left: 30,
         right: 30
     }
+    
     IMAGES_WALKING = [
         './img/3_enemies/skeleton_crusader_3/walking/0_skeleton_crusader_walking_000.png',
         './img/3_enemies/skeleton_crusader_3/walking/0_skeleton_crusader_walking_002.png',
