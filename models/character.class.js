@@ -4,7 +4,9 @@ class Character extends MovableObject {
     y = 240; //war 155
     speed = 10;
     world;
-    character_walking_sound = new Audio('./audio/character/walk/stone-chain-walk-4.ogg');;
+    character_walking_sound = new Audio('./assets/audio/character/walk/stone-chain-walk-4.ogg');
+    character_idle_sound = new Audio('./assets/audio/character/idle/idle-blinking.mp3');
+    character_jumping_sound = new Audio('./assets/audio/character/jump/stone-jump.ogg');
 
     offset = {
         top: 40,
@@ -163,7 +165,9 @@ class Character extends MovableObject {
                 this.moveRight();
                 this.otherDirection = false;
                 this.idleTimer = 0;
+                if (!this.isAboveGround()) { // noch verbessern
                  this.character_walking_sound.play();
+                }
             }
             if (this.world.keyboard.LEFT && this.x > 0 && !this.isDead()) {
                 this.moveLeft();
@@ -174,6 +178,7 @@ class Character extends MovableObject {
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
                 this.idleTimer = 0;
+                this.character_jumping_sound.play();
             }
 
             this.world.camera_x = -this.x + 100;
@@ -199,6 +204,7 @@ class Character extends MovableObject {
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     this.playAnimation(this.IMAGES_WALKING);
+                    this.character_walking_sound.play();
                 }
             }
 
@@ -208,9 +214,10 @@ class Character extends MovableObject {
         setInterval(() => {
             if (!this.isAboveGround() && !this.isDead()) {
                 this.idleTimer += 100;
-                if (this.idleTimer >= 15000) {
+                if (this.idleTimer >= 10000) {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
-                } else if (this.idleTimer >= 5000) {
+                    //  this.character_idle_sound.play();
+                } else if (this.idleTimer >= 1000) {
                     this.playAnimation(this.IMAGES_SHORT_IDLE);
                 }
             }
