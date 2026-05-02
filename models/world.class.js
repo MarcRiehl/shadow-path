@@ -32,6 +32,7 @@ class World {
             this.checkThrowObjects();
             this.collectCoins();
             this.collectMagicPoints();
+            // this.checkJumpingOnEnemy();
 
         }, 200);
     }
@@ -57,6 +58,10 @@ class World {
                 this.statusBar.setPercentage(this.character.energy); // Statusbar Health
             }
         });
+    }
+
+    checkJumpingOnEnemy() {
+
     }
 
     collectCoins() {
