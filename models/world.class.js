@@ -32,7 +32,8 @@ class World {
             this.checkThrowObjects();
             this.collectCoins();
             this.collectMagicPoints();
-            // this.checkJumpingOnEnemy();
+            this.checkMagicCollisions();
+            this.checkJumpingOnEnemy();
 
         }, 200);
     }
@@ -61,8 +62,28 @@ class World {
     }
 
     checkJumpingOnEnemy() {
+        this.level.enemies.forEach((enemy, index) => {
+        let enemyHeadY = enemy.y + enemy.height - enemy.offset.top;
+        let characterFootY = this.character.y + this.character.height - this.character.offset.bottom;
+            if (enemyHeadY >= characterFootY && this.character.isColliding(enemy)) {
+                enemy.hit();
+                this.level.enemies.splice(index, 1);
+            }
+        });
+    }
+
+    checkMagicCollisions() {
+        this.throwableObjects.forEach(magic => {
+            this.level.enemies.forEach((enemy, index) => {
+                if (enemy.isColliding(magic)) {
+                    enemy.hit();
+                    this.level.enemies.splice(index, 1);
+                }
+            });
+        });
 
     }
+
 
     collectCoins() {
         for (let i = this.level.coins.length - 1; i >= 0; i--) {
