@@ -128,18 +128,18 @@ class Character extends MovableObject {
     ];
 
     IMAGES_THROW_MAGIC = [
-    './img/2_character_angel/slashing/0_fallen_angels_slashing_000.png',
-    './img/2_character_angel/slashing/0_fallen_angels_slashing_001.png',
-    './img/2_character_angel/slashing/0_fallen_angels_slashing_002.png',
-    './img/2_character_angel/slashing/0_fallen_angels_slashing_003.png',
-    './img/2_character_angel/slashing/0_fallen_angels_slashing_004.png',
-    './img/2_character_angel/slashing/0_fallen_angels_slashing_005.png',
-    './img/2_character_angel/slashing/0_fallen_angels_slashing_006.png',
-    './img/2_character_angel/slashing/0_fallen_angels_slashing_007.png',
-    './img/2_character_angel/slashing/0_fallen_angels_slashing_008.png',
-    './img/2_character_angel/slashing/0_fallen_angels_slashing_009.png',
-    './img/2_character_angel/slashing/0_fallen_angels_slashing_010.png',
-    './img/2_character_angel/slashing/0_fallen_angels_slashing_011.png'
+        './img/2_character_angel/slashing/0_fallen_angels_slashing_000.png',
+        './img/2_character_angel/slashing/0_fallen_angels_slashing_001.png',
+        './img/2_character_angel/slashing/0_fallen_angels_slashing_002.png',
+        './img/2_character_angel/slashing/0_fallen_angels_slashing_003.png',
+        './img/2_character_angel/slashing/0_fallen_angels_slashing_004.png',
+        './img/2_character_angel/slashing/0_fallen_angels_slashing_005.png',
+        './img/2_character_angel/slashing/0_fallen_angels_slashing_006.png',
+        './img/2_character_angel/slashing/0_fallen_angels_slashing_007.png',
+        './img/2_character_angel/slashing/0_fallen_angels_slashing_008.png',
+        './img/2_character_angel/slashing/0_fallen_angels_slashing_009.png',
+        './img/2_character_angel/slashing/0_fallen_angels_slashing_010.png',
+        './img/2_character_angel/slashing/0_fallen_angels_slashing_011.png'
     ];
 
     constructor() {
@@ -166,7 +166,7 @@ class Character extends MovableObject {
                 this.otherDirection = false;
                 this.idleTimer = 0;
                 if (!this.isAboveGround()) { // noch verbessern
-                 this.character_walking_sound.play();
+                    this.character_walking_sound.play();
                 }
             }
             if (this.world.keyboard.LEFT && this.x > 0 && !this.isDead()) {
@@ -229,5 +229,11 @@ class Character extends MovableObject {
 
     jump() {
         this.speedY = 30;
+    }
+
+    littleJump() {
+        this.speedY = 30;
+        this.y = 240;
+
     }
 }

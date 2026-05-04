@@ -27,11 +27,11 @@ class MovableObject extends DrawableObject {
 
     isAboveGround() {
         if (this instanceof ThrowableObject) { // fallen durch den Boden > bis hit
-             return true;
-        }else{
-              return this.y < 240;
+            return true;
+        } else {
+            return this.y < 240;
         }
-       
+
     }
 
 
@@ -39,7 +39,7 @@ class MovableObject extends DrawableObject {
         this.energy -= 5;
         if (this.energy < 0) {
             this.energy = 0;
-        } else{
+        } else {
             this.lastHit = new Date().getTime();
         }
     }
@@ -48,10 +48,11 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
-    isHurt(){
-     let timepassed = new Date().getTime() - this.lastHit; // Differenz in ms
-     timepassed = timepassed / 1000; // Differenz in sekunden
-     return timepassed < 0.5;
+
+    isHurt() {
+        let timepassed = new Date().getTime() - this.lastHit; // Differenz in ms
+        timepassed = timepassed / 1000; // Differenz in sekunden
+        return timepassed < 0.5;
     }
 
     //character.isColliding(chicken)

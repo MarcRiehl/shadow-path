@@ -20,6 +20,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.runCollisions();
     }
 
     setWorld() {
@@ -28,13 +29,18 @@ class World {
 
     run() {
         setInterval(() => {
-            this.checkCollisions();
-            this.checkThrowObjects();
             this.collectCoins();
             this.collectMagicPoints();
             this.checkMagicCollisions();
             this.checkJumpingOnEnemy();
 
+        }, 1000 / 60);
+    }
+
+    runCollisions() {
+        setInterval(() => {
+            this.checkCollisions();
+            this.checkThrowObjects();
         }, 200);
     }
 
@@ -51,7 +57,7 @@ class World {
     checkCollisions() {
         //Check collision
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy) && !enemy.isDead() && !this.character.isAboveGround()) {
                 // console.log('Collision with Character', enemy);
                 this.character.hit();
                 this.character.isHurt();
@@ -63,10 +69,12 @@ class World {
 
     checkJumpingOnEnemy() {
         this.level.enemies.forEach((enemy, index) => {
-        let enemyHeadY = enemy.y + enemy.height - enemy.offset.top;
-        let characterFootY = this.character.y + this.character.height - this.character.offset.bottom;
-            if (enemyHeadY >= characterFootY && this.character.isColliding(enemy)) {
+            let enemyHeadY = enemy.y + enemy.height - enemy.offset.top;
+            let characterFootY = this.character.y + this.character.height - this.character.offset.bottom;
+            let isAboveHead = characterFootY < enemyHeadY;
+            if (isAboveHead && this.character.isColliding(enemy) && !this.character.hit()) {
                 enemy.hit();
+                this.character.littleJump();
                 this.level.enemies.splice(index, 1);
             }
         });
