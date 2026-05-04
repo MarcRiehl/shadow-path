@@ -11,8 +11,8 @@ class Character extends MovableObject {
     offset = {
         top: 40,
         bottom: 35,
-        left: 40,
-        right: 40
+        left: 60,
+        right: 60
     }
 
     IMAGES_WALKING = [

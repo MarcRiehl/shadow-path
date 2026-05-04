@@ -13,6 +13,8 @@ class World {
     throwableObjects = [];
     collectedCoins = 0;
     collectedMagicPoints = 0;
+    lastThrowTime = 0;
+    lastEndbossHit = 0;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -47,10 +49,21 @@ class World {
     }
 
     checkThrowObjects() {
+        let now = Date.now();
+        if (now - this.lastThrowTime < 1000) {
+            return;
+        }
         if (this.keyboard.KEY_D && this.collectedMagicPoints > 0) {
-            let magicBall = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection); //Start Zauber
-            this.collectedMagicPoints--;
+            this.lastThrowTime = now;
+            if(this.character.otherDirection == false){
+            let magicBall = new ThrowableObject(this.character.x + 120, this.character.y + 100, this.character.otherDirection); //Start Zauber
             this.throwableObjects.push(magicBall);
+            }else if(this.character.otherDirection == true){
+            let magicBall = new ThrowableObject(this.character.x - 0, this.character.y + 100, this.character.otherDirection); //Start Zauber
+            this.throwableObjects.push(magicBall);
+            }
+            this.collectedMagicPoints--;
+            
             this.character.playAnimation(this.character.IMAGES_THROW_MAGIC);
             this.magicBar.setNumberOfMagic(this.collectedMagicPoints);
         }
@@ -98,16 +111,22 @@ class World {
             });
         });
     }
+    
     checkMagicCollisionsEndboss() {
+        let now = Date.now();
         this.throwableObjects.forEach(magic => {
             this.level.endboss.forEach((enemy, index) => {
+                if (now - this.lastEndbossHit < 1000) {
+                    return;
+                }
                 if (enemy.isColliding(magic)) {
+                    this.lastEndbossHit = now;
                     enemy.hit();
                     // if (enemy.isDead()) {
                     console.log(enemy.energy);
                     // }
                 }
-                if(enemy.energy == 0){
+                if (enemy.energy == 0) {
                     this.level.endboss.splice(index, 1);
                 }
             });
