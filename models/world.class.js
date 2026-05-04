@@ -40,7 +40,7 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.KEY_D && this.collectedMagicPoints > 0) {
-            let magicBall = new ThrowableObject(this.character.x + 100, this.character.y + 100); //Start Zauber
+            let magicBall = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection); //Start Zauber
             this.collectedMagicPoints--;
             this.throwableObjects.push(magicBall);
             this.character.playAnimation(this.character.IMAGES_THROW_MAGIC);

@@ -2,21 +2,24 @@ class ThrowableObject extends MovableObject {
     IMAGES_THROW = [
 
     ];
-    constructor(x ,y) {
+    constructor(x, y, otherDirection) {
         super().loadImage('./img/6_magic/magic_01.png');
         this.x = x;
         this.y = y;
         this.width = 30;
         this.height = 30;
-        this.throw();
+        this.throw(otherDirection);
     }
 
-    throw() {
-        this.speedY = 30;
+    throw(otherDirection) {
+        this.speedY = 20;
         this.applyGravity();
         setInterval(() => {
-           this.x += 10; 
+            if (otherDirection) {
+                this.x -= 10;
+            } else {
+                this.x += 10;
+            }
         }, 25);
-
     }
 }
