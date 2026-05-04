@@ -2,7 +2,7 @@ class Crusader extends MovableObject {
     y = 290;
     height = 140;
     width = 105;
-    energy = 10;
+    energy = 5;
     offset = {
         top: 40,
         bottom: 30,
@@ -59,7 +59,7 @@ class Crusader extends MovableObject {
 
     animate() {
         setInterval(() => {
-            this.moveLeft();
+            // this.moveLeft();
         }, 1000 / 60);
 
 

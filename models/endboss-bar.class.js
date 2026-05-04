@@ -21,8 +21,8 @@ class EndbossBar extends DrawableObject {
         super(); // muss immer rein um auf das Übergeordnete Objekt zugreifen zu können
         this.loadImages(this.IMAGES_HEALTH_BAR);
         this.setPercentage(100);
-        this.x = 20;
-        this.y = 20;
+        this.x = 120;
+        this.y = 120;
         this.width = 170;
         this.height = 30;
     }

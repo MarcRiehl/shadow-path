@@ -9,6 +9,7 @@ class World {
     statusBar = new Statusbar();
     coinBar = new Coinbar();
     magicBar = new Magicbar();
+    endbossBar = new EndbossBar();
     throwableObjects = [];
     collectedCoins = 0;
     collectedMagicPoints = 0;
@@ -41,6 +42,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+            this.checkMagicCollisionsEndboss();
         }, 200);
     }
 
@@ -75,7 +77,10 @@ class World {
             if (isAboveHead && this.character.isColliding(enemy) && !this.character.hit()) {
                 enemy.hit();
                 this.character.littleJump();
-                this.level.enemies.splice(index, 1);
+                if (enemy.isDead()) {
+                    this.level.enemies.splice(index, 1);
+                    // console.log(enemy.energy);
+                }
             }
         });
     }
@@ -85,11 +90,28 @@ class World {
             this.level.enemies.forEach((enemy, index) => {
                 if (enemy.isColliding(magic)) {
                     enemy.hit();
-                    this.level.enemies.splice(index, 1);
+                    if (enemy.isDead()) {
+                        // console.log(enemy.energy);
+                        this.level.enemies.splice(index, 1);
+                    }
                 }
             });
         });
-
+    }
+    checkMagicCollisionsEndboss() {
+        this.throwableObjects.forEach(magic => {
+            this.level.endboss.forEach((enemy, index) => {
+                if (enemy.isColliding(magic)) {
+                    enemy.hit();
+                    // if (enemy.isDead()) {
+                    console.log(enemy.energy);
+                    // }
+                }
+                if(enemy.energy == 0){
+                    this.level.endboss.splice(index, 1);
+                }
+            });
+        });
     }
 
 
@@ -101,7 +123,6 @@ class World {
                 this.collectedCoins++;
                 this.coinBar.setNumberOfCoins(this.collectedCoins);
                 // console.log(this.collectedCoins);
-
             }
         }
     }
@@ -141,6 +162,7 @@ class World {
         // });
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.endboss);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.magicPoints);
         this.addObjectsToMap(this.throwableObjects);
