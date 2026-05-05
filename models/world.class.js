@@ -15,6 +15,7 @@ class World {
     collectedMagicPoints = 0;
     lastThrowTime = 0;
     lastEndbossHit = 0;
+    endbossBarVisible = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -36,7 +37,7 @@ class World {
             this.collectMagicPoints();
             this.checkMagicCollisions();
             this.checkJumpingOnEnemy();
-
+            this.checkEndbossIsNear();
         }, 1000 / 60);
     }
 
@@ -45,6 +46,7 @@ class World {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkMagicCollisionsEndboss();
+            this.checkCollisionsEndboss();
         }, 200);
     }
 
@@ -55,15 +57,15 @@ class World {
         }
         if (this.keyboard.KEY_D && this.collectedMagicPoints > 0) {
             this.lastThrowTime = now;
-            if(this.character.otherDirection == false){
-            let magicBall = new ThrowableObject(this.character.x + 120, this.character.y + 100, this.character.otherDirection); //Start Zauber
-            this.throwableObjects.push(magicBall);
-            }else if(this.character.otherDirection == true){
-            let magicBall = new ThrowableObject(this.character.x - 0, this.character.y + 100, this.character.otherDirection); //Start Zauber
-            this.throwableObjects.push(magicBall);
+            if (this.character.otherDirection == false) {
+                let magicBall = new ThrowableObject(this.character.x + 120, this.character.y + 100, this.character.otherDirection); //Start Zauber
+                this.throwableObjects.push(magicBall);
+            } else if (this.character.otherDirection == true) {
+                let magicBall = new ThrowableObject(this.character.x - 0, this.character.y + 100, this.character.otherDirection); //Start Zauber
+                this.throwableObjects.push(magicBall);
             }
             this.collectedMagicPoints--;
-            
+
             this.character.playAnimation(this.character.IMAGES_THROW_MAGIC);
             this.magicBar.setNumberOfMagic(this.collectedMagicPoints);
         }
@@ -86,8 +88,8 @@ class World {
         this.level.enemies.forEach((enemy, index) => {
             let enemyHeadY = enemy.y + enemy.height - enemy.offset.top;
             let characterFootY = this.character.y + this.character.height - this.character.offset.bottom;
-            let isAboveHead = characterFootY <  enemyHeadY + 10;
-            
+            let isAboveHead = characterFootY < enemyHeadY + 10;
+
             if (isAboveHead && this.character.isColliding(enemy) && !this.character.hit()) {
                 enemy.hit();
                 this.character.littleJump();
@@ -112,7 +114,7 @@ class World {
             });
         });
     }
-    
+
     checkMagicCollisionsEndboss() {
         let now = Date.now();
         this.throwableObjects.forEach(magic => {
@@ -126,6 +128,7 @@ class World {
                     // if (enemy.isDead()) {
                     console.log(enemy.energy);
                     // }
+                    this.endbossBar.setPercentage(enemy.energy);
                 }
                 if (enemy.energy == 0) {
                     this.level.endboss.splice(index, 1);
@@ -134,6 +137,16 @@ class World {
         });
     }
 
+    checkCollisionsEndboss() {
+        //Check collision
+        this.level.endboss.forEach((enemy) => {
+            if (this.character.isColliding(enemy) && !enemy.isDead() && !this.character.isAboveGround()) {
+                this.character.hit();
+                this.character.isHurt();
+                this.statusBar.setPercentage(this.character.energy); // Statusbar Health
+            }
+        });
+    }
 
     collectCoins() {
         for (let i = this.level.coins.length - 1; i >= 0; i--) {
@@ -159,6 +172,14 @@ class World {
         }
     }
 
+    checkEndbossIsNear() {
+        if (this.character.x  > 3000) {
+            this.endbossBarVisible = true;
+        }else{
+             this.endbossBarVisible = false;
+    }
+        }
+       
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Welt löschen
@@ -171,6 +192,9 @@ class World {
         this.addToMap(this.statusBar);
         this.addToMap(this.magicBar);
         this.addToMap(this.coinBar);
+        if (this.endbossBarVisible) {
+            this.addToMap(this.endbossBar);
+        }
         this.ctx.translate(this.camera_x, 0);  //und wieder nach vorne
 
         // for (let index = 0; index < this.enemies.length; index++) {

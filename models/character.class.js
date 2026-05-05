@@ -216,7 +216,12 @@ class Character extends MovableObject {
                 this.idleTimer += 100;
                 if (this.idleTimer >= 10000) {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
-                    //  this.character_idle_sound.play();
+                    setTimeout(() => {
+                        // AudioHub.playIdle(AudioHub.CHARACTER_IDLE);
+                    }, 1000);
+
+
+
                 } else if (this.idleTimer >= 1000) {
                     this.playAnimation(this.IMAGES_SHORT_IDLE);
                 }

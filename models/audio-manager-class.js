@@ -8,14 +8,23 @@ class AudioHub {
 
 
     static playOne(sound) {
-            if (sound.readyState == 4) {
-                sound.volume = 0.8;       
-                sound.play();
-            }
+        if (sound.readyState == 4) {
+            sound.volume = 0.8;
+            sound.play();
+        }
+    }
+
+    static playIdle(sound) {
+        if (sound.readyState == 4) {
+            sound.volume = 0.1; 
+            sound.playbackRate = 0.58;
+            sound.play();
+
+        }
     }
 
     static stopOne(sound) {
-        sound.pause();
+        sound.pause(); 
     }
 
     static stopAll() {
