@@ -86,7 +86,8 @@ class World {
         this.level.enemies.forEach((enemy, index) => {
             let enemyHeadY = enemy.y + enemy.height - enemy.offset.top;
             let characterFootY = this.character.y + this.character.height - this.character.offset.bottom;
-            let isAboveHead = characterFootY < enemyHeadY;
+            let isAboveHead = characterFootY <  enemyHeadY + 10;
+            
             if (isAboveHead && this.character.isColliding(enemy) && !this.character.hit()) {
                 enemy.hit();
                 this.character.littleJump();

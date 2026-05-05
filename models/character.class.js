@@ -4,9 +4,7 @@ class Character extends MovableObject {
     y = 240; //war 155
     speed = 10;
     world;
-    character_walking_sound = new Audio('./assets/audio/character/walk/stone-chain-walk-4.ogg');
-    character_idle_sound = new Audio('./assets/audio/character/idle/idle-blinking.mp3');
-    character_jumping_sound = new Audio('./assets/audio/character/jump/stone-jump.ogg');
+
 
     offset = {
         top: 40,
@@ -166,19 +164,20 @@ class Character extends MovableObject {
                 this.otherDirection = false;
                 this.idleTimer = 0;
                 if (!this.isAboveGround()) { // noch verbessern
-                    this.character_walking_sound.play();
+                    AudioHub.playOne(AudioHub.CHARACTER_WALKING);
+                    // this.character_walking_sound.play();
                 }
             }
             if (this.world.keyboard.LEFT && this.x > 0 && !this.isDead()) {
                 this.moveLeft();
                 this.otherDirection = true;
                 this.idleTimer = 0;
-                this.character_walking_sound.play();
+                AudioHub.playOne(AudioHub.CHARACTER_WALKING);
             }
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
                 this.idleTimer = 0;
-                this.character_jumping_sound.play();
+                AudioHub.playOne(AudioHub.CHARACTER_JUMPING);
             }
 
             this.world.camera_x = -this.x + 100;
@@ -195,6 +194,7 @@ class Character extends MovableObject {
                     clearInterval(this.intervalIds);
                     this.intervalIds = null;
                     this.speed = 0;
+                    //noch springen bei tot verhindern
                 }
 
             } else if (this.isAboveGround()) {
@@ -204,7 +204,7 @@ class Character extends MovableObject {
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     this.playAnimation(this.IMAGES_WALKING);
-                    this.character_walking_sound.play();
+                    AudioHub.playOne(AudioHub.CHARACTER_WALKING);
                 }
             }
 
@@ -230,7 +230,7 @@ class Character extends MovableObject {
     }
 
     littleJump() {
-        this.speedY = 30;
+        this.speedY = 20;
         this.y = 240;
 
     }
