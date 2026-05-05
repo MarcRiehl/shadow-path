@@ -88,8 +88,7 @@ class World {
         this.level.enemies.forEach((enemy, index) => {
             let enemyHeadY = enemy.y + enemy.height - enemy.offset.top;
             let characterFootY = this.character.y + this.character.height - this.character.offset.bottom;
-            let isAboveHead = characterFootY < enemyHeadY + 10;
-
+            let isAboveHead = characterFootY <= enemyHeadY + 10;
             if (isAboveHead && this.character.isColliding(enemy) && !this.character.hit()) {
                 enemy.hit();
                 this.character.littleJump();
@@ -149,37 +148,35 @@ class World {
     }
 
     collectCoins() {
-        for (let i = this.level.coins.length - 1; i >= 0; i--) {
-            const coin = this.level.coins[i];
+        this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
-                this.level.coins.splice(i, 1);
+                this.level.coins.splice(index, 1);
                 this.collectedCoins++;
                 this.coinBar.setNumberOfCoins(this.collectedCoins);
-                // console.log(this.collectedCoins);
+                AudioHub.playOne(AudioHub.COLLECT_COIN);
             }
-        }
+        });
     }
 
     collectMagicPoints() {
-        for (let i = this.level.magicPoints.length - 1; i >= 0; i--) {
-            const magic = this.level.magicPoints[i];
+        this.level.magicPoints.forEach((magic, index) => {
             if (this.character.isColliding(magic)) {
-                this.level.magicPoints.splice(i, 1);
+                this.level.magicPoints.splice(index, 1);
                 this.collectedMagicPoints++;
                 this.magicBar.setNumberOfMagic(this.collectedMagicPoints);
-
+                AudioHub.playOne(AudioHub.PICK_UP_STAFF);
             }
-        }
+        });
     }
 
     checkEndbossIsNear() {
-        if (this.character.x  > 3000) {
+        if (this.character.x > 3000) {
             this.endbossBarVisible = true;
-        }else{
-             this.endbossBarVisible = false;
-    }
+        } else {
+            this.endbossBarVisible = false;
         }
-       
+    }
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Welt löschen

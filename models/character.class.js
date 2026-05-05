@@ -165,7 +165,6 @@ class Character extends MovableObject {
                 this.idleTimer = 0;
                 if (!this.isAboveGround()) { // noch verbessern
                     AudioHub.playOne(AudioHub.CHARACTER_WALKING);
-                    // this.character_walking_sound.play();
                 }
             }
             if (this.world.keyboard.LEFT && this.x > 0 && !this.isDead()) {
@@ -187,6 +186,7 @@ class Character extends MovableObject {
 
             if (this.isDead()) {
                 i++;
+                this.world.keyboard.SPACE = false;
                 if (i >= this.IMAGES_DEAD.length - 1) {
                     this.playAnimation(this.IMAGES_DEAD);
                 } else if (i = this.IMAGES_DEAD.length) {
@@ -194,6 +194,8 @@ class Character extends MovableObject {
                     clearInterval(this.intervalIds);
                     this.intervalIds = null;
                     this.speed = 0;
+                    this.speedY = 0;
+
                     //noch springen bei tot verhindern
                 }
 

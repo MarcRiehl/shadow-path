@@ -3,8 +3,10 @@ class AudioHub {
     static CHARACTER_WALKING = new Audio('./assets/audio/character/walk/stone-chain-walk-4.ogg');
     static CHARACTER_IDLE = new Audio('./assets/audio/character/idle/idle-blinking.mp3');
     static CHARACTER_JUMPING = new Audio('./assets/audio/character/jump/stone-jump.ogg');
+    static COLLECT_COIN = new Audio('./assets/audio/coin/coin.wav');
+    static PICK_UP_STAFF = new Audio('./assets/audio/staff/pick-up-staff.wav');
 
-    static allSounds = [AudioHub.CHARACTER_WALKING, AudioHub.CHARACTER_IDLE, AudioHub.CHARACTER_JUMPING];
+    static allSounds = [AudioHub.CHARACTER_WALKING, AudioHub.CHARACTER_IDLE, AudioHub.CHARACTER_JUMPING, AudioHub.COLLECT_COIN, AudioHub.PICK_UP_STAFF];
 
 
     static playOne(sound) {
