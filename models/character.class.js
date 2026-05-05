@@ -186,17 +186,13 @@ class Character extends MovableObject {
 
             if (this.isDead()) {
                 i++;
-                this.world.keyboard.SPACE = false;
+
                 if (i >= this.IMAGES_DEAD.length - 1) {
                     this.playAnimation(this.IMAGES_DEAD);
                 } else if (i = this.IMAGES_DEAD.length) {
                     this.loadImage('./img/2_character_angel/dying/0_fallen_angels_dying_014.png'); // letztes Bild dauerhaft anzeigen und Intervall stoppen
                     clearInterval(this.intervalIds);
                     this.intervalIds = null;
-                    this.speed = 0;
-                    this.speedY = 0;
-
-                    //noch springen bei tot verhindern
                 }
 
             } else if (this.isAboveGround()) {
@@ -211,6 +207,13 @@ class Character extends MovableObject {
             }
 
         }, 40);
+
+        setInterval(() => {
+             if (this.isDead()){
+                this.characterIsDead();
+             }
+            }, 1000 / 60);
+
 
 
         setInterval(() => {
@@ -231,6 +234,13 @@ class Character extends MovableObject {
         }, 100);
     }
 
+
+    characterIsDead() {
+        this.speed = 0;
+        this.speedY = 0;
+        this.world.keyboard.SPACE = false;
+        AudioHub.stopOne(AudioHub.CHARACTER_JUMPING);
+    }
 
     jump() {
         this.speedY = 30;
