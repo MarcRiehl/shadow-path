@@ -16,6 +16,7 @@ class World {
     lastThrowTime = 0;
     lastEndbossHit = 0;
     endbossBarVisible = false;
+    dead = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -65,7 +66,6 @@ class World {
                 this.throwableObjects.push(magicBall);
             }
             this.collectedMagicPoints--;
-
             this.character.playAnimation(this.character.IMAGES_THROW_MAGIC);
             this.magicBar.setNumberOfMagic(this.collectedMagicPoints);
         }
@@ -76,7 +76,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !enemy.isDead() && !this.character.isAboveGround()) {
                 // console.log('Collision with Character', enemy);
-                this.character.hit();
+                this.character.hit(5);
                 this.character.isHurt();
                 // console.log(this.character.energy);
                 this.statusBar.setPercentage(this.character.energy); // Statusbar Health
@@ -86,15 +86,15 @@ class World {
 
     checkJumpingOnEnemy() {
         this.level.enemies.forEach((enemy, index) => {
+            if (enemy.dead) return;
             let enemyHeadY = enemy.y + enemy.height - enemy.offset.top;
             let characterFootY = this.character.y + this.character.height - this.character.offset.bottom;
             let isAboveHead = characterFootY <= enemyHeadY + 10;
             if (isAboveHead && this.character.isColliding(enemy) && !this.character.hit()) {
-                enemy.hit();
+                enemy.hit(5);
                 this.character.littleJump();
                 if (enemy.isDead()) {
-                    this.level.enemies.splice(index, 1);
-                    // console.log(enemy.energy);
+                    this.enemyisDead(enemy);
                 }
             }
         });
@@ -104,10 +104,10 @@ class World {
         this.throwableObjects.forEach(magic => {
             this.level.enemies.forEach((enemy, index) => {
                 if (enemy.isColliding(magic)) {
-                    enemy.hit();
+                    enemy.hit(5);
                     if (enemy.isDead()) {
                         // console.log(enemy.energy);
-                        this.level.enemies.splice(index, 1);
+                        this.enemyisDead(enemy);
                     }
                 }
             });
@@ -123,9 +123,9 @@ class World {
                 }
                 if (enemy.isColliding(magic)) {
                     this.lastEndbossHit = now;
-                    enemy.hit();
+                    enemy.hit(5);
                     // if (enemy.isDead()) {
-                    console.log(enemy.energy);
+                    // console.log(enemy.energy);
                     // }
                     this.endbossBar.setPercentage(enemy.energy);
                 }
@@ -136,11 +136,12 @@ class World {
         });
     }
 
+
     checkCollisionsEndboss() {
         //Check collision
         this.level.endboss.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !enemy.isDead() && !this.character.isAboveGround()) {
-                this.character.hit();
+                this.character.hit(5);
                 this.character.isHurt();
                 this.statusBar.setPercentage(this.character.energy); // Statusbar Health
             }
@@ -175,6 +176,15 @@ class World {
         } else {
             this.endbossBarVisible = false;
         }
+    }
+
+    enemyisDead(enemy) {
+        enemy.dead = true;
+        enemy.playAnimation(enemy.IMAGES_DEAD);
+        setTimeout(() => {
+            let i = this.level.enemies.indexOf(enemy);
+            if (i !== -1) this.level.enemies.splice(i, 1);
+        }, 100);
     }
 
 
@@ -230,7 +240,7 @@ class World {
         }
 
         mo.draw(this.ctx);
-        mo.showFrameHelper(this.ctx); //Frame Help
+        // mo.showFrameHelper(this.ctx); //Frame Help
 
 
         if (mo.otherDirection) {

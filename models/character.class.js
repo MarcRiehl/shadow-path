@@ -176,16 +176,15 @@ class Character extends MovableObject {
                 this.jump();
                 this.idleTimer = 0;
                 AudioHub.playOne(AudioHub.CHARACTER_JUMPING);
+                //  console.log(world.character.y); 
             }
 
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
         this.intervalIds = setInterval(() => {
-
             if (this.isDead()) {
                 i++;
-
                 if (i >= this.IMAGES_DEAD.length - 1) {
                     this.playAnimation(this.IMAGES_DEAD);
                 } else if (i = this.IMAGES_DEAD.length) {
@@ -226,9 +225,6 @@ class Character extends MovableObject {
                     setTimeout(() => {
                         // AudioHub.playIdle(AudioHub.CHARACTER_IDLE);
                     }, 1000);
-
-
-
                 } else if (this.idleTimer >= 1000) {
                     this.playAnimation(this.IMAGES_SHORT_IDLE);
                 }
