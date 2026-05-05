@@ -158,7 +158,6 @@ class Character extends MovableObject {
         clearInterval(this.intervalIds);
         setInterval(() => {
 
-            //  this.character_walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
                 this.moveRight();
                 this.otherDirection = false;
@@ -193,6 +192,9 @@ class Character extends MovableObject {
                     this.loadImage('./img/2_character_angel/dying/0_fallen_angels_dying_014.png'); // letztes Bild dauerhaft anzeigen und Intervall stoppen
                     clearInterval(this.intervalIds);
                     this.intervalIds = null;
+                    setTimeout(() => {
+                        AudioHub.playOne(AudioHub.GAME_OVER);
+                    }, 1000);
                 }
 
             } else if (this.isAboveGround()) {
@@ -209,10 +211,10 @@ class Character extends MovableObject {
         }, 40);
 
         setInterval(() => {
-             if (this.isDead()){
+            if (this.isDead()) {
                 this.characterIsDead();
-             }
-            }, 1000 / 60);
+            }
+        }, 1000 / 60);
 
 
 
