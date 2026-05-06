@@ -9,15 +9,22 @@ function init() {
   // console.log('My charcter is', world.character);
 }
 
-function loadGame(){
-let startScreen = document.getElementById(`start-screen`);
-startScreen.innerHTML = getHTMLForStartScreen();
+function loadGame() {
+  let startScreen = document.getElementById(`start-screen`);
+  startScreen.innerHTML = getHTMLForStartScreen();
+
 }
 
 function startGame() {
+  AudioHub.playOne(AudioHub.TITEL_MUSIC);
   initLevel();
   init();
-    document.getElementById("start-screen").classList.add("d-none");
+  setTimeout(() => {
+    AudioHub.stopOne(AudioHub.TITEL_MUSIC);
+  }, 10000);
+
+  document.getElementById("start-screen").classList.add("d-none");
+
 }
 
 window.addEventListener('keydown', (event) => {

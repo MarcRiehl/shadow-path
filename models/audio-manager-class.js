@@ -7,8 +7,19 @@ class AudioHub {
     static PICK_UP_STAFF = new Audio('./assets/audio/staff/pick-up-staff.wav');
     static GAME_OVER = new Audio('./assets/audio/game/game-over.ogg');
     static GET_READY = new Audio('./assets/audio/game/get-ready.ogg');
+    static TITEL_MUSIC = new Audio('./assets/audio/startscreen/after-theme2.mp3');
 
-    static allSounds = [AudioHub.CHARACTER_WALKING, AudioHub.CHARACTER_IDLE, AudioHub.CHARACTER_JUMPING, AudioHub.COLLECT_COIN, AudioHub.PICK_UP_STAFF, AudioHub.GAME_OVER, AudioHub.GET_READY];
+
+    static allSounds = [
+        AudioHub.CHARACTER_WALKING, 
+        AudioHub.CHARACTER_IDLE, 
+        AudioHub.CHARACTER_JUMPING, 
+        AudioHub.COLLECT_COIN, 
+        AudioHub.PICK_UP_STAFF, 
+        AudioHub.GAME_OVER, 
+        AudioHub.GET_READY,
+        AudioHub.TITEL_MUSIC
+    ];
 
 
     static playOne(sound) {
