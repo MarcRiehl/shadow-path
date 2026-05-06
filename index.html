@@ -28,6 +28,7 @@
     <script src="./models/world.class.js"></script>
     <script src="./levels/level1.js"></script>
     <script src="./js/game.js"></script>
+    <script src="./js/template.js"></script>
 
     <link rel="icon" type="image/png" href="./favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="./favicon/favicon.svg" />
@@ -38,16 +39,14 @@
 
 </head>
 
-<body>
+<body onload="loadGame()">
     <section class="wrapper-content">
         <section class="wrapper-inner">
             <!-- #region Content -->
             <canvas id="canvas" width="720" height="480">
             </canvas>
             <div id="start-screen">
-                <div id="start-button">
-                    <img class="start-button" src="./assets/buttons/button-start.png" alt="start-button" onclick="startGame()">
-                </div>
+
             </div>
             <div id="end-screen"></div>
             <div id="instructions"></div>

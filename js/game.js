@@ -8,6 +8,12 @@ function init() {
   world = new World(canvas, keyboard);
   // console.log('My charcter is', world.character);
 }
+
+function loadGame(){
+let startScreen = document.getElementById(`start-screen`);
+startScreen.innerHTML = getHTMLForStartScreen();
+}
+
 function startGame() {
   initLevel();
   init();
