@@ -105,6 +105,7 @@ class World {
             this.level.enemies.forEach((enemy, index) => {
                 if (enemy.isColliding(magic)) {
                     enemy.hit(5);
+                    // magic.throwMagicBall();
                     if (enemy.isDead()) {
                         // console.log(enemy.energy);
                         this.enemyisDead(enemy);
