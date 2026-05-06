@@ -8,6 +8,11 @@ function init() {
   world = new World(canvas, keyboard);
   // console.log('My charcter is', world.character);
 }
+function startGame() {
+  initLevel();
+  init();
+    document.getElementById("start-screen").classList.add("d-none");
+}
 
 window.addEventListener('keydown', (event) => {
   switch (event.key) {
@@ -33,7 +38,7 @@ window.addEventListener('keydown', (event) => {
       keyboard.SPACE = true;
       break;
   }
-// console.log('key:', JSON.stringify(event.key), 'code:', event.code);
+  // console.log('key:', JSON.stringify(event.key), 'code:', event.code);
 });
 
 window.addEventListener('keyup', (event) => {

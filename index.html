@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shadow-Path</title>
     <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/style-ui.css">
     <script src="./models/drawable-object.class.js"></script>
     <script src="./models/movable-object.class.js"></script>
     <script src="./models/character.class.js"></script>
@@ -37,14 +38,20 @@
 
 </head>
 
-<body onload="init()">
+<body>
     <section class="wrapper-content">
         <section class="wrapper-inner">
             <!-- #region Content -->
-            <h1>Shadow Path</h1>
             <canvas id="canvas" width="720" height="480">
-
             </canvas>
+            <div id="start-screen">
+                <div id="start-button">
+                    <img class="start-button" src="./assets/buttons/button-start.png" alt="start-button" onclick="startGame()">
+                </div>
+            </div>
+            <div id="end-screen"></div>
+            <div id="instructions"></div>
+            <div id="impressum"></div> 
             <!-- #endregion -->
         </section>
 
