@@ -21,7 +21,7 @@ function getHTMLForSoundButton() {
     
     `}
 
-    function getHTMLForMenu() {
+function getHTMLForMenu() {
     return `
               <div id="impressum">
                             <img class="impressum-button" src="./assets/buttons/button-impressum.png" alt="impressum"
@@ -31,5 +31,15 @@ function getHTMLForSoundButton() {
                             <img class="instructions-button" src="./assets/buttons/button-menu.png" alt="instructions"
                                 onclick="openModal()">
             </div>
+    
+    `}
+
+function getHTMLForScreenWin() {
+    return `
+    
+    `}
+
+function getHTMLForScreenLost() {
+    return `
     
     `}

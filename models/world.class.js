@@ -39,6 +39,7 @@ class World {
             this.checkMagicCollisions();
             this.checkJumpingOnEnemy();
             this.checkEndbossIsNear();
+            this.checkCharacterIsDead();
         }, 1000 / 60);
     }
 
@@ -93,8 +94,9 @@ class World {
             if (isAboveHead && this.character.isColliding(enemy) && !this.character.hit()) {
                 enemy.hit(5);
                 this.character.littleJump();
+                AudioHub.playOne(AudioHub.HIT_JUMP);
                 if (enemy.isDead()) {
-                    this.enemyisDead(enemy);
+                    this.checkEnemyIsDead(enemy);
                 }
             }
         });
@@ -108,7 +110,7 @@ class World {
                     // magic.throwMagicBall();
                     if (enemy.isDead()) {
                         // console.log(enemy.energy);
-                        this.enemyisDead(enemy);
+                        this.checkEnemyIsDead(enemy);
                     }
                 }
             });
@@ -132,6 +134,7 @@ class World {
                 }
                 if (enemy.energy == 0) {
                     this.level.endboss.splice(index, 1);
+                    this.checkEndbossIsDead();
                 }
             });
         });
@@ -172,14 +175,14 @@ class World {
     }
 
     checkEndbossIsNear() {
-        if (this.character.x > 3000) {
+        if (this.character.x > 2400) {
             this.endbossBarVisible = true;
         } else {
             this.endbossBarVisible = false;
         }
     }
 
-    enemyisDead(enemy) {
+    checkEnemyIsDead(enemy) {
         enemy.dead = true;
         enemy.playAnimation(enemy.IMAGES_DEAD);
         setTimeout(() => {
@@ -187,6 +190,32 @@ class World {
             if (i !== -1) this.level.enemies.splice(i, 1);
         }, 100);
     }
+
+    checkCharacterIsDead(){
+        if(this.character.isDead()){
+            setTimeout(() => {
+               endScreenLost();
+            }, 2000);
+            
+        }
+    }
+
+    checkEndbossIsDead(){
+        setTimeout(() => {
+        endScreenWin();
+        this.resetAll();
+        }, 2000);
+    }
+
+    resetAll(){
+    this.throwableObjects = [];
+    this.collectedCoins = 0;
+    this.collectedMagicPoints = 0;
+    this.lastThrowTime = 0;
+    this.lastEndbossHit = 0;
+    }
+
+
 
 
     draw() {
@@ -203,15 +232,7 @@ class World {
         if (this.endbossBarVisible) {
             this.addToMap(this.endbossBar);
         }
-        this.ctx.translate(this.camera_x, 0);  //und wieder nach vorne
-
-        // for (let index = 0; index < this.enemies.length; index++) {
-        //  this.ctx.drawImage(this.enemies[index].img, this.enemies[index].x, this.enemies[index].y, this.enemies[index].width, this.enemies[index].height);
-
-        // }
-        // this.enemies.forEach(enemy => { //alte Form
-        //     this.addToMap(enemy);
-        // });
+        this.ctx.translate(this.camera_x, 0);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.endboss);

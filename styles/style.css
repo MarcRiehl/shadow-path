@@ -48,7 +48,6 @@ body {
   width: 100%;
   max-width: 1280px;   /* anpassen siehe canvas*/
   aspect-ratio: 3/2;
-  margin: 0 auto;
 }
 
 h1 {
@@ -85,14 +84,3 @@ h1 {
   z-index: 1;
 }
 
-@media only screen and (max-width: 720px) {
-    canvas {
-        width: 100%;
-    }
-}
-
-@media only screen and (max-height: 480px) {
-    canvas {
-        height: 100vh;
-    }
-}

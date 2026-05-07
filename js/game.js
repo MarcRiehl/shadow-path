@@ -3,6 +3,7 @@ let ctx;
 let world;
 let keyboard = new Keyboard();
 let playSound = true;
+let gameWin = false;
 
 function init() {
   canvas = document.getElementById('canvas');
@@ -47,6 +48,17 @@ function toogleSound() {
     buttonSoundMute.classList.add("d-none");
   }
 
+}
+
+function endScreenLost() {
+  let buttonSound = document.getElementById("sound-button");
+  buttonSound.classList.add("d-none");
+
+}
+
+function endScreenWin() {
+   let buttonSound = document.getElementById("sound-button");
+   buttonSound.classList.add("d-none");
 }
 
 window.addEventListener('keydown', (event) => {

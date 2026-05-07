@@ -1,0 +1,7 @@
+{
+    "github.copilot.chat.agent.currentEditorContext.enabled": true,
+    "github.copilot.chat.scopeSelection": false,
+    "chat.includeReferencedInstructions": false,
+    "chat.restoreLastPanelSession": false,
+    "chat.viewProgressBadge.enabled": false
+}

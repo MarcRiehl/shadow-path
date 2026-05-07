@@ -7,6 +7,7 @@ class AudioHub {
     static GAME_OVER = new Audio('./assets/audio/game/game-over.ogg');
     static GET_READY = new Audio('./assets/audio/game/get-ready.ogg');
     static TITEL_MUSIC = new Audio('./assets/audio/startscreen/after-theme2.mp3');
+    static HIT_JUMP = new Audio('./assets/audio/enemies/hit-jump.wav');
 
 
     static allSounds = [
@@ -17,7 +18,8 @@ class AudioHub {
         AudioHub.PICK_UP_STAFF,
         AudioHub.GAME_OVER,
         AudioHub.GET_READY,
-        AudioHub.TITEL_MUSIC
+        AudioHub.TITEL_MUSIC,
+        AudioHub.HIT_JUMP
     ];
 
 
