@@ -27,7 +27,7 @@ class MovableObject extends DrawableObject {
 
     isAboveGround() {
         if (this instanceof ThrowableObject) { // fallen durch den Boden > bis hit
-            return true;
+            return !this.isExploded;
         } else {
             return this.y < 240;
         }

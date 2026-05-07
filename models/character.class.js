@@ -4,6 +4,7 @@ class Character extends MovableObject {
     y = 240; //war 155
     speed = 10;
     world;
+    idleTimer = 0;
 
 
     offset = {
@@ -206,7 +207,6 @@ class Character extends MovableObject {
                     AudioHub.playOne(AudioHub.CHARACTER_WALKING);
                 }
             }
-
         }, 40);
 
         setInterval(() => {
@@ -218,12 +218,14 @@ class Character extends MovableObject {
 
 
         setInterval(() => {
-            if (!this.isAboveGround() && !this.isDead()) {
+            if (!this.isAboveGround() && !this.isDead() && !this.world.dead) {
                 this.idleTimer += 100;
                 if (this.idleTimer >= 10000) {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
                     setTimeout(() => {
-                        // AudioHub.playIdle(AudioHub.CHARACTER_IDLE);
+                        if (!this.isDead() && !this.world.charcterDead && !this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.SPACE && !this.isAboveGround()) {
+                            AudioHub.playIdle(AudioHub.CHARACTER_IDLE);
+                        }
                     }, 1000);
                 } else if (this.idleTimer >= 1000) {
                     this.playAnimation(this.IMAGES_SHORT_IDLE);
@@ -236,8 +238,10 @@ class Character extends MovableObject {
     characterIsDead() {
         this.speed = 0;
         this.speedY = 0;
+        this.idleTimer = 0;
         this.world.keyboard.SPACE = false;
         AudioHub.stopOne(AudioHub.CHARACTER_JUMPING);
+        AudioHub.stopIdle(AudioHub.CHARACTER_IDLE);
     }
 
     jump() {

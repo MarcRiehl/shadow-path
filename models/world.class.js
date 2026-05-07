@@ -17,7 +17,7 @@ class World {
     lastThrowTime = 0;
     lastEndbossHit = 0;
     endbossBarVisible = false;
-    dead = false;
+    charcterDead = false;
 
     constructor(canvas, keyboard, mobilControl) {
         this.ctx = canvas.getContext("2d");
@@ -64,9 +64,13 @@ class World {
             if (this.character.otherDirection == false) {
                 let magicBall = new ThrowableObject(this.character.x + 120, this.character.y + 100, this.character.otherDirection); //Start Zauber
                 this.throwableObjects.push(magicBall);
+                magicBall.playAnimation(magicBall.IMAGES_THROW_BALL);
+                AudioHub.playOne(AudioHub.THROW_FIREBALL);
             } else if (this.character.otherDirection == true) {
                 let magicBall = new ThrowableObject(this.character.x - 0, this.character.y + 100, this.character.otherDirection); //Start Zauber
                 this.throwableObjects.push(magicBall);
+                magicBall.playAnimation(magicBall.IMAGES_THROW_BALL);
+                AudioHub.playOne(AudioHub.THROW_FIREBALL);
             }
             this.collectedMagicPoints--;
             this.character.playAnimation(this.character.IMAGES_THROW_MAGIC);
@@ -107,11 +111,21 @@ class World {
     checkMagicCollisions() {
         this.throwableObjects.forEach(magic => {
             this.level.enemies.forEach((enemy, index) => {
-                if (enemy.isColliding(magic)) {
+                if (enemy.isColliding(magic) && !magic.isExploded) {
                     enemy.hit(5);
-                    // magic.throwMagicBall();
+                    clearInterval(magic.throwInterval);
+                    magic.playAnimation(magic.IMAGES_EXPLODE_BALL);
+                    AudioHub.playOne(AudioHub.EXPLOSION);
+                    magic.width = 100;
+                    magic.height = 100;
+                    magic.speedY = 0;
+                    magic.acceleration = 0;
+                    magic.isExploded = true;
+                    setTimeout(() => {
+                        magic.isDeleted = true;
+                        this.throwableObjects.splice(index, 1);
+                    }, 200);
                     if (enemy.isDead()) {
-                        // console.log(enemy.energy);
                         this.checkEnemyIsDead(enemy);
                     }
                 }
@@ -129,12 +143,20 @@ class World {
                 if (enemy.isColliding(magic)) {
                     this.lastEndbossHit = now;
                     enemy.hit(5);
-                    // if (enemy.isDead()) {
-                    // console.log(enemy.energy);
-                    // }
+                    clearInterval(magic.throwInterval);
+                    magic.playAnimation(magic.IMAGES_EXPLODE_BALL);
+                    magic.width = 100;
+                    magic.height = 100;
+                    magic.speedY = 0;
+                    magic.acceleration = 0;
+                    magic.isExploded = true;
+                    setTimeout(() => {
+                        magic.isDeleted = true;
+                        this.throwableObjects.splice(index, 1);
+                    }, 200);
                     this.endbossBar.setPercentage(enemy.energy);
                 }
-                if (enemy.energy == 0) {
+                if (enemy.isDead()) {
                     this.level.endboss.splice(index, 1);
                     this.checkEndbossIsDead();
                 }
@@ -193,31 +215,34 @@ class World {
         }, 100);
     }
 
-    checkCharacterIsDead(){
-        if(this.character.isDead()){
+    checkCharacterIsDead() {
+        if (this.character.isDead()) {
+            this.charcterDead = true;
             setTimeout(() => {
-               endScreenLost();
-               this.resetAll();
+                endScreenLost();
+                this.resetAll();
             }, 2000);
-            
+
         }
     }
 
-    checkEndbossIsDead(){
+    checkEndbossIsDead() {
+        this.charcterDead = true;
         setTimeout(() => {
-        endScreenWin();
-        this.resetAll();
+            endScreenWin();
+            this.resetAll();
         }, 2000);
     }
 
-    resetAll(){
-    this.throwableObjects = [];
-    this.collectedCoins = 0;
-    this.collectedMagicPoints = 0;
-    this.lastThrowTime = 0;
-    this.lastEndbossHit = 0;
-    this.character.x = 120;
-    this.character.energy = 100;
+    resetAll() {
+        this.throwableObjects = [];
+        this.collectedCoins = 0;
+        this.collectedMagicPoints = 0;
+        this.lastThrowTime = 0;
+        this.lastEndbossHit = 0;
+        this.character.x = 120;
+        this.character.energy = 100;
+        this.idleTimer = 99999;
     }
 
 
@@ -257,10 +282,11 @@ class World {
 
     addObjectsToMap(objects) {
         objects.forEach(o => {
-            this.addToMap(o);
+            if (!o.isDeleted) {
+                this.addToMap(o);
+            }
         });
     }
-
     addToMap(mo) { // MovableObject
         if (mo.otherDirection) {
             this.flipImage(mo);

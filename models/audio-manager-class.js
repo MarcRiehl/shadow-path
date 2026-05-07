@@ -8,6 +8,8 @@ class AudioHub {
     static GET_READY = new Audio('./assets/audio/game/get-ready.ogg');
     static TITEL_MUSIC = new Audio('./assets/audio/startscreen/after-theme2.mp3');
     static HIT_JUMP = new Audio('./assets/audio/enemies/hit-jump.wav');
+    static THROW_FIREBALL = new Audio('./assets/audio/character/throw/fireball.ogg');
+    static EXPLOSION = new Audio('./assets/audio/enemies/explosion-small.wav');
 
 
     static allSounds = [
@@ -19,7 +21,9 @@ class AudioHub {
         AudioHub.GAME_OVER,
         AudioHub.GET_READY,
         AudioHub.TITEL_MUSIC,
-        AudioHub.HIT_JUMP
+        AudioHub.HIT_JUMP,
+        AudioHub.THROW_FIREBALL,
+        AudioHub.EXPLOSION
     ];
 
 
@@ -34,10 +38,17 @@ class AudioHub {
 
     static playIdle(sound) {
         if (sound.readyState == 4) {
+            if(playSound == true){
             sound.volume = 0.1;
             sound.playbackRate = 0.58;
             sound.play();
+            }
         }
+    }
+
+    static stopIdle(sound) {
+        sound.pause();
+        sound.currentTime = 0;
     }
 
     static pauseOne(sound) {
