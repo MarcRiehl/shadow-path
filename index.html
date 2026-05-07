@@ -20,6 +20,7 @@
     <script src="./models/magic-bar.class.js"></script>
     <script src="./models/background-object.class.js"></script>
     <script src="./models/keyboard.class.js"></script>
+    <script src="./models/mobil-control.class.js"></script>
     <script src="./models/level.class.js"></script>
     <script src="./models/throwable-object.class.js"></script>
     <script src="./models/collectible-coins.class.js"></script>
@@ -47,17 +48,29 @@
             <div class="canvas-wrapper">
                 <canvas id="canvas" width="720" height="480">
                 </canvas>
+                <section id="mobil-control" class="d-none">
+                    <button id="leftBtn"></button>
+                    <button id="rightBtn"></button>
+                    <button id="upBtn"></button>
+                    <button id="downBtn"></button>
+                    <button id="spaceBtn"></button>
+                    <button id="dBtn"></button>
+                </section>
                 <div id="screen-overlay">
-                    <div id="sound-control" class="sound-control" >
+                    <div id="sound-control" class="sound-control">
                     </div>
                     <div id="start-screen">
-
                     </div>
-                        <div id="bottom-menu" class="bottom-menu">
-                        </div>
-                    <div id="end-screen"></div>
-                    <div id="instructions"></div>
-                    <div id="impressum"></div>
+                    <div id="bottom-menu" class="bottom-menu">
+                    </div>
+                    <div id="lost-screen" class="d-none">
+                    </div>
+                    <div id="end-screen" class="d-none">
+                    </div>
+                    <div id="instructions" class="d-none">
+                    </div>
+                    <div id="impressum" class="d-none">
+                    </div>
                 </div>
             </div>
             <!-- #endregion -->

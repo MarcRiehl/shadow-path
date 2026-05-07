@@ -22,6 +22,7 @@ class World {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.mobilControl = mobilControl;
         this.draw();
         this.setWorld();
         this.run();
@@ -213,6 +214,7 @@ class World {
     this.collectedMagicPoints = 0;
     this.lastThrowTime = 0;
     this.lastEndbossHit = 0;
+    this.character.x = 120;
     }
 
 

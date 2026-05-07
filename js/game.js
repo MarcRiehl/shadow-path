@@ -2,13 +2,13 @@ let canvas;
 let ctx;
 let world;
 let keyboard = new Keyboard();
+let mobilControl = new MobilControl();
 let playSound = true;
 let gameWin = false;
 
 function init() {
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
-  // console.log('My charcter is', world.character);
 }
 
 function loadGame() {
@@ -85,7 +85,6 @@ window.addEventListener('keydown', (event) => {
       keyboard.SPACE = true;
       break;
   }
-  // console.log('key:', JSON.stringify(event.key), 'code:', event.code);
 });
 
 window.addEventListener('keyup', (event) => {
@@ -113,3 +112,23 @@ window.addEventListener('keyup', (event) => {
       break;
   }
 });
+
+function setupMobileControls() {
+    function bindButton(id, keyName) {
+        const btn = document.getElementById(id);
+        btn.addEventListener("touchstart", (e) => {
+            e.preventDefault();
+            keys[keyName] = true;
+        });
+        btn.addEventListener("touchend", (e) => {
+            e.preventDefault();
+            keys[keyName] = false;
+        });
+    }
+    bindButton("leftBtn", "LEFT");
+    bindButton("rightBtn", "RIGHT");
+    bindButton("upBtn", "UP");
+    bindButton("downBtn", "DOWN");
+    bindButton("spaceBtn", "SPACE");
+    bindButton("dBtn", "KEY_D");
+}
