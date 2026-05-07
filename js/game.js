@@ -18,6 +18,11 @@ function loadGame() {
   startScreen.innerHTML = getHTMLForStartScreen();
   soundControl.innerHTML = getHTMLForSoundButton();
   startMenu.innerHTML = getHTMLForMenu();
+  document.getElementById("end-screen").classList.add("d-none");
+  document.getElementById("win-screen").classList.add("d-none");
+  document.getElementById("start-screen").classList.remove("d-none");
+    document.getElementById("impressum").classList.remove("d-none");
+  document.getElementById("instructions").classList.remove("d-none");
 
 }
 
@@ -32,6 +37,8 @@ function startGame() {
   document.getElementById("start-screen").classList.add("d-none");
   document.getElementById("impressum").classList.add("d-none");
   document.getElementById("instructions").classList.add("d-none");
+  document.getElementById("end-screen").classList.add("d-none");
+  document.getElementById("win-screen").classList.add("d-none");
 
 }
 
@@ -44,21 +51,28 @@ function toogleSound() {
     AudioHub.stopAll();
   } else {
     AudioHub.playAll();
-        buttonSoundOn.classList.remove("d-none");
+    buttonSoundOn.classList.remove("d-none");
     buttonSoundMute.classList.add("d-none");
   }
 
 }
 
 function endScreenLost() {
-  let buttonSound = document.getElementById("sound-button");
-  buttonSound.classList.add("d-none");
+  AudioHub.stopAll();
+  let endScreen = document.getElementById("end-screen");
+  endScreen.classList.remove("d-none");
+  endScreen.innerHTML = getHTMLForScreenLost();
+  AudioHub.playAll();
+  AudioHub.playOne(AudioHub.GAME_OVER);
 
 }
 
 function endScreenWin() {
-   let buttonSound = document.getElementById("sound-button");
-   buttonSound.classList.add("d-none");
+   AudioHub.stopAll()
+  let winScreen = document.getElementById("win-screen");
+  winScreen.innerHTML = getHTMLForScreenWin();
+  winScreen.classList.remove("d-none");
+   AudioHub.playAll();
 }
 
 window.addEventListener('keydown', (event) => {

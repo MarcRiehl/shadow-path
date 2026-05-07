@@ -36,10 +36,28 @@ function getHTMLForMenu() {
 
 function getHTMLForScreenWin() {
     return `
-    
+<div class="win-lost-menu">
+    <div class="back-main-menu">
+        <img class="main-menu-button" src="./assets/buttons/button-main-menu.png" alt="button main menu"
+            onclick="loadGame()">
+    </div>
+    <div class="restart">
+        <img class="restart-button" src="./assets/buttons/button-restart.png" alt="button restart"
+            onclick="startGame()">
+    </div>
+</div>
     `}
 
 function getHTMLForScreenLost() {
     return `
-    
+<div class="win-lost-menu">
+    <div class="back-main-menu">
+        <img class="main-menu-button" src="./assets/buttons/button-main-menu.png" alt="button main menu"
+            onclick="loadGame()">
+    </div>
+    <div class="restart">
+        <img class="restart-button" src="./assets/buttons/button-restart.png" alt="button restart"
+            onclick="startGame()">
+    </div>
+</div>
     `}

@@ -1,170 +1,276 @@
- #mobil-portrait{
-    display: none;
+ #mobil-portrait {
+     display: none;
  }
-#start-screen {
-    background: rgba(0, 0, 0, 0.85) url("../img/9_intro_outro_screens/start/background-start-screen.jpg") center center/cover no-repeat;
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-}
 
-#start-button {
-    pointer-events: auto;
-    width: clamp(110px, 16vh, 260px);
-    max-width: 40%;
-    display: block;
-    cursor: pointer;
-    margin-top: 20vh;
-}
+ #start-screen {
+     background: rgba(0, 0, 0, 0.85) url("../img/9_intro_outro_screens/start/background-start-screen.jpg") center center/cover no-repeat;
+     position: absolute;
+     inset: 0;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     pointer-events: none;
+ }
 
-#start-button:hover {
-    filter: contrast(90%) drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.7));
-}
+ #win-screen {
+     background: rgba(0, 0, 0, 0.85) url("../img/9_intro_outro_screens/win/background-win-screen.jpg") center center/cover no-repeat;
+     position: absolute;
+     inset: 0;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     pointer-events: none;
+ }
 
-#start-button img.start-button {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    display: block;
-}
+ #end-screen {
+     background: rgba(0, 0, 0, 0.85) url("../img/9_intro_outro_screens/game_over/background-lost-screen.jpg") center center/cover no-repeat;
+     position: absolute;
+     inset: 0;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     pointer-events: none;
+ }
 
-.sound-control {
-    position: absolute;
-    right: 1%;
-    bottom: 3%;
-    display: flex;
-    align-items: center;
-    pointer-events: none;
-    z-index: 5;
-}
+ #start-button {
+     pointer-events: auto;
+     width: clamp(110px, 16vh, 260px);
+     max-width: 40%;
+     display: block;
+     cursor: pointer;
+     margin-top: 20vh;
+ }
 
-.sound-control > div {
-    pointer-events: auto;
+ #start-button:hover {
+     filter: contrast(90%) drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.7));
+ }
+
+ #start-button img.start-button {
+     width: 100%;
+     height: auto;
+     object-fit: contain;
+     display: block;
+ }
+
+ .sound-control {
+     position: absolute;
+     right: 1%;
+     bottom: 3%;
+     display: flex;
+     align-items: center;
+     pointer-events: none;
+     z-index: 5;
+ }
+
+ .sound-control>div {
+     pointer-events: auto;
      width: clamp(40px, 6%, 80px);
-}
+ }
 
-.sound-button {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    display: block;
-    cursor: pointer;
-}
+ .sound-button {
+     width: 100%;
+     height: auto;
+     object-fit: contain;
+     display: block;
+     cursor: pointer;
+ }
 
-.sound-button img.sound-button {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-}
+ .sound-button img.sound-button {
+     width: 100%;
+     height: 100%;
+     object-fit: contain;
+     display: block;
+ }
 
 
-.sound-button:hover {
-    filter: contrast(90%) drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.7));
-}
+ .sound-button:hover {
+     filter: contrast(90%) drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.7));
+ }
 
-.bottom-menu {
-    position: absolute;
-    left: 3%;
-    bottom: 3%;
-    display: flex;
-    align-items: center;
-    gap: clamp(8px, 2vw, 18px);
-    pointer-events: none;
-}
+ .bottom-menu {
+     position: absolute;
+     left: 3%;
+     bottom: 3%;
+     display: flex;
+     align-items: center;
+     gap: clamp(8px, 2vw, 18px);
+     pointer-events: none;
+ }
 
-.bottom-menu > div {
-    pointer-events: auto;
-    width: clamp(56px, 10%, 120px);
-}
+ .bottom-menu>div {
+     pointer-events: auto;
+     width: clamp(56px, 10%, 120px);
+ }
 
-.bottom-menu img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
+ .bottom-menu img {
+     width: 100%;
+     height: auto;
+     display: block;
+ }
 
-#impressum {
-    pointer-events: auto;
-    width: clamp(110px, 16vh, 260px);
-    max-width: 40%;
-    display: block;
-    cursor: pointer;
-}
+ #impressum {
+     pointer-events: auto;
+     width: clamp(110px, 16vh, 260px);
+     max-width: 40%;
+     display: block;
+     cursor: pointer;
+ }
 
-.impressum-button {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    display: block;
-}
+ .impressum-button {
+     width: 100%;
+     height: auto;
+     object-fit: contain;
+     display: block;
+ }
 
-#instructions {
-    pointer-events: auto;
-    width: clamp(40px, 6%, 80px);
-    max-width: 40%;
-    display: block;
-    cursor: pointer;
+ #instructions {
+     pointer-events: auto;
+     width: clamp(40px, 6%, 80px);
+     max-width: 40%;
+     display: block;
+     cursor: pointer;
 
-}
+ }
 
-.instructions-button {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    display: block;
-}
-/* Buttons noch alle anpassen*/
-@media (max-width: 420px) {
-    #start-button {
-            width: clamp(90px, 16vh, 100px);
-        margin-top: 10vh;
-    }
+ .instructions-button {
+     width: 100%;
+     height: auto;
+     object-fit: contain;
+     display: block;
+ }
 
-    .sound-control {
-        width: clamp(40px, 6%, 50px);
-       bottom: 3%;
-    }
-}
+ .win-lost-menu {
+     position: absolute;
+     left: 30%;
+     bottom: 30%;
+     display: flex;
+     align-items: center;
+     gap: clamp(8px, 2vw, 18px);
+     pointer-events: none;
+ }
 
-@media (hover: none) and (orientation: portrait){
+ .back-main-menu {
+     pointer-events: auto;
+     width: clamp(110px, 16vh, 260px);
+     max-width: 40%;
+     display: block;
+     cursor: pointer;
+ }
+
+ .main-menu-button {
+     width: 100%;
+     height: auto;
+     object-fit: contain;
+     display: block;
+ }
+
+ .main-menu-button:hover {
+     filter: contrast(90%) drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.7));
+ }
+
+ .restart {
+     pointer-events: auto;
+     width: clamp(110px, 16vh, 260px);
+     max-width: 40%;
+     display: block;
+     cursor: pointer;
+ }
+
+ .restart-button {
+     width: 100%;
+     height: auto;
+     object-fit: contain;
+     display: block;
+ }
+
+ .restart-button:hover {
+     filter: contrast(90%) drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.7));
+ }
+
+
+
+ /* Buttons noch alle anpassen*/
+ @media (max-width: 420px) {
+     #start-button {
+         width: clamp(90px, 16vh, 100px);
+         margin-top: 10vh;
+     }
+
+     .sound-control {
+         width: clamp(40px, 6%, 50px);
+         bottom: 3%;
+     }
+ }
+
+ @media (hover: none) and (orientation: portrait) {
      #mobil-select {
-        display: block;
-        background-color: black;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 9999;
-    }
+         display: block;
+         background-color: black;
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100vw;
+         height: 100vh;
+         z-index: 9999;
+     }
 
 
-}
+ }
 
-@media (hover: none) and (orientation: landscape) {
-        canvas {
-        width: 100% !important;
-        height: 100vh !important;
-    }
-    #start-button {
-        width: min(46%, 100px);
-        margin-top: 35vh;
-    }
-    .sound-control {
-        width: clamp(40px, 6%, 50px);
-        bottom: 3%;
-        right: 3%;
-    }
-}
-@media (height <=360px) {
-        .sound-control {
-          width: clamp(20px, 6%, 50px);
-        bottom: 2%;
-        right: 3%;
-    }
-}
+ @media (hover: none) and (orientation: landscape) {
+     canvas {
+         width: 100% !important;
+         height: 100vh !important;
+     }
+
+     #start-button {
+         width: min(46%, 100px);
+         margin-top: 35vh;
+     }
+
+     .sound-control {
+         width: clamp(40px, 6%, 50px);
+         bottom: 3%;
+         right: 3%;
+     }
+ }
+
+ @media (height <=360px) {
+     .sound-control {
+         width: clamp(20px, 6%, 50px);
+         bottom: 2%;
+         right: 3%;
+     }
+
+     .back-main-menu {
+         width: clamp(70px, 16vh, 80px);
+     }
+
+     .restart {
+         width: clamp(70px, 16vh, 80px);
+     }
+ }
+
+ @media (width <=360px) {
+     .sound-control {
+         width: clamp(20px, 6%, 50px);
+         bottom: 2%;
+         right: 3%;
+     }
+
+     .win-lost-menu {
+         left: 20%;
+         bottom: 25%;
+     }
+
+     .back-main-menu {
+         width: clamp(70px, 16vh, 80px);
+     }
+
+     .restart {
+         width: clamp(70px, 16vh, 80px);
+     }
+ }

@@ -5,6 +5,7 @@ class World {
     canvas;
     ctx;
     keyboard;
+    mobilControl;
     camera_x = 0;
     statusBar = new Statusbar();
     coinBar = new Coinbar();
@@ -18,7 +19,7 @@ class World {
     endbossBarVisible = false;
     dead = false;
 
-    constructor(canvas, keyboard) {
+    constructor(canvas, keyboard, mobilControl) {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -40,7 +41,7 @@ class World {
             this.checkMagicCollisions();
             this.checkJumpingOnEnemy();
             this.checkEndbossIsNear();
-            this.checkCharacterIsDead();
+            // this.checkCharacterIsDead();
         }, 1000 / 60);
     }
 
@@ -196,6 +197,7 @@ class World {
         if(this.character.isDead()){
             setTimeout(() => {
                endScreenLost();
+               this.resetAll();
             }, 2000);
             
         }
@@ -215,6 +217,7 @@ class World {
     this.lastThrowTime = 0;
     this.lastEndbossHit = 0;
     this.character.x = 120;
+    this.character.energy = 100;
     }
 
 

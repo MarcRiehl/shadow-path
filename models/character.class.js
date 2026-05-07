@@ -192,8 +192,8 @@ class Character extends MovableObject {
                     clearInterval(this.intervalIds);
                     this.intervalIds = null;
                     setTimeout(() => {
-                        AudioHub.playOne(AudioHub.GAME_OVER);
-                    }, 1000);
+                        this.world.checkCharacterIsDead();
+                    }, 1500);
                 }
 
             } else if (this.isAboveGround()) {
