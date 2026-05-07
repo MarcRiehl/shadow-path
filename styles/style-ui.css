@@ -2,7 +2,7 @@
     display: none;
  }
 #start-screen {
-    background: rgba(0, 0, 0, 0.85) url("../assets/img_site/background-start-screen.jpg") center center/cover no-repeat;
+    background: rgba(0, 0, 0, 0.85) url("../img/9_intro_outro_screens/start/background-start-screen.jpg") center center/cover no-repeat;
     position: absolute;
     inset: 0;
     display: flex;
