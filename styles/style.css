@@ -37,11 +37,18 @@ body {
 
 #canvas {
   width: 100%;
-  max-width: 1280px;
-  height: auto;
+  height: 100%;
   display: block;
-  background-color: #000;
+  background: transparent;
   filter: drop-shadow(0 0 6px rgba(0,0,0,0.7));
+}
+
+.canvas-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1280px;   /* anpassen siehe canvas*/
+  aspect-ratio: 3/2;
+  margin: 0 auto;
 }
 
 h1 {
@@ -70,19 +77,12 @@ h1 {
   position: relative;
 }
 
-#start-screen {
+#screen-overlay {
   position: absolute;
-  width: 100%;
-  max-width: 1280px;     /* siehe Canvas */
-  aspect-ratio: 3 / 2;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0,0,0,0.85) url("../assets/img_site/background-start-screen.jpg") center center/cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+  z-index: 1;
 }
 
 @media only screen and (max-width: 720px) {

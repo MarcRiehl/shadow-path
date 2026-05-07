@@ -1,5 +1,4 @@
 class AudioHub {
-
     static CHARACTER_WALKING = new Audio('./assets/audio/character/walk/stone-chain-walk-4.ogg');
     static CHARACTER_IDLE = new Audio('./assets/audio/character/idle/idle-blinking.mp3');
     static CHARACTER_JUMPING = new Audio('./assets/audio/character/jump/stone-jump.ogg');
@@ -11,12 +10,12 @@ class AudioHub {
 
 
     static allSounds = [
-        AudioHub.CHARACTER_WALKING, 
-        AudioHub.CHARACTER_IDLE, 
-        AudioHub.CHARACTER_JUMPING, 
-        AudioHub.COLLECT_COIN, 
-        AudioHub.PICK_UP_STAFF, 
-        AudioHub.GAME_OVER, 
+        AudioHub.CHARACTER_WALKING,
+        AudioHub.CHARACTER_IDLE,
+        AudioHub.CHARACTER_JUMPING,
+        AudioHub.COLLECT_COIN,
+        AudioHub.PICK_UP_STAFF,
+        AudioHub.GAME_OVER,
         AudioHub.GET_READY,
         AudioHub.TITEL_MUSIC
     ];
@@ -24,8 +23,10 @@ class AudioHub {
 
     static playOne(sound) {
         if (sound.readyState == 4) {
+            if(playSound == true){
             sound.volume = 0.6;
             sound.play();
+            }
         }
     }
 
@@ -47,8 +48,17 @@ class AudioHub {
     }
 
     static stopAll() {
+        playSound = false;
         AudioHub.allSounds.forEach(sound => {
-            sound.pause();
+            // sound.pause();
+            sound.volume = 0;
+        });
+    }
+
+    static playAll() {
+        playSound = true;
+        AudioHub.allSounds.forEach(sound => {
+            sound.volume = 0.6;
         });
     }
 }

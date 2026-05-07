@@ -2,6 +2,7 @@ let canvas;
 let ctx;
 let world;
 let keyboard = new Keyboard();
+let playSound = true;
 
 function init() {
   canvas = document.getElementById('canvas');
@@ -11,7 +12,11 @@ function init() {
 
 function loadGame() {
   let startScreen = document.getElementById(`start-screen`);
+  let soundControl = document.getElementById(`sound-control`);
+  let startMenu = document.getElementById(`bottom-menu`);
   startScreen.innerHTML = getHTMLForStartScreen();
+  soundControl.innerHTML = getHTMLForSoundButton();
+  startMenu.innerHTML = getHTMLForMenu();
 
 }
 
@@ -24,6 +29,23 @@ function startGame() {
   }, 10000);
 
   document.getElementById("start-screen").classList.add("d-none");
+  document.getElementById("impressum").classList.add("d-none");
+  document.getElementById("instructions").classList.add("d-none");
+
+}
+
+function toogleSound() {
+  let buttonSoundOn = document.getElementById(`sound-on`);
+  let buttonSoundMute = document.getElementById(`sound-mute`);
+  if (playSound) {
+    buttonSoundOn.classList.add("d-none");
+    buttonSoundMute.classList.remove("d-none");
+    AudioHub.stopAll();
+  } else {
+    AudioHub.playAll();
+        buttonSoundOn.classList.remove("d-none");
+    buttonSoundMute.classList.add("d-none");
+  }
 
 }
 
