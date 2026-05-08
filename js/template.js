@@ -23,13 +23,13 @@ function getHTMLForSoundButton() {
 
 function getHTMLForMenu() {
     return `
-              <div id="impressum">
+              <div id="impressum-menu">
                             <img class="impressum-button" src="./assets/buttons/button-impressum.png" alt="impressum"
-                                onclick="openModal()">
+                                onclick="openModalImpressum()">
                         </div>
-                        <div id="instructions">
+                        <div id="instructions-menu">
                             <img class="instructions-button" src="./assets/buttons/button-menu.png" alt="instructions"
-                                onclick="openModal()">
+                                onclick="openModalInstructions()">
             </div>
     
     `}
@@ -60,4 +60,24 @@ function getHTMLForScreenLost() {
             onclick="startGame()">
     </div>
 </div>
+    `}
+
+    function getHTMLForImpressum() {
+    return `
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModalImpressum()">&times;</span>
+        <h2>Impressum</h2>
+        <p>
+        </p>
+    </div>
+    `}
+
+    function getHTMLForInstructions() {
+    return `
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModalInstructions()">&times;</span>
+        <h2>Instructions</h2>
+        <p>
+        </p>
+    </div>
     `}

@@ -7,6 +7,8 @@
     <title>Shadow-Path</title>
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/style-ui.css">
+    <link rel="stylesheet" href="./styles/modal.css">
+
     <script src="./models/drawable-object.class.js"></script>
     <script src="./models/movable-object.class.js"></script>
     <script src="./models/character.class.js"></script>
@@ -41,10 +43,16 @@
 </head>
 
 <body onload="loadGame()">
-    <section id="mobil-select"></section>
+  
     <section class="wrapper-content">
         <section class="wrapper-inner">
             <!-- #region Content -->
+               <section id="mobil-select">
+                <div class="wrapper-mobil">
+                <div class="image-mobil"></div>
+                <h2 class="mobil-h2">To play rotate mobile device</h2>
+                </div>
+            </section>
             <div class="canvas-wrapper">
                 <canvas id="canvas" width="720" height="480">
                 </canvas>
@@ -67,9 +75,9 @@
                     </div>
                     <div id="win-screen" class="d-none">
                     </div>
-                    <div id="instructions" class="d-none">
+                    <div id="instructions" class="modal d-none">
                     </div>
-                    <div id="impressum" class="d-none">
+                    <div id="impressum" class="modal d-none">
                     </div>
                 </div>
             </div>
@@ -78,6 +86,4 @@
 
     </section>
 </body>
-
-
 </html>

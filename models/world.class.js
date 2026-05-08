@@ -16,8 +16,11 @@ class World {
     collectedMagicPoints = 0;
     lastThrowTime = 0;
     lastEndbossHit = 0;
+    lastCharacterHit = 0;
+    lastEnemyHit = 0;
     endbossBarVisible = false;
     characterDead = false;
+    endbossDead = false;
     intervalIds = [];
 
 
@@ -82,12 +85,12 @@ class World {
 
     checkCollisions() {
         //Check collision
+        let now = Date.now();
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !enemy.isDead() && !this.character.isAboveGround()) {
-                // console.log('Collision with Character', enemy);
+            if (this.character.isColliding(enemy) && !enemy.dead && !enemy.isDead() && !this.character.isHurt() && (now - this.lastEnemyHit > 500)) {
+                this.lastEnemyHit = now;
                 this.character.hit(5);
                 this.character.isHurt();
-                // console.log(this.character.energy);
                 this.statusBar.setPercentage(this.character.energy); // Statusbar Health
             }
         });
@@ -95,11 +98,11 @@ class World {
 
     checkJumpingOnEnemy() {
         this.level.enemies.forEach((enemy, index) => {
-            if (enemy.dead) return;
+            if (enemy.dead || enemy.isDead()) return;
             let enemyHeadY = enemy.y + enemy.height - enemy.offset.top;
             let characterFootY = this.character.y + this.character.height - this.character.offset.bottom;
             let isAboveHead = characterFootY <= enemyHeadY + 10;
-            if (isAboveHead && this.character.isColliding(enemy) && !this.character.hit()) {
+            if (isAboveHead && this.character.isColliding(enemy) && !this.character.isHurt()) {
                 enemy.hit(5);
                 this.character.littleJump();
                 AudioHub.playOne(AudioHub.HIT_JUMP);
@@ -125,11 +128,12 @@ class World {
                     magic.isExploded = true;
                     setTimeout(() => {
                         magic.isDeleted = true;
-                        this.throwableObjects.splice(index, 1);
+                            this.throwableObjects.splice(index, 1);
                     }, 200);
                     if (enemy.isDead()) {
                         this.checkEnemyIsDead(enemy);
                     }
+                    return;
                 }
             });
         });
@@ -154,7 +158,7 @@ class World {
                     magic.isExploded = true;
                     setTimeout(() => {
                         magic.isDeleted = true;
-                        this.throwableObjects.splice(index, 1);
+                            this.throwableObjects.splice(index, 1);
                     }, 200);
                     this.endbossBar.setPercentage(enemy.energy);
                 }
@@ -166,17 +170,17 @@ class World {
     }
 
 
-    checkCollisionsEndboss() {
-        //Check collision
+  checkCollisionsEndboss() {
+        let now = Date.now();
         this.level.endboss.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !enemy.isDead() && !this.character.isAboveGround()) {
+            if (this.character.isColliding(enemy) && !enemy.isDead() && !this.character.isAboveGround() && !this.character.isHurt() && (now - this.lastCharacterHit > 2000)) {
+                this.lastCharacterHit = now;
                 this.character.hit(5);
                 this.character.isHurt();
                 this.statusBar.setPercentage(this.character.energy); // Statusbar Health
             }
         });
     }
-
     collectCoins() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
@@ -208,12 +212,19 @@ class World {
     }
 
     checkEnemyIsDead(enemy) {
+        if (enemy.dead) return;
         enemy.dead = true;
-        enemy.playAnimation(enemy.IMAGES_DEAD);
+        enemy.speed = 0;
+        let deadAnimation = setInterval(() => {
+            if (enemy.isDead()) {
+                enemy.playAnimation(enemy.IMAGES_DEAD);
+            }
+        }, 120);
         setTimeout(() => {
+            clearInterval(deadAnimation);
             let i = this.level.enemies.indexOf(enemy);
             if (i !== -1) this.level.enemies.splice(i, 1);
-        }, 100);
+        }, 800);
     }
 
     checkCharacterIsDead() {
@@ -228,7 +239,7 @@ class World {
     }
 
     checkEndbossIsDead(index) {
-        this.characterDead = true;
+        this.endbossDead = true;
         this.stopMove();
         setTimeout(() => {
             this.level.endboss.splice(index, 1);
@@ -243,27 +254,31 @@ class World {
     }
 
     stopMove(){
-        setInterval(() => {
-        this.keyboard.KEY_D = false;
-        this.keyboard.LEFT = false;
-        this.keyboard.RIGHT = false;
-        this.keyboard.UP = false;
-        this.keyboard.DOWN = false;
-        this.character.speed = 0;
-        }, 1000 / 60);
+        // setInterval(() => {
+        // this.keyboard.KEY_D = false;
+        // this.keyboard.LEFT = false;
+        // this.keyboard.RIGHT = false;
+        // this.keyboard.UP = false;
+        // this.keyboard.DOWN = false;
+        // this.character.speed = 0;
+        // }, 1000 / 60);
 
     }
 
     resetAll() {
-        this.clearAllIntervals();
-        this.throwableObjects = [];
         this.collectedCoins = 0;
         this.collectedMagicPoints = 0;
         this.lastThrowTime = 0;
         this.lastEndbossHit = 0;
+        this.lastCharacterHit = 0;
+        this.lastEnemyHit = 0;
         this.character.x = 120;
         this.character.energy = 100;
         this.characterDead = false;
+        AudioHub.stopOne(AudioHub.BOSS_FIGHT);
+        AudioHub.stopIdle(AudioHub.CHARACTER_IDLE);
+        this.throwableObjects = [];
+        this.clearAllIntervals();
     }
 
 

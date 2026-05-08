@@ -33,13 +33,12 @@ class MovableObject extends DrawableObject {
         }
 
     }
-
-
-    hit(damage) {
+   hit(damage) {
         this.energy -= damage;
         if (this.energy < 0) {
             this.energy = 0;
-        } else {
+        } 
+        else {
             this.lastHit = new Date().getTime();
         }
     }

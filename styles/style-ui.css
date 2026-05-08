@@ -2,6 +2,32 @@
      display: none;
  }
 
+ #mobil-select {
+     display: none;
+ }
+
+ .image-mobil {
+     background: url("../assets/img_site/rotate-mobil.png") center center/contain no-repeat;
+     height: 260px;
+     width: 191px;
+     position: relative;
+     top: 0;
+     left: 0;
+     z-index: 1001;
+ }
+.mobil-h2{
+text-align: center;
+}
+
+ .wrapper-mobil {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
+     width: 100dvw;
+     height: 100dvh;
+ }
+
  #start-screen {
      background: rgba(0, 0, 0, 0.85) url("../img/9_intro_outro_screens/start/background-start-screen.jpg") center center/cover no-repeat;
      position: absolute;
@@ -111,7 +137,7 @@
      display: block;
  }
 
- #impressum {
+ #impressum-menu{
      pointer-events: auto;
      width: clamp(110px, 16vh, 260px);
      max-width: 40%;
@@ -126,7 +152,7 @@
      display: block;
  }
 
- #instructions {
+#instructions-menu {
      pointer-events: auto;
      width: clamp(40px, 6%, 80px);
      max-width: 40%;
@@ -208,13 +234,14 @@
  @media (hover: none) and (orientation: portrait) {
      #mobil-select {
          display: block;
-         background-color: black;
          position: fixed;
          top: 0;
          left: 0;
          width: 100vw;
          height: 100vh;
-         z-index: 9999;
+         z-index: 1000;
+         color: #FFF;
+         background-color: #000;
      }
 
 

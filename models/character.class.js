@@ -225,7 +225,10 @@ class Character extends MovableObject {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
                     setTimeout(() => {
                         if (!this.isDead() && !this.world.characterDead && !this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.SPACE && !this.isAboveGround()) {
+                        if(!this.world.characterDead && !this.world.endbossDead){
                             AudioHub.playIdle(AudioHub.CHARACTER_IDLE);
+                        }
+
                         }
                     }, 1000);
                 } else if (this.idleTimer >= 1000) {

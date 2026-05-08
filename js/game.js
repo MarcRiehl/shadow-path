@@ -8,7 +8,7 @@ let gameWin = false;
 
 function init() {
   canvas = document.getElementById('canvas');
-  world = new World(canvas, keyboard);
+  world = new World(canvas, keyboard, mobilControl);
 }
 
 function loadGame() {
@@ -17,26 +17,23 @@ function loadGame() {
   let startMenu = document.getElementById(`bottom-menu`);
   startScreen.innerHTML = getHTMLForStartScreen();
   soundControl.innerHTML = getHTMLForSoundButton();
-  startMenu.innerHTML = getHTMLForMenu();
   document.getElementById("end-screen").classList.add("d-none");
   document.getElementById("win-screen").classList.add("d-none");
   document.getElementById("start-screen").classList.remove("d-none");
-    document.getElementById("impressum").classList.remove("d-none");
-  document.getElementById("instructions").classList.remove("d-none");
-   AudioHub.stopAllStart();
+  AudioHub.stopOne(AudioHub.OUTRO);
 }
 
 function startGame() {
+  AudioHub.stopOne(AudioHub.OUTRO);
   AudioHub.playOne(AudioHub.TITEL_MUSIC);
   initLevel();
   init();
+  world.endbossDead = false;
   setTimeout(() => {
     AudioHub.stopOne(AudioHub.TITEL_MUSIC);
   }, 10000);
 
   document.getElementById("start-screen").classList.add("d-none");
-  document.getElementById("impressum").classList.add("d-none");
-  document.getElementById("instructions").classList.add("d-none");
   document.getElementById("end-screen").classList.add("d-none");
   document.getElementById("win-screen").classList.add("d-none");
 
@@ -58,23 +55,41 @@ function toogleSound() {
 }
 
 function endScreenLost() {
-  AudioHub.stopAll();
   let endScreen = document.getElementById("end-screen");
   endScreen.classList.remove("d-none");
   endScreen.innerHTML = getHTMLForScreenLost();
-  AudioHub.playAll();
   AudioHub.playOne(AudioHub.GAME_OVER);
-
 }
 
 function endScreenWin() {
-   AudioHub.stopAll()
   let winScreen = document.getElementById("win-screen");
   winScreen.innerHTML = getHTMLForScreenWin();
   winScreen.classList.remove("d-none");
-   AudioHub.playAll();
-   AudioHub.playOne(AudioHub.OUTRO);
+
+  AudioHub.playOne(AudioHub.OUTRO);
 }
+
+function openModalImpressum() {
+  let impressum = document.getElementById("impressum");
+  impressum.innerHTML = getHTMLForImpressum();
+  impressum.classList.remove('d-none');
+}
+
+function closeModalImpressum() {
+  document.getElementById('impressum').classList.add('d-none');
+}
+
+function openModalInstructions() {
+  let instructions = document.getElementById("instructions");
+  instructions.innerHTML = getHTMLForInstructions();
+  instructions.classList.remove('d-none');
+
+}
+function closeModalInstructions() {
+  document.getElementById('instructions').classList.add('d-none');
+}
+
+
 
 window.addEventListener('keydown', (event) => {
   switch (event.key) {
@@ -129,21 +144,21 @@ window.addEventListener('keyup', (event) => {
 });
 
 function setupMobileControls() {
-    function bindButton(id, keyName) {
-        const btn = document.getElementById(id);
-        btn.addEventListener("touchstart", (e) => {
-            e.preventDefault();
-            keys[keyName] = true;
-        });
-        btn.addEventListener("touchend", (e) => {
-            e.preventDefault();
-            keys[keyName] = false;
-        });
-    }
-    bindButton("leftBtn", "LEFT");
-    bindButton("rightBtn", "RIGHT");
-    bindButton("upBtn", "UP");
-    bindButton("downBtn", "DOWN");
-    bindButton("spaceBtn", "SPACE");
-    bindButton("dBtn", "KEY_D");
+  function bindButton(id, keyName) {
+    const btn = document.getElementById(id);
+    btn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      keys[keyName] = true;
+    });
+    btn.addEventListener("touchend", (e) => {
+      e.preventDefault();
+      keys[keyName] = false;
+    });
+  }
+  bindButton("leftBtn", "LEFT");
+  bindButton("rightBtn", "RIGHT");
+  bindButton("upBtn", "UP");
+  bindButton("downBtn", "DOWN");
+  bindButton("spaceBtn", "SPACE");
+  bindButton("dBtn", "KEY_D");
 }

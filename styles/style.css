@@ -80,7 +80,6 @@ h1 {
   position: absolute;
   inset: 0;
   display: block;
-  pointer-events: none;
   z-index: 1;
 }
 

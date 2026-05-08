@@ -51,8 +51,11 @@ class AudioHub {
     }
 
     static stopIdle(sound) {
+        if(playSound == true){
         sound.pause();
+        sound.volume = 0;
         sound.currentTime = 0;
+        }
     }
 
     static pauseOne(sound) {
@@ -79,6 +82,12 @@ class AudioHub {
         sound.currentTime = 0;
         });
         }
+    }
+    static playOneStart(sound){
+        if(playSound == true){
+
+        }
+
     }
 
     static playAll() {
