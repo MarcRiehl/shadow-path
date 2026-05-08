@@ -17,7 +17,9 @@ class World {
     lastThrowTime = 0;
     lastEndbossHit = 0;
     endbossBarVisible = false;
-    charcterDead = false;
+    characterDead = false;
+    intervalIds = [];
+
 
     constructor(canvas, keyboard, mobilControl) {
         this.ctx = canvas.getContext("2d");
@@ -35,23 +37,23 @@ class World {
     }
 
     run() {
-        setInterval(() => {
+        this.intervalIds.push(setInterval(() => {
             this.collectCoins();
             this.collectMagicPoints();
             this.checkMagicCollisions();
             this.checkJumpingOnEnemy();
             this.checkEndbossIsNear();
-            // this.checkCharacterIsDead();
-        }, 1000 / 60);
+            this.checkCharacterIsDead();
+        }, 1000 / 60));
     }
 
     runCollisions() {
-        setInterval(() => {
+        this.intervalIds.push(setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkMagicCollisionsEndboss();
             this.checkCollisionsEndboss();
-        }, 200);
+        }, 200));
     }
 
     checkThrowObjects() {
@@ -157,8 +159,7 @@ class World {
                     this.endbossBar.setPercentage(enemy.energy);
                 }
                 if (enemy.isDead()) {
-                    this.level.endboss.splice(index, 1);
-                    this.checkEndbossIsDead();
+                    this.checkEndbossIsDead(index);
                 }
             });
         });
@@ -217,7 +218,7 @@ class World {
 
     checkCharacterIsDead() {
         if (this.character.isDead()) {
-            this.charcterDead = true;
+            this.characterDead = true;
             setTimeout(() => {
                 endScreenLost();
                 this.resetAll();
@@ -226,15 +227,35 @@ class World {
         }
     }
 
-    checkEndbossIsDead() {
-        this.charcterDead = true;
+    checkEndbossIsDead(index) {
+        this.characterDead = true;
+        this.stopMove();
         setTimeout(() => {
+            this.level.endboss.splice(index, 1);
             endScreenWin();
             this.resetAll();
-        }, 2000);
+        }, 4000);
+    }
+
+    clearAllIntervals() {
+        this.intervalIds.forEach(id => clearInterval(id));
+        this.intervalIds = [];
+    }
+
+    stopMove(){
+        setInterval(() => {
+        this.keyboard.KEY_D = false;
+        this.keyboard.LEFT = false;
+        this.keyboard.RIGHT = false;
+        this.keyboard.UP = false;
+        this.keyboard.DOWN = false;
+        this.character.speed = 0;
+        }, 1000 / 60);
+
     }
 
     resetAll() {
+        this.clearAllIntervals();
         this.throwableObjects = [];
         this.collectedCoins = 0;
         this.collectedMagicPoints = 0;
@@ -242,7 +263,7 @@ class World {
         this.lastEndbossHit = 0;
         this.character.x = 120;
         this.character.energy = 100;
-        this.idleTimer = 99999;
+        this.characterDead = false;
     }
 
 

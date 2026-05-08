@@ -23,7 +23,7 @@ function loadGame() {
   document.getElementById("start-screen").classList.remove("d-none");
     document.getElementById("impressum").classList.remove("d-none");
   document.getElementById("instructions").classList.remove("d-none");
-
+   AudioHub.stopAllStart();
 }
 
 function startGame() {
@@ -73,6 +73,7 @@ function endScreenWin() {
   winScreen.innerHTML = getHTMLForScreenWin();
   winScreen.classList.remove("d-none");
    AudioHub.playAll();
+   AudioHub.playOne(AudioHub.OUTRO);
 }
 
 window.addEventListener('keydown', (event) => {

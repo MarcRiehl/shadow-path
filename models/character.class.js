@@ -5,6 +5,7 @@ class Character extends MovableObject {
     speed = 10;
     world;
     idleTimer = 0;
+    intervalIds = [];
 
 
     offset = {
@@ -156,9 +157,11 @@ class Character extends MovableObject {
 
     animate() {
         let i = 0;
-        clearInterval(this.intervalIds);
-        setInterval(() => {
+        // Alle alten Intervals löschen
+        this.intervalIds.forEach(id => clearInterval(id));
+        this.intervalIds = [];
 
+        this.intervalIds.push(setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
                 this.moveRight();
                 this.otherDirection = false;
@@ -181,17 +184,17 @@ class Character extends MovableObject {
             }
 
             this.world.camera_x = -this.x + 100;
-        }, 1000 / 60);
+        }, 1000 / 60));
 
-        this.intervalIds = setInterval(() => {
+        this.intervalIds.push(setInterval(() => {
             if (this.isDead()) {
-                i++;
-                if (i >= this.IMAGES_DEAD.length - 1) {
-                    this.playAnimation(this.IMAGES_DEAD);
-                } else if (i = this.IMAGES_DEAD.length) {
-                    this.loadImage('./img/2_character_angel/dying/0_fallen_angels_dying_014.png'); // letztes Bild dauerhaft anzeigen und Intervall stoppen
-                    clearInterval(this.intervalIds);
-                    this.intervalIds = null;
+                if (i < this.IMAGES_DEAD.length - 1) {
+                    this.img = this.imageCache[this.IMAGES_DEAD[i]];
+                    i++;
+                } else {
+                    this.loadImage('./img/2_character_angel/dying/0_fallen_angels_dying_014.png');
+                    this.intervalIds.forEach(id => clearInterval(id));
+                    this.intervalIds = [];
                     setTimeout(() => {
                         this.world.checkCharacterIsDead();
                     }, 1500);
@@ -207,23 +210,21 @@ class Character extends MovableObject {
                     AudioHub.playOne(AudioHub.CHARACTER_WALKING);
                 }
             }
-        }, 40);
+        }, 40));
 
-        setInterval(() => {
+        this.intervalIds.push(setInterval(() => {
             if (this.isDead()) {
                 this.characterIsDead();
             }
-        }, 1000 / 60);
+        }, 1000 / 60));
 
-
-
-        setInterval(() => {
-            if (!this.isAboveGround() && !this.isDead() && !this.world.dead) {
+        this.intervalIds.push(setInterval(() => {
+            if (!this.isAboveGround() && !this.isDead() && !this.world.characterDead) {
                 this.idleTimer += 100;
                 if (this.idleTimer >= 10000) {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
                     setTimeout(() => {
-                        if (!this.isDead() && !this.world.charcterDead && !this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.SPACE && !this.isAboveGround()) {
+                        if (!this.isDead() && !this.world.characterDead && !this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.SPACE && !this.isAboveGround()) {
                             AudioHub.playIdle(AudioHub.CHARACTER_IDLE);
                         }
                     }, 1000);
@@ -231,7 +232,7 @@ class Character extends MovableObject {
                     this.playAnimation(this.IMAGES_SHORT_IDLE);
                 }
             }
-        }, 100);
+        }, 100));
     }
 
 

@@ -10,6 +10,8 @@ class AudioHub {
     static HIT_JUMP = new Audio('./assets/audio/enemies/hit-jump.wav');
     static THROW_FIREBALL = new Audio('./assets/audio/character/throw/fireball.ogg');
     static EXPLOSION = new Audio('./assets/audio/enemies/explosion-small.wav');
+    static OUTRO = new Audio('./assets/audio/startscreen/outro.mp3');
+    static BOSS_FIGHT = new Audio('./assets/audio/boss/boss-fight.mp3');
 
 
     static allSounds = [
@@ -23,7 +25,9 @@ class AudioHub {
         AudioHub.TITEL_MUSIC,
         AudioHub.HIT_JUMP,
         AudioHub.THROW_FIREBALL,
-        AudioHub.EXPLOSION
+        AudioHub.EXPLOSION,
+        AudioHub.OUTRO,
+        AudioHub.BOSS_FIGHT
     ];
 
 
@@ -66,6 +70,15 @@ class AudioHub {
             // sound.pause();
             sound.volume = 0;
         });
+    }
+
+    static stopAllStart() {
+        if(playSound == true){
+        AudioHub.allSounds.forEach(sound => {
+        sound.pause();
+        sound.currentTime = 0;
+        });
+        }
     }
 
     static playAll() {
