@@ -2,6 +2,10 @@
      display: none;
  }
 
+ #mobil-control {
+     display: none;
+ }
+
  #mobil-select {
      display: none;
  }
@@ -15,9 +19,11 @@
      left: 0;
      z-index: 1001;
  }
-.mobil-h2{
-text-align: center;
-}
+
+ .mobil-h2 {
+     text-align: center;
+     font-size: 24px;
+ }
 
  .wrapper-mobil {
      display: flex;
@@ -83,8 +89,8 @@ text-align: center;
 
  .sound-control {
      position: absolute;
-     right: 1%;
-     bottom: 3%;
+     right: -4%;
+     top: 4%;
      display: flex;
      align-items: center;
      pointer-events: none;
@@ -137,7 +143,7 @@ text-align: center;
      display: block;
  }
 
- #impressum-menu{
+ #impressum-menu {
      pointer-events: auto;
      width: clamp(110px, 16vh, 260px);
      max-width: 40%;
@@ -152,7 +158,7 @@ text-align: center;
      display: block;
  }
 
-#instructions-menu {
+ #instructions-menu {
      pointer-events: auto;
      width: clamp(40px, 6%, 80px);
      max-width: 40%;
@@ -244,6 +250,10 @@ text-align: center;
          background-color: #000;
      }
 
+     #mobil-control {
+         display: none !important;
+     }
+
 
  }
 
@@ -268,7 +278,7 @@ text-align: center;
  @media (height <=360px) {
      .sound-control {
          width: clamp(20px, 6%, 50px);
-         bottom: 2%;
+         top: -80%;
          right: 3%;
      }
 
@@ -284,7 +294,7 @@ text-align: center;
  @media (width <=360px) {
      .sound-control {
          width: clamp(20px, 6%, 50px);
-         bottom: 2%;
+         top: -80%;
          right: 3%;
      }
 

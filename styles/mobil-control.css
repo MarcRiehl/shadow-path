@@ -1,0 +1,67 @@
+#mobil-control {
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.mobil-control-left,
+.mobil-control-right {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    gap: 30px;
+    pointer-events: all;
+}
+
+.mobil-control-left {
+    left: -70px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.7));
+}
+
+.mobil-control-right {
+    right: -70px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.7));
+}
+
+#mobil-control button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40px;
+    transition: transform 100ms ease;
+}
+
+#mobil-control button:active {
+    transform: scale(0.9);
+}
+
+#leftBtn {
+    background: transparent url("../assets/buttons/button-arrow-left.png") center center/cover no-repeat;
+}
+
+
+#rightBtn {
+    background: transparent url("../assets/buttons/button-arrow-right.png") center center/cover no-repeat;
+}
+
+
+#spaceBtn {
+    background: transparent url("../assets/buttons/button-jump.png") center center/cover no-repeat;
+}
+
+
+
+#dBtn {
+    background: transparent url("../assets/buttons/button-throw.png") center center/cover no-repeat;
+}

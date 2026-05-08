@@ -31,7 +31,7 @@ function getHTMLForMenu() {
                             <img class="instructions-button" src="./assets/buttons/button-menu.png" alt="instructions"
                                 onclick="openModalInstructions()">
             </div>
-    
+
     `}
 
 function getHTMLForScreenWin() {

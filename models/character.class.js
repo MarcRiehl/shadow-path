@@ -162,7 +162,7 @@ class Character extends MovableObject {
         this.intervalIds = [];
 
         this.intervalIds.push(setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
+            if ((this.world.keyboard.RIGHT || this.world.mobilControl.RIGHT) && this.x < this.world.level.level_end_x && !this.isDead()) {
                 this.moveRight();
                 this.otherDirection = false;
                 this.idleTimer = 0;
@@ -170,13 +170,13 @@ class Character extends MovableObject {
                     AudioHub.playOne(AudioHub.CHARACTER_WALKING);
                 }
             }
-            if (this.world.keyboard.LEFT && this.x > 0 && !this.isDead()) {
+            if ((this.world.keyboard.LEFT || this.world.mobilControl.LEFT) && this.x > 0 && !this.isDead()) {
                 this.moveLeft();
                 this.otherDirection = true;
                 this.idleTimer = 0;
                 AudioHub.playOne(AudioHub.CHARACTER_WALKING);
             }
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            if ((this.world.keyboard.SPACE || this.world.mobilControl.SPACE) && !this.isAboveGround()) {
                 this.jump();
                 this.idleTimer = 0;
                 AudioHub.playOne(AudioHub.CHARACTER_JUMPING);
@@ -205,7 +205,7 @@ class Character extends MovableObject {
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.mobilControl.RIGHT || this.world.mobilControl.LEFT) && !this.isAboveGround()) {
                     this.playAnimation(this.IMAGES_WALKING);
                     AudioHub.playOne(AudioHub.CHARACTER_WALKING);
                 }
@@ -224,7 +224,7 @@ class Character extends MovableObject {
                 if (this.idleTimer >= 10000) {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
                     setTimeout(() => {
-                        if (!this.isDead() && !this.world.characterDead && !this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.SPACE && !this.isAboveGround()) {
+                        if (!this.isDead() && !this.world.characterDead && !this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.SPACE && !this.world.mobilControl.RIGHT && !this.world.mobilControl.LEFT && !this.world.mobilControl.SPACE && !this.isAboveGround()) {
                         if(!this.world.characterDead && !this.world.endbossDead){
                             AudioHub.playIdle(AudioHub.CHARACTER_IDLE);
                         }

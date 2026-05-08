@@ -64,7 +64,7 @@ class World {
         if (now - this.lastThrowTime < 1000) {
             return;
         }
-        if (this.keyboard.KEY_D && this.collectedMagicPoints > 0) {
+        if ((this.keyboard.KEY_D || this.mobilControl.KEY_D) && this.collectedMagicPoints > 0) {
             this.lastThrowTime = now;
             if (this.character.otherDirection == false) {
                 let magicBall = new ThrowableObject(this.character.x + 120, this.character.y + 100, this.character.otherDirection); //Start Zauber
@@ -173,7 +173,7 @@ class World {
   checkCollisionsEndboss() {
         let now = Date.now();
         this.level.endboss.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !enemy.isDead() && !this.character.isAboveGround() && !this.character.isHurt() && (now - this.lastCharacterHit > 2000)) {
+            if (this.character.isColliding(enemy) && !enemy.isDead() && !this.character.isAboveGround() && !this.character.isHurt() && (now - this.lastCharacterHit > 1000)) {
                 this.lastCharacterHit = now;
                 this.character.hit(5);
                 this.character.isHurt();

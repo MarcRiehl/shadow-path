@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/style-ui.css">
     <link rel="stylesheet" href="./styles/modal.css">
+    <link rel="stylesheet" href="./styles/mobil-control.css">
 
     <script src="./models/drawable-object.class.js"></script>
     <script src="./models/movable-object.class.js"></script>
@@ -50,19 +51,21 @@
                <section id="mobil-select">
                 <div class="wrapper-mobil">
                 <div class="image-mobil"></div>
-                <h2 class="mobil-h2">To play rotate mobile device</h2>
+                <h2 class="mobil-h2">Rotate to play!</h2>
                 </div>
             </section>
             <div class="canvas-wrapper">
                 <canvas id="canvas" width="720" height="480">
                 </canvas>
                 <section id="mobil-control" class="d-none">
+                    <div class="mobil-control-left">
                     <button id="leftBtn"></button>
                     <button id="rightBtn"></button>
-                    <button id="upBtn"></button>
-                    <button id="downBtn"></button>
+                    </div>
+                     <div class="mobil-control-right">
                     <button id="spaceBtn"></button>
                     <button id="dBtn"></button>
+                    </div>
                 </section>
                 <div id="screen-overlay">
                     <div id="sound-control" class="sound-control">
@@ -75,9 +78,9 @@
                     </div>
                     <div id="win-screen" class="d-none">
                     </div>
-                    <div id="instructions" class="modal d-none">
+                    <div id="instructions" class="d-none modal">
                     </div>
-                    <div id="impressum" class="modal d-none">
+                    <div id="impressum" class="d-none modal">
                     </div>
                 </div>
             </div>

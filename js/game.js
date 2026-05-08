@@ -17,9 +17,12 @@ function loadGame() {
   let startMenu = document.getElementById(`bottom-menu`);
   startScreen.innerHTML = getHTMLForStartScreen();
   soundControl.innerHTML = getHTMLForSoundButton();
+  startMenu.innerHTML = getHTMLForMenu();
   document.getElementById("end-screen").classList.add("d-none");
   document.getElementById("win-screen").classList.add("d-none");
   document.getElementById("start-screen").classList.remove("d-none");
+    document.getElementById("bottom-menu").classList.remove("d-none");
+    document.getElementById("mobil-control").classList.remove("d-none");
   AudioHub.stopOne(AudioHub.OUTRO);
 }
 
@@ -32,13 +35,19 @@ function startGame() {
   setTimeout(() => {
     AudioHub.stopOne(AudioHub.TITEL_MUSIC);
   }, 10000);
-
+  document.getElementById("bottom-menu").classList.add("d-none");
   document.getElementById("start-screen").classList.add("d-none");
   document.getElementById("end-screen").classList.add("d-none");
   document.getElementById("win-screen").classList.add("d-none");
-
+ showMobileControls();
 }
 
+function showMobileControls() {
+
+    if (window.innerWidth <= 1024) {
+        document.getElementById('mobil-control').style.display = 'block';
+    }
+}
 function toogleSound() {
   let buttonSoundOn = document.getElementById(`sound-on`);
   let buttonSoundMute = document.getElementById(`sound-mute`);
@@ -143,22 +152,47 @@ window.addEventListener('keyup', (event) => {
   }
 });
 
-function setupMobileControls() {
-  function bindButton(id, keyName) {
-    const btn = document.getElementById(id);
-    btn.addEventListener("touchstart", (e) => {
-      e.preventDefault();
-      keys[keyName] = true;
-    });
-    btn.addEventListener("touchend", (e) => {
-      e.preventDefault();
-      keys[keyName] = false;
-    });
-  }
-  bindButton("leftBtn", "LEFT");
-  bindButton("rightBtn", "RIGHT");
-  bindButton("upBtn", "UP");
-  bindButton("downBtn", "DOWN");
-  bindButton("spaceBtn", "SPACE");
-  bindButton("dBtn", "KEY_D");
-}
+window.addEventListener('load', () => {
+document.getElementById("leftBtn").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    mobilControl.LEFT = true;
+});
+
+document.getElementById("leftBtn").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    mobilControl.LEFT = false;
+});
+
+
+document.getElementById("rightBtn").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    mobilControl.RIGHT = true;
+});
+
+document.getElementById("rightBtn").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    mobilControl.RIGHT = false;
+});
+
+
+document.getElementById("spaceBtn").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    mobilControl.SPACE = true;
+});
+
+document.getElementById("spaceBtn").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    mobilControl.SPACE = false;
+});
+
+
+document.getElementById("dBtn").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    mobilControl.KEY_D = true;
+});
+
+document.getElementById("dBtn").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    mobilControl.KEY_D = false;
+});
+});
