@@ -44,10 +44,11 @@ function startGame() {
 
 function showMobileControls() {
 
-  if (window.innerWidth <= 1024) {
+  if (window.innerWidth <= 1366) {
     document.getElementById('mobil-control').style.display = 'block';
   }
 }
+
 function toogleSound() {
   let buttonSoundOn = document.getElementById(`sound-on`);
   let buttonSoundMute = document.getElementById(`sound-mute`);
@@ -60,7 +61,6 @@ function toogleSound() {
     buttonSoundOn.classList.remove("d-none");
     buttonSoundMute.classList.add("d-none");
   }
-
 }
 
 function endScreenLost() {
@@ -74,7 +74,6 @@ function endScreenWin() {
   let winScreen = document.getElementById("win-screen");
   winScreen.innerHTML = getHTMLForScreenWin();
   winScreen.classList.remove("d-none");
-
   AudioHub.playOne(AudioHub.OUTRO);
 }
 
@@ -97,6 +96,8 @@ function openModalInstructions() {
 function closeModalInstructions() {
   document.getElementById('instructions').classList.add('d-none');
 }
+
+
 
 window.addEventListener('keydown', (event) => {
   switch (event.key) {
@@ -161,6 +162,7 @@ window.addEventListener('load', () => {
     mobilControl.LEFT = false;
   });
 
+
   document.getElementById("rightBtn").addEventListener("touchstart", (e) => {
     e.preventDefault();
     mobilControl.RIGHT = true;
@@ -181,6 +183,7 @@ window.addEventListener('load', () => {
     e.preventDefault();
     mobilControl.SPACE = false;
   });
+
 
   document.getElementById("dBtn").addEventListener("touchstart", (e) => {
     e.preventDefault();

@@ -93,7 +93,7 @@ class Endboss extends MovableObject {
                                 this.animationAttack();
                         }
                         i++;
-                        if (world.character.isDead()) {
+                        if (world.character.x > 4200 && world.character.isDead()) {
                                 this.animationCharacterDeadIdle();
                         }
                         if (world.character.x > 4200 && !this.firstContact) {
