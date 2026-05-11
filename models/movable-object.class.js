@@ -3,7 +3,7 @@ class MovableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
-    acceleration = 2.5; //Beschleunigung
+    acceleration = 2.5;
     energy = 100;
     lastHit = 0;
     firstContact = false;
@@ -26,7 +26,7 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        if (this instanceof ThrowableObject) { // fallen durch den Boden > bis hit
+        if (this instanceof ThrowableObject) {
             return !this.isExploded;
         } else {
             return this.y < 250;
@@ -49,12 +49,12 @@ class MovableObject extends DrawableObject {
 
 
     isHurt() {
-        let timepassed = new Date().getTime() - this.lastHit; // Differenz in ms
-        timepassed = timepassed / 1000; // Differenz in sekunden
+        let timepassed = new Date().getTime() - this.lastHit;
+        timepassed = timepassed / 1000;
         return timepassed < 0.5;
     }
 
-    //character.isColliding(chicken)
+
     isColliding(mo) {
         return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
             this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
@@ -71,8 +71,7 @@ class MovableObject extends DrawableObject {
     }
 
     playAnimation(images) {
-        let i = this.currentImage % images.length; // Bsp. let i = 7 % 6; => 1, Rest 1 ist der Modulo-Operator
-        // i = 0, 1, 2, 3, 4, 5 dann nicht 6 sondern wieder 0
+        let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;

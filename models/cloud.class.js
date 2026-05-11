@@ -11,7 +11,7 @@ class Cloud extends MovableObject {
     constructor(x) {
         super().loadImage('./img/5_background_shadow_path/layer_clouds/cloud_shape2_1.png');
         this.loadImages(this.IMAGES_CLOUD);
-        this.x =  x +  Math.random() * 500; // Zahl zwische 200 und 700 x
+        this.x =  x +  Math.random() * 500;
         this.y = Math.random() * 100;
         this.width = 200 + Math.random() * 200;
         this.speed = 0.15 + Math.random() * 0.05;

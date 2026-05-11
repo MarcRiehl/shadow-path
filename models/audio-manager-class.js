@@ -74,7 +74,6 @@ class AudioHub {
     static stopAll() {
         playSound = false;
         AudioHub.allSounds.forEach(sound => {
-            // sound.pause();
             sound.volume = 0;
         });
     }
@@ -91,7 +90,6 @@ class AudioHub {
         if(playSound == true){
 
         }
-
     }
 
     static playAll() {

@@ -17,7 +17,7 @@ class Statusbar extends DrawableObject {
     ];
 
     constructor() {
-        super(); // muss immer rein um auf das Übergeordnete Objekt zugreifen zu können
+        super();
         this.loadImages(this.IMAGES_HEALTH_BAR);
         this.setPercentage(100);
         this.x = 20;
@@ -26,7 +26,6 @@ class Statusbar extends DrawableObject {
         this.height = 30;
     }
 
-    //setPercentage(50) z.B. gesetzt
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_HEALTH_BAR[this.resolveImageIndex()];

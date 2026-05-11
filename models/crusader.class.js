@@ -51,7 +51,7 @@ class Crusader extends MovableObject {
         super().loadImage('./img/3_enemies/skeleton_crusader_3/walking/0_skeleton_crusader_walking_000.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = x + Math.random() * 200; // x = new Zombie(x) + Math
+        this.x = x + Math.random() * 200;
         this.speed = 0.15 + Math.random() * 0.5;
         this.otherDirection = true;
         this.animate();

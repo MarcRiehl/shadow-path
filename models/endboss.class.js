@@ -84,7 +84,7 @@ class Endboss extends MovableObject {
                         if (this.isDead()) {
                                 return;
                         }
-                        if (i < 10 && this.firstContact) {
+                        if (i < 10 && this.firstContact && world.character.x > 4400) {
                                 this.jumpFirstContact(i);
                         } else if (this.firstContact) {
                                 this.animationFirstContact();
@@ -93,12 +93,14 @@ class Endboss extends MovableObject {
                                 this.animationAttack();
                         }
                         i++;
-                        if (world.character.x > 4400 && world.character.isDead()) {
+                        if (world.character.isDead()) {
                                 this.animationCharacterDeadIdle();
                         }
-                        if (world.character.x > 4600 && !this.firstContact) {
+                        if (world.character.x > 4200 && !this.firstContact) {
                                 i = 0;
                                 this.firstContact = true;
+                        }
+                        if (world.character.x > 4000) {
                                 AudioHub.playOne(AudioHub.BOSS_FIGHT);
                         }
                 }, 200));
@@ -130,14 +132,12 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_WALKING);
                 this.x = world.character.x - Math.random() * 250;
                 this.speed = 0.15 + Math.random() * 0.1;
-                AudioHub.playOne(AudioHub.BOSS_FIGHT);
         }
 
         animationAttack() {
                 this.playAnimation(this.IMAGES_WALKING);
                 this.x = world.character.x - Math.random() * 150;
                 this.speed = 0.1 + Math.random() * 0.1;
-                AudioHub.stopOne(AudioHub.BOSS_FIGHT);
         }
 
         animationCharacterDeadIdle() {

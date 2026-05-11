@@ -92,15 +92,14 @@ class World {
 
 
     checkCollisions() {
-        //Check collision
         let now = Date.now();
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !enemy.dead && !enemy.isDead() && !this.character.isHurt() && (now - this.lastEnemyHit > 300)) {
                 this.lastEnemyHit = now;
-                this.character.hit(5);
+                this.character.hit(10);
                 this.character.isHurt();
                 AudioHub.playOne(AudioHub.HIT_CHARACTER);
-                this.statusBar.setPercentage(this.character.energy); // Statusbar Health
+                this.statusBar.setPercentage(this.character.energy);
             }
         });
     }
@@ -192,9 +191,9 @@ class World {
         this.level.endboss.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !enemy.isDead() && !this.character.isAboveGround() && !this.character.isHurt() && (now - this.lastCharacterHit > 1000)) {
                 this.lastCharacterHit = now;
-                this.character.hit(5);
+                this.character.hit(10);
                 this.character.isHurt();
-                this.statusBar.setPercentage(this.character.energy); // Statusbar Health
+                this.statusBar.setPercentage(this.character.energy);
             }
         });
     }
@@ -257,7 +256,6 @@ class World {
 
     checkEndbossIsDead(index) {
         this.endbossDead = true;
-        this.stopMove();
         setTimeout(() => {
             this.level.endboss.splice(index, 1);
             endScreenWin();

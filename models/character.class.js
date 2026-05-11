@@ -1,7 +1,7 @@
 class Character extends MovableObject {
     height = 200;
     width = 150;
-    y = 250; //war 155
+    y = 250;
     speed = 10;
     world;
     idleTimer = 0;
@@ -157,30 +157,20 @@ class Character extends MovableObject {
 
     animate() {
         let i = 0;
-        // Alle alten Intervals löschen
         this.intervalIds.forEach(id => clearInterval(id));
         this.intervalIds = [];
 
         this.intervalIds.push(setInterval(() => {
             if ((this.world.keyboard.RIGHT || this.world.mobilControl.RIGHT) && this.x < this.world.level.level_end_x && !this.isDead()) {
-                this.moveRight();
-                this.otherDirection = false;
-                this.idleTimer = 0;
-                if (!this.isAboveGround()) { // noch verbessern
-                    AudioHub.playOne(AudioHub.CHARACTER_WALKING);
-                }
+                this.characterMoveRight();
             }
             if ((this.world.keyboard.LEFT || this.world.mobilControl.LEFT) && this.x > 0 && !this.isDead()) {
-                this.moveLeft();
-                this.otherDirection = true;
-                this.idleTimer = 0;
-                AudioHub.playOne(AudioHub.CHARACTER_WALKING);
+                this.characterMoveLeft();
             }
             if ((this.world.keyboard.SPACE || this.world.mobilControl.SPACE) && !this.isAboveGround()) {
                 this.jump();
                 this.idleTimer = 0;
                 AudioHub.playOne(AudioHub.CHARACTER_JUMPING);
-                //  console.log(world.character.y); 
             }
 
             this.world.camera_x = -this.x + 100;
@@ -225,10 +215,9 @@ class Character extends MovableObject {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
                     setTimeout(() => {
                         if (!this.isDead() && !this.world.characterDead && !this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.SPACE && !this.world.mobilControl.RIGHT && !this.world.mobilControl.LEFT && !this.world.mobilControl.SPACE && !this.isAboveGround()) {
-                        if(!this.world.characterDead && !this.world.endbossDead){
-                            AudioHub.playIdle(AudioHub.CHARACTER_IDLE);
-                        }
-
+                            if (!this.world.characterDead && !this.world.endbossDead) {
+                                AudioHub.playIdle(AudioHub.CHARACTER_IDLE);
+                            }
                         }
                     }, 1000);
                 } else if (this.idleTimer >= 1000) {
@@ -238,6 +227,21 @@ class Character extends MovableObject {
         }, 100));
     }
 
+    characterMoveRight() {
+        this.moveRight();
+        this.otherDirection = false;
+        this.idleTimer = 0;
+        if (!this.isAboveGround()) {
+            AudioHub.playOne(AudioHub.CHARACTER_WALKING);
+        }
+    }
+
+    characterMoveLeft() {
+        this.moveLeft();
+        this.otherDirection = true;
+        this.idleTimer = 0;
+        AudioHub.playOne(AudioHub.CHARACTER_WALKING);
+    }
 
     characterIsDead() {
         this.speed = 0;

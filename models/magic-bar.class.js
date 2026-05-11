@@ -17,7 +17,7 @@ class Magicbar extends DrawableObject {
     ];
 
     constructor() {
-        super(); // muss immer rein um auf das Übergeordnete Objekt zugreifen zu können
+        super();
         this.loadImages(this.IMAGES_MAGIC_BAR);
         this.setNumberOfMagic(0);
         this.x = 20;

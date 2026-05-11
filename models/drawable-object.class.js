@@ -8,9 +8,8 @@ class DrawableObject {
     currentImage = 0;
     imageCache = [];
 
-    //loadImage('img/test.png')
     loadImage(path) {
-        this.img = new Image(); // this.img = document.getElementById('image') <img id="image" src>
+        this.img = new Image();
         this.img.src = path;
     }
 
@@ -24,7 +23,6 @@ class DrawableObject {
         }
     }
 
-    // arr = 'img1.png, 'img2.png' usw.
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();
@@ -43,6 +41,4 @@ class DrawableObject {
             ctx.stroke();
         }
     }
-
-
 }

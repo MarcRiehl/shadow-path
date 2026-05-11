@@ -64,33 +64,25 @@ function initLevel() {
         [
             ...placeMagicStaff()
         ]
-        // [
-        // new CollectableMagic( 200 + Math.random(), 300 + Math.random()),
-        //  new CollectableMagic( 300 + Math.random(), 400 + Math.random())
-        // ]
     );
 
     function placeCoins() {
         let coins = [];
         for (let i = 0; i < 10; i++) {
-            let x = 400 + Math.random() * 4000; //noch anpassen
+            let x = 400 + Math.random() * 4000;
             let y = 100 + Math.random() * 200;
             coins.push(new CollectableCoins(x, y));
         }
-        // console.log(coins);
         return coins;
     };
 
-    //this.world.level.magicPoints.length
+
     function placeMagicStaff() {
         let magicPoints = [];
         for (let i = 0; i < 10; i++) {
             let x = 400 + Math.random() * 3600;
             magicPoints.push(new CollectableMagic(x));
         }
-        // console.log(magicPoints);
-
         return magicPoints;
     }
-
 }
