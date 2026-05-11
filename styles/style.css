@@ -55,6 +55,7 @@ a:hover {
   width: 100%;
   max-width: 1280px;   /* anpassen siehe canvas*/
   aspect-ratio: 3/2;
+  max-height: 100dvh;
 }
 
 h1 {

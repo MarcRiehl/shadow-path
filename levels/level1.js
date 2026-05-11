@@ -7,7 +7,17 @@ function initLevel() {
             new Zombie(300),
             new Zombie(800),
             new Zombie(2000),
+            new Zombie(2400),
+            new Zombie(3000),
+            new Zombie(3600),
+            new Crusader(3400),
             new Crusader(600),
+            new Crusader(900),
+            new Crusader(1300),
+            new Crusader(1800),
+            new Crusader(2400),
+            new Crusader(2400),
+            new Crusader(3200)
         ],
         [
             new Endboss()
@@ -63,7 +73,7 @@ function initLevel() {
     function placeCoins() {
         let coins = [];
         for (let i = 0; i < 10; i++) {
-            let x = 400 + Math.random() * 2000; //noch anpassen
+            let x = 400 + Math.random() * 4000; //noch anpassen
             let y = 100 + Math.random() * 200;
             coins.push(new CollectableCoins(x, y));
         }
@@ -75,7 +85,7 @@ function initLevel() {
     function placeMagicStaff() {
         let magicPoints = [];
         for (let i = 0; i < 10; i++) {
-            let x = 400 + Math.random() * 2000;
+            let x = 400 + Math.random() * 3600;
             magicPoints.push(new CollectableMagic(x));
         }
         // console.log(magicPoints);

@@ -47,7 +47,7 @@ class Zombie extends MovableObject {
         super().loadImage('./img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_000.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = x + Math.random() * 200; // x = new Zombie(x) + Math
+        this.x = x + Math.random() * 200;
         this.speed = 0.15 + Math.random() * 0.5;
         this.otherDirection = true;
         this.animate();
@@ -55,13 +55,10 @@ class Zombie extends MovableObject {
 
     animate() {
         setInterval(() => {
-            // this.moveLeft();
+           this.moveLeft();
         }, 1000 / 60);
-
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
         }, 300);
- 
     }
-
 }

@@ -3,7 +3,7 @@ class Endboss extends MovableObject {
         height = 536;
         width = 647;
         y = -50;
-        energy = 5;
+        energy = 25;
         offset = {
                 top: 180,
                 bottom: 60,
@@ -92,23 +92,23 @@ class Endboss extends MovableObject {
                                 this.speed = 0.5;
                         } else if (this.firstContact) {
                                 this.playAnimation(this.IMAGES_WALKING);
-                                this.x = world.character.x - Math.random() * 150;
+                                this.x = world.character.x - Math.random() * 250;
                                 this.speed = 0.15 + Math.random() * 0.1;
                                 AudioHub.playOne(AudioHub.BOSS_FIGHT);
                         }
-                        if (this.x < 4200) {
+                        if (this.x < 4400) {
                                 this.playAnimation(this.IMAGES_WALKING);
-                                this.x += 300;
+                                this.x = world.character.x - Math.random() * 150;
                                 this.speed = 0.1 + Math.random() * 0.1;
                                 AudioHub.stopOne(AudioHub.BOSS_FIGHT);
                         }
                         i++;
-                        if (world.character.x > 4200 && world.character.isDead()) {
+                        if (world.character.x > 4400 && world.character.isDead()) {
                                 this.playAnimation(this.IMAGES_IDLE);
                                 this.speed = 0;
                                 this.x = world.character.x + 120;
                         }
-                        if (world.character.x > 4800 && !this.firstContact) {
+                        if (world.character.x > 4600 && !this.firstContact) {
                                 i = 0;
                                 this.firstContact = true;
                                 AudioHub.playOne(AudioHub.BOSS_FIGHT);
