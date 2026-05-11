@@ -64,7 +64,7 @@ class Endboss extends MovableObject {
         ];
 
         constructor() {
-                super().loadImage(this.IMAGES_WALKING[0]); // erstes Standbild laden Array[0]
+                super().loadImage(this.IMAGES_WALKING[0]);
                 this.loadImages(this.IMAGES_WALKING);
                 this.loadImages(this.IMAGES_JUMP);
                 this.loadImages(this.IMAGES_IDLE);
@@ -72,7 +72,6 @@ class Endboss extends MovableObject {
                 this.x = 4800;
                 this.otherDirection = true;
                 this.animate();
-
         }
 
         animate() {
@@ -81,54 +80,69 @@ class Endboss extends MovableObject {
                 let j = 0;
                 this.intervalIds.forEach(id => clearInterval(id));
                 this.intervalIds = [];
-
                 this.intervalIds.push(setInterval(() => {
                         if (this.isDead()) {
                                 return;
                         }
                         if (i < 10 && this.firstContact) {
-                                this.playAnimation(this.IMAGES_JUMP);
-                                this.x = world.character.x - 20;
-                                this.speed = 0.5;
+                                this.jumpFirstContact(i);
                         } else if (this.firstContact) {
-                                this.playAnimation(this.IMAGES_WALKING);
-                                this.x = world.character.x - Math.random() * 250;
-                                this.speed = 0.15 + Math.random() * 0.1;
-                                AudioHub.playOne(AudioHub.BOSS_FIGHT);
+                                this.animationFirstContact();
                         }
                         if (this.x < 4400) {
-                                this.playAnimation(this.IMAGES_WALKING);
-                                this.x = world.character.x - Math.random() * 150;
-                                this.speed = 0.1 + Math.random() * 0.1;
-                                AudioHub.stopOne(AudioHub.BOSS_FIGHT);
+                                this.animationAttack();
                         }
                         i++;
                         if (world.character.x > 4400 && world.character.isDead()) {
-                                this.playAnimation(this.IMAGES_IDLE);
-                                this.speed = 0;
-                                this.x = world.character.x + 120;
+                                this.animationCharacterDeadIdle();
                         }
                         if (world.character.x > 4600 && !this.firstContact) {
                                 i = 0;
                                 this.firstContact = true;
                                 AudioHub.playOne(AudioHub.BOSS_FIGHT);
                         }
-
                 }, 200));
 
+
+
                 this.intervalIds.push(setInterval(() => {
-                        if (this.isDead()) {   
+                        if (this.isDead()) {
                                 if (j < this.IMAGES_DEAD.length - 1) {
                                         this.img = this.imageCache[this.IMAGES_DEAD[j]];
                                         this.y = -20;
-                                         j++;
+                                        j++;
                                 } else {
                                         this.loadImage('./img/4_enemie_boss_troll/dying/troll_02_1_die_009.png');
                                         this.intervalIds.forEach(id => clearInterval(id));
                                         this.intervalIds = [];
                                 }
                         }
-
                 }, 40));
+        }
+
+        jumpFirstContact(i) {
+                this.playAnimation(this.IMAGES_JUMP);
+                this.x = world.character.x - 20;
+                this.speed = 0.5;
+        };
+
+        animationFirstContact() {
+                this.playAnimation(this.IMAGES_WALKING);
+                this.x = world.character.x - Math.random() * 250;
+                this.speed = 0.15 + Math.random() * 0.1;
+                AudioHub.playOne(AudioHub.BOSS_FIGHT);
+        }
+
+        animationAttack() {
+                this.playAnimation(this.IMAGES_WALKING);
+                this.x = world.character.x - Math.random() * 150;
+                this.speed = 0.1 + Math.random() * 0.1;
+                AudioHub.stopOne(AudioHub.BOSS_FIGHT);
+        }
+
+        animationCharacterDeadIdle() {
+                this.playAnimation(this.IMAGES_IDLE);
+                this.speed = 0;
+                this.x = world.character.x + 120;
         }
 } 

@@ -1,5 +1,4 @@
 class World {
-
     character = new Character();
     level = level1;
     canvas;
@@ -67,15 +66,9 @@ class World {
         if ((this.keyboard.KEY_D || this.mobilControl.KEY_D) && this.collectedMagicPoints > 0) {
             this.lastThrowTime = now;
             if (this.character.otherDirection == false) {
-                let magicBall = new ThrowableObject(this.character.x + 120, this.character.y + 100, this.character.otherDirection); //Start Zauber
-                this.throwableObjects.push(magicBall);
-                magicBall.playAnimation(magicBall.IMAGES_THROW_BALL);
-                AudioHub.playOne(AudioHub.THROW_FIREBALL);
+                this.checkThrowObjectsRight();
             } else if (this.character.otherDirection == true) {
-                let magicBall = new ThrowableObject(this.character.x - 0, this.character.y + 100, this.character.otherDirection); //Start Zauber
-                this.throwableObjects.push(magicBall);
-                magicBall.playAnimation(magicBall.IMAGES_THROW_BALL);
-                AudioHub.playOne(AudioHub.THROW_FIREBALL);
+                this.checkThrowObjectsLeft();
             }
             this.collectedMagicPoints--;
             this.character.playAnimation(this.character.IMAGES_THROW_MAGIC);
@@ -83,15 +76,30 @@ class World {
         }
     }
 
+    checkThrowObjectsRight() {
+        let magicBall = new ThrowableObject(this.character.x + 120, this.character.y + 100, this.character.otherDirection);
+        this.throwableObjects.push(magicBall);
+        magicBall.playAnimation(magicBall.IMAGES_THROW_BALL);
+        AudioHub.playOne(AudioHub.THROW_FIREBALL);
+    }
+
+    checkThrowObjectsLeft() {
+        let magicBall = new ThrowableObject(this.character.x - 0, this.character.y + 100, this.character.otherDirection);
+        this.throwableObjects.push(magicBall);
+        magicBall.playAnimation(magicBall.IMAGES_THROW_BALL);
+        AudioHub.playOne(AudioHub.THROW_FIREBALL);
+    }
+
+
     checkCollisions() {
         //Check collision
         let now = Date.now();
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !enemy.dead && !enemy.isDead() && !this.character.isHurt() && (now - this.lastEnemyHit > 500)) {
+            if (this.character.isColliding(enemy) && !enemy.dead && !enemy.isDead() && !this.character.isHurt() && (now - this.lastEnemyHit > 300)) {
                 this.lastEnemyHit = now;
                 this.character.hit(5);
                 this.character.isHurt();
-                 AudioHub.playOne(AudioHub.HIT_CHARACTER);
+                AudioHub.playOne(AudioHub.HIT_CHARACTER);
                 this.statusBar.setPercentage(this.character.energy); // Statusbar Health
             }
         });
@@ -119,17 +127,10 @@ class World {
             this.level.enemies.forEach((enemy, index) => {
                 if (enemy.isColliding(magic) && !magic.isExploded) {
                     enemy.hit(5);
-                    clearInterval(magic.throwInterval);
-                    magic.playAnimation(magic.IMAGES_EXPLODE_BALL);
-                    AudioHub.playOne(AudioHub.EXPLOSION);
-                    magic.width = 100;
-                    magic.height = 100;
-                    magic.speedY = 0;
-                    magic.acceleration = 0;
-                    magic.isExploded = true;
+                    this.magicCollisionsHit(magic);
                     setTimeout(() => {
                         magic.isDeleted = true;
-                            this.throwableObjects.splice(index, 1);
+                        this.throwableObjects.splice(index, 1);
                     }, 200);
                     if (enemy.isDead()) {
                         this.checkEnemyIsDead(enemy);
@@ -138,6 +139,17 @@ class World {
                 }
             });
         });
+    }
+
+    magicCollisionsHit(magic) {
+        clearInterval(magic.throwInterval);
+        magic.playAnimation(magic.IMAGES_EXPLODE_BALL);
+        AudioHub.playOne(AudioHub.EXPLOSION);
+        magic.width = 100;
+        magic.height = 100;
+        magic.speedY = 0;
+        magic.acceleration = 0;
+        magic.isExploded = true;
     }
 
     checkMagicCollisionsEndboss() {
@@ -150,17 +162,10 @@ class World {
                 if (enemy.isColliding(magic)) {
                     this.lastEndbossHit = now;
                     enemy.hit(5);
-                    AudioHub.playOne(AudioHub.HIT_BOSS);
-                    clearInterval(magic.throwInterval);
-                    magic.playAnimation(magic.IMAGES_EXPLODE_BALL);
-                    magic.width = 100;
-                    magic.height = 100;
-                    magic.speedY = 0;
-                    magic.acceleration = 0;
-                    magic.isExploded = true;
+                    this.magicCollisionsEnbossHit(magic);
                     setTimeout(() => {
                         magic.isDeleted = true;
-                            this.throwableObjects.splice(index, 1);
+                        this.throwableObjects.splice(index, 1);
                     }, 200);
                     this.endbossBar.setPercentage(enemy.energy);
                 }
@@ -171,8 +176,18 @@ class World {
         });
     }
 
+    magicCollisionsEnbossHit(magic) {
+        AudioHub.playOne(AudioHub.HIT_BOSS);
+        clearInterval(magic.throwInterval);
+        magic.playAnimation(magic.IMAGES_EXPLODE_BALL);
+        magic.width = 100;
+        magic.height = 100;
+        magic.speedY = 0;
+        magic.acceleration = 0;
+        magic.isExploded = true;
+    }
 
-  checkCollisionsEndboss() {
+    checkCollisionsEndboss() {
         let now = Date.now();
         this.level.endboss.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !enemy.isDead() && !this.character.isAboveGround() && !this.character.isHurt() && (now - this.lastCharacterHit > 1000)) {
@@ -206,7 +221,7 @@ class World {
     }
 
     checkEndbossIsNear() {
-        if (this.character.x > 2400) {
+        if (this.character.x > 4000) {
             this.endbossBarVisible = true;
         } else {
             this.endbossBarVisible = false;
@@ -255,18 +270,6 @@ class World {
         this.intervalIds = [];
     }
 
-    stopMove(){
-        // setInterval(() => {
-        // this.keyboard.KEY_D = false;
-        // this.keyboard.LEFT = false;
-        // this.keyboard.RIGHT = false;
-        // this.keyboard.UP = false;
-        // this.keyboard.DOWN = false;
-        // this.character.speed = 0;
-        // }, 1000 / 60);
-
-    }
-
     resetAll() {
         this.collectedCoins = 0;
         this.collectedMagicPoints = 0;
@@ -283,17 +286,13 @@ class World {
         this.clearAllIntervals();
     }
 
-
-
-
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Welt löschen
-        this.ctx.translate(this.camera_x, 0); //wichtig als zweiten Parameter 0 = y
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
 
-        this.ctx.translate(-this.camera_x, 0); //camera für Statusbar zurücksetzen
-        // Space for fixed objects
+        this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
         this.addToMap(this.magicBar);
         this.addToMap(this.coinBar);
@@ -307,12 +306,9 @@ class World {
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.magicPoints);
         this.addObjectsToMap(this.throwableObjects);
-
         this.ctx.translate(-this.camera_x, 0);
 
-
-        //Draw() wird immer wieder aufgerufen
-        let self = this; //wichtig!!!! kennt sonst in der Funktion darunter this nicht mehr
+        let self = this;
         requestAnimationFrame(function () {
             self.draw();
         });
@@ -325,15 +321,11 @@ class World {
             }
         });
     }
-    addToMap(mo) { // MovableObject
+    addToMap(mo) {
         if (mo.otherDirection) {
             this.flipImage(mo);
         }
-
         mo.draw(this.ctx);
-        // mo.showFrameHelper(this.ctx); //Frame Help
-
-
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
