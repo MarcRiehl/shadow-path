@@ -126,7 +126,6 @@
      display: block;
  }
 
-
  .sound-button:hover {
      filter: contrast(90%) drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.7));
  }
@@ -231,9 +230,6 @@
      filter: contrast(90%) drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.7));
  }
 
-
-
- /* Buttons noch alle anpassen*/
  @media (max-width: 580px) {
      #start-button {
          width: clamp(80px, 16vh, 90px);
@@ -243,7 +239,7 @@
      .sound-control {
          width: clamp(30px, 6%, 50px);
          top: 3%;
-             right: 5%;
+         right: 5%;
      }
 
      .back-main-menu {
@@ -274,20 +270,11 @@
      }
 
      #mobil-control {
-         display: none !important;
+         display: none
      }
-
-
  }
 
- @media (hover: hover){
-         #mobil-control {
-         display: none !important;
-     }
-
- }
-
- @media (hover: none) and (orientation: landscape)  {
+ @media (hover: none) and (orientation: landscape) {
      canvas {
          width: 100%;
          height: 100vh
@@ -310,7 +297,7 @@
 
      .sound-control {
          width: clamp(40px, 6%, 50px);
-        top: 3%;
+         top: 3%;
          right: 3%;
      }
 
@@ -321,7 +308,7 @@
      }
 
      #impressum-menu {
-         width: clamp(40px, 6%, 50px);
+         width: clamp(80px, 6%, 100px);
      }
 
      #instructions-menu {
@@ -418,4 +405,11 @@
          height: 220px;
          max-width: 90%;
      }
+ }
+
+  @media (hover: hover) {
+     #mobil-control {
+         display: none !important;
+     }
+
  }
