@@ -1,16 +1,39 @@
+/** @type {HTMLCanvasElement} */
 let canvas;
+
+/** @type {CanvasRenderingContext2D} */
 let ctx;
+
+/** @type {World} */
 let world;
+
+/** @type {Keyboard} */
 let keyboard = new Keyboard();
+
+/** @type {MobilControl} */
 let mobilControl = new MobilControl();
+
+/** @type {boolean} */
 let playSound = true;
+
+/** @type {boolean} */
 let gameWin = false;
 
+/**
+ * Initializes the game world.
+ * 
+ * @returns {void}
+ */
 function init() {
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard, mobilControl);
 }
 
+/**
+ * Loads the start screen.
+ * 
+ * @returns {void}
+ */
 function loadGame() {
   let startScreen = document.getElementById(`start-screen`);
   let soundControl = document.getElementById(`sound-control`);
@@ -26,6 +49,11 @@ function loadGame() {
   AudioHub.stopOne(AudioHub.OUTRO);
 }
 
+/**
+ * Starts the game.
+ * 
+ * @returns {void}
+ */
 function startGame() {
   AudioHub.stopOne(AudioHub.OUTRO);
   AudioHub.playOne(AudioHub.TITEL_MUSIC);
@@ -42,13 +70,22 @@ function startGame() {
   showMobileControls();
 }
 
+/**
+ * Shows mobile controls on small screens.
+ * 
+ * @returns {void}
+ */
 function showMobileControls() {
-
   if (window.innerWidth <= 1366) {
     document.getElementById('mobil-control').style.display = 'block';
   }
 }
 
+/**
+ * Toggles game sound.
+ * 
+ * @returns {void}
+ */
 function toogleSound() {
   let buttonSoundOn = document.getElementById(`sound-on`);
   let buttonSoundMute = document.getElementById(`sound-mute`);
@@ -63,6 +100,11 @@ function toogleSound() {
   }
 }
 
+/**
+ * Shows the lose screen.
+ * 
+ * @returns {void}
+ */
 function endScreenLost() {
   let endScreen = document.getElementById("end-screen");
   endScreen.classList.remove("d-none");
@@ -70,6 +112,11 @@ function endScreenLost() {
   AudioHub.playOne(AudioHub.GAME_OVER);
 }
 
+/**
+ * Shows the win screen.
+ * 
+ * @returns {void}
+ */
 function endScreenWin() {
   let winScreen = document.getElementById("win-screen");
   winScreen.innerHTML = getHTMLForScreenWin();
@@ -77,28 +124,51 @@ function endScreenWin() {
   AudioHub.playOne(AudioHub.OUTRO);
 }
 
+/**
+ * Opens the impressum modal.
+ * 
+ * @returns {void}
+ */
 function openModalImpressum() {
   let impressum = document.getElementById("impressum");
   impressum.innerHTML = getHTMLForImpressum();
   impressum.classList.remove('d-none');
 }
 
+
+/**
+ * Closes the impressum modal.
+ * 
+ * @returns {void}
+ */
 function closeModalImpressum() {
   document.getElementById('impressum').classList.add('d-none');
 }
 
+/**
+ * Opens the instructions modal.
+ * 
+ * @returns {void}
+ */
 function openModalInstructions() {
   let instructions = document.getElementById("instructions");
   instructions.innerHTML = getHTMLForInstructions();
   instructions.classList.remove('d-none');
 
 }
+
+/**
+ * Closes the instructions modal.
+ * 
+ * @returns {void}
+ */
 function closeModalInstructions() {
   document.getElementById('instructions').classList.add('d-none');
 }
 
-
-
+/**
+ * Handles keyboard key press events.
+ */
 window.addEventListener('keydown', (event) => {
   switch (event.key) {
     case 'ArrowRight':
@@ -125,6 +195,9 @@ window.addEventListener('keydown', (event) => {
   }
 });
 
+/**
+ * Handles keyboard key release events.
+ */
 window.addEventListener('keyup', (event) => {
   switch (event.key) {
     case 'ArrowRight':
@@ -151,6 +224,9 @@ window.addEventListener('keyup', (event) => {
   }
 });
 
+/**
+ * Initializes mobile touch controls after page load.
+ */
 window.addEventListener('load', () => {
   document.getElementById("leftBtn").addEventListener("touchstart", (e) => {
     e.preventDefault();

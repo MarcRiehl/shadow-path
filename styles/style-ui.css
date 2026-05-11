@@ -234,10 +234,10 @@
 
 
  /* Buttons noch alle anpassen*/
- @media (max-width: 560px) {
+ @media (max-width: 580px) {
      #start-button {
          width: clamp(80px, 16vh, 90px);
-         margin-top: 10vh;
+         margin-top: 12vh;
      }
 
      .sound-control {
