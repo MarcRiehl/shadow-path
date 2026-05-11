@@ -238,7 +238,6 @@ window.addEventListener('load', () => {
     mobilControl.LEFT = false;
   });
 
-
   document.getElementById("rightBtn").addEventListener("touchstart", (e) => {
     e.preventDefault();
     mobilControl.RIGHT = true;
@@ -249,7 +248,6 @@ window.addEventListener('load', () => {
     mobilControl.RIGHT = false;
   });
 
-
   document.getElementById("spaceBtn").addEventListener("touchstart", (e) => {
     e.preventDefault();
     mobilControl.SPACE = true;
@@ -259,7 +257,6 @@ window.addEventListener('load', () => {
     e.preventDefault();
     mobilControl.SPACE = false;
   });
-
 
   document.getElementById("dBtn").addEventListener("touchstart", (e) => {
     e.preventDefault();

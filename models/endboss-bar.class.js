@@ -1,7 +1,13 @@
+/**
+ * Status bar displaying the endboss health.
+ * @extends DrawableObject
+ */
 class EndbossBar extends DrawableObject {
 
+    /** @type {number} Current health percentage */
     percentage = 100;
 
+    /** @type {string[]} Health bar image paths */
     IMAGES_HEALTH_BAR = [
         './img/7_statusbars/2_statusbar_endboss_troll/hitbar-troll-00.png',
         './img/7_statusbars/2_statusbar_endboss_troll/hitbar-troll-01.png',
@@ -14,9 +20,11 @@ class EndbossBar extends DrawableObject {
         './img/7_statusbars/2_statusbar_endboss_troll/hitbar-troll-08.png',
         './img/7_statusbars/2_statusbar_endboss_troll/hitbar-troll-09.png',
         './img/7_statusbars/2_statusbar_endboss_troll/hitbar-troll-10.png'
-
     ];
 
+    /**
+     * Creates the endboss health bar.
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES_HEALTH_BAR);
@@ -27,12 +35,20 @@ class EndbossBar extends DrawableObject {
         this.height = 30;
     }
 
+    /**
+     * Updates the displayed health percentage.
+     * @param {number} percentage Current health percentage
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_HEALTH_BAR[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+     * Returns the correct health bar image index.
+     * @returns {number}
+     */
     resolveImageIndex() {
         if (this.percentage == 100) {
             return 10;
@@ -44,10 +60,8 @@ class EndbossBar extends DrawableObject {
             return 5;
         } else if (this.percentage > 5) {
             return 3;
-        } 
-        else {
+        } else {
             return 0;
         }
-
     }
 }

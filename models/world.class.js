@@ -1,28 +1,147 @@
+/**
+ * Main game world class.
+ * Handles rendering, collisions, enemies, collectibles,
+ * player actions, and game state management.
+ */
 class World {
+    /**
+     * Main player character.
+     * @type {Character}
+     */
     character = new Character();
+
+    /**
+     * Current game level.
+     * @type {Level}
+     */
     level = level1;
+
+    /**
+     * Game canvas element.
+     * @type {HTMLCanvasElement}
+     */
     canvas;
+
+    /**
+     * Canvas rendering context.
+     * @type {CanvasRenderingContext2D}
+     */
     ctx;
+
+    /**
+     * Keyboard input handler.
+     * @type {Object}
+     */
     keyboard;
+
+    /**
+     * Mobile input handler.
+     * @type {Object}
+     */
     mobilControl;
+
+    /**
+     * Camera X position.
+     * @type {number}
+     */
     camera_x = 0;
+
+    /**
+     * Player health status bar.
+     * @type {Statusbar}
+     */
     statusBar = new Statusbar();
+
+    /**
+     * Coin status bar.
+     * @type {Coinbar}
+     */
     coinBar = new Coinbar();
+
+    /**
+     * Magic points status bar.
+     * @type {Magicbar}
+     */
     magicBar = new Magicbar();
+
+    /**
+     * Endboss health status bar.
+     * @type {EndbossBar}
+     */
     endbossBar = new EndbossBar();
+
+    /**
+     * Active throwable objects.
+     * @type {ThrowableObject[]}
+     */
     throwableObjects = [];
+
+    /**
+     * Number of collected coins.
+     * @type {number}
+     */
     collectedCoins = 0;
+
+    /**
+     * Number of collected magic points.
+     * @type {number}
+     */
     collectedMagicPoints = 0;
+
+    /**
+     * Timestamp of the last throw action.
+     * @type {number}
+     */
     lastThrowTime = 0;
+
+    /**
+     * Timestamp of the last endboss hit.
+     * @type {number}
+     */
     lastEndbossHit = 0;
+
+    /**
+     * Timestamp of the last character hit.
+     * @type {number}
+     */
     lastCharacterHit = 0;
+
+    /**
+     * Timestamp of the last enemy hit.
+     * @type {number}
+     */
     lastEnemyHit = 0;
+
+    /**
+     * Indicates if the endboss bar is visible.
+     * @type {boolean}
+     */
     endbossBarVisible = false;
+
+    /**
+     * Indicates if the character is dead.
+     * @type {boolean}
+     */
     characterDead = false;
+
+    /**
+     * Indicates if the endboss is dead.
+     * @type {boolean}
+     */
     endbossDead = false;
+
+    /**
+     * Stores all active interval IDs.
+     * @type {number[]}
+     */
     intervalIds = [];
 
-
+    /**
+     * Creates a new game world.
+     * @param {HTMLCanvasElement} canvas - Game canvas.
+     * @param {Object} keyboard - Keyboard input handler.
+     * @param {Object} mobilControl - Mobile input handler.
+     */
     constructor(canvas, keyboard, mobilControl) {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
@@ -34,10 +153,16 @@ class World {
         this.runCollisions();
     }
 
+    /**
+     * Connects the character with the current world.
+    */
     setWorld() {
         this.character.world = this;
     }
 
+    /**
+    * Starts the main game loop.
+    */
     run() {
         this.intervalIds.push(setInterval(() => {
             this.collectCoins();
@@ -49,6 +174,9 @@ class World {
         }, 1000 / 60));
     }
 
+    /**
+    * Starts collision detection loop.
+    */
     runCollisions() {
         this.intervalIds.push(setInterval(() => {
             this.checkCollisions();
@@ -58,6 +186,12 @@ class World {
         }, 200));
     }
 
+    /**
+    * Checks if the player can throw a magic projectile.
+    * @local
+    * @type {number}
+     * now - Current timestamp in milliseconds.
+    */
     checkThrowObjects() {
         let now = Date.now();
         if (now - this.lastThrowTime < 1000) {
@@ -76,6 +210,12 @@ class World {
         }
     }
 
+    /**
+    * Throws a magic projectile to the right.
+    * @local
+    * @type {ThrowableObject}
+    * magicBall - Created magic projectile.
+    */
     checkThrowObjectsRight() {
         let magicBall = new ThrowableObject(this.character.x + 120, this.character.y + 100, this.character.otherDirection);
         this.throwableObjects.push(magicBall);
@@ -83,6 +223,12 @@ class World {
         AudioHub.playOne(AudioHub.THROW_FIREBALL);
     }
 
+    /**
+    * Throws a magic projectile to the left.
+    * @local
+    * @type {ThrowableObject}
+    * magicBall - Created magic projectile.
+    */
     checkThrowObjectsLeft() {
         let magicBall = new ThrowableObject(this.character.x - 0, this.character.y + 100, this.character.otherDirection);
         this.throwableObjects.push(magicBall);
@@ -90,7 +236,17 @@ class World {
         AudioHub.playOne(AudioHub.THROW_FIREBALL);
     }
 
-
+    /**
+    * Checks collisions between the character and enemies.
+    * 
+    * @local
+    * @type {number}
+    * now - Current timestamp in milliseconds.
+    * 
+    * @local
+    * @type {Enemy}
+    * enemy - Current enemy being checked.
+    */
     checkCollisions() {
         let now = Date.now();
         this.level.enemies.forEach((enemy) => {
@@ -104,6 +260,29 @@ class World {
         });
     }
 
+    /**
+    * Checks if the character jumps on an enemy.
+    * 
+    * @local
+    * @type {Enemy}
+    * enemy - Current enemy being checked.
+    * 
+    * @local
+    * @type {number}
+    * index - Current enemy index.
+    * 
+    * @local
+    * @type {number}
+    * enemyHeadY - Y position of the enemy head.
+    * 
+    * @local
+    * @type {number}
+    * characterFootY - Y position of the character feet.
+    * 
+    * @local
+    * @type {boolean}
+    * isAboveHead - Indicates if the character is above the enemy.
+    */
     checkJumpingOnEnemy() {
         this.level.enemies.forEach((enemy, index) => {
             if (enemy.dead || enemy.isDead()) return;
@@ -121,6 +300,21 @@ class World {
         });
     }
 
+    /**
+    * Checks collisions between magic projectiles and enemies.
+    * 
+    * @local
+    * @type {ThrowableObject}
+    * magic - Current magic projectile.
+    * 
+    * @local
+    * @type {Enemy}
+    * enemy - Current enemy being checked.
+    * 
+    * @local
+    * @type {number}
+    * index - Current enemy index.
+    */
     checkMagicCollisions() {
         this.throwableObjects.forEach(magic => {
             this.level.enemies.forEach((enemy, index) => {
@@ -140,6 +334,11 @@ class World {
         });
     }
 
+    /**
+    * Handles magic projectile explosion effects.
+    * 
+    * @param {ThrowableObject} magic - Exploding magic projectile.
+    */
     magicCollisionsHit(magic) {
         clearInterval(magic.throwInterval);
         magic.playAnimation(magic.IMAGES_EXPLODE_BALL);
@@ -151,6 +350,25 @@ class World {
         magic.isExploded = true;
     }
 
+    /**
+    * Checks collisions between magic projectiles and the endboss.
+    * 
+    * @local
+    * @type {number}
+    * now - Current timestamp in milliseconds.
+    * 
+    * @local
+    * @type {ThrowableObject}
+    * magic - Current magic projectile.
+    * 
+    * @local
+    * @type {Enemy}
+    * enemy - Current endboss being checked.
+    * 
+    * @local
+    * @type {number}
+    * index - Current endboss index.
+    */
     checkMagicCollisionsEndboss() {
         let now = Date.now();
         this.throwableObjects.forEach(magic => {
@@ -175,6 +393,11 @@ class World {
         });
     }
 
+    /**
+    * Handles magic hits on the endboss.
+    * 
+     * @param {ThrowableObject} magic - Exploding magic projectile.
+    */
     magicCollisionsEnbossHit(magic) {
         AudioHub.playOne(AudioHub.HIT_BOSS);
         clearInterval(magic.throwInterval);
@@ -186,6 +409,17 @@ class World {
         magic.isExploded = true;
     }
 
+    /**
+    * Checks collisions between the character and the endboss.
+    * 
+    * @local
+    * @type {number}
+    * now - Current timestamp in milliseconds.
+    * 
+    * @local
+    * @type {Enemy}
+    * enemy - Current endboss being checked.
+    */
     checkCollisionsEndboss() {
         let now = Date.now();
         this.level.endboss.forEach((enemy) => {
@@ -197,6 +431,18 @@ class World {
             }
         });
     }
+
+    /**
+    * Collects coins on collision with the character.
+    * 
+    * @local
+    * @type {Coin}
+    * coin - Current coin being checked.
+    * 
+    * @local
+    * @type {number}
+    * index - Current coin index.
+    */
     collectCoins() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
@@ -208,6 +454,17 @@ class World {
         });
     }
 
+    /**
+    * Collects magic points on collision with the character.
+    * 
+    * @local
+    * @type {MagicObject}
+    * magic - Current magic object being checked.
+    * 
+    * @local
+    * @type {number}
+    * index - Current magic object index.
+    */
     collectMagicPoints() {
         this.level.magicPoints.forEach((magic, index) => {
             if (this.character.isColliding(magic)) {
@@ -227,6 +484,9 @@ class World {
         }
     }
 
+    /**
+    * Checks if the character is near the endboss area.
+    */
     checkEnemyIsDead(enemy) {
         if (enemy.dead) return;
         enemy.dead = true;
@@ -243,6 +503,10 @@ class World {
         }, 800);
     }
 
+    /**
+    * Checks if the character is dead
+    * and starts the game over screen.
+    */
     checkCharacterIsDead() {
         if (this.character.isDead()) {
             this.characterDead = true;
@@ -250,10 +514,15 @@ class World {
                 endScreenLost();
                 this.resetAll();
             }, 2000);
-
         }
     }
 
+    /**
+    * Checks if the endboss is dead
+    * and starts the win screen.
+    * 
+    * @param {number} index - Endboss index.
+    */
     checkEndbossIsDead(index) {
         this.endbossDead = true;
         setTimeout(() => {
@@ -263,11 +532,21 @@ class World {
         }, 4000);
     }
 
+    /**
+    * Clears all active intervals.
+    * 
+    * @local
+    * @type {number}
+    * id - Current interval ID.
+    */
     clearAllIntervals() {
         this.intervalIds.forEach(id => clearInterval(id));
         this.intervalIds = [];
     }
 
+    /**
+    * Resets the complete game state.
+    */
     resetAll() {
         this.collectedCoins = 0;
         this.collectedMagicPoints = 0;
@@ -284,6 +563,13 @@ class World {
         this.clearAllIntervals();
     }
 
+    /**
+    * Draws all game objects on the canvas.
+    * 
+    * @local
+    * @type {World}
+    * self - Reference to the current world instance.
+    */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
@@ -312,6 +598,15 @@ class World {
         });
     }
 
+    /**
+    * Adds multiple objects to the map.
+    * 
+    * @param {Array} objects - Objects to render.
+    * 
+    * @local
+    * @type {MovableObject}
+    * o - Current object being rendered.
+    */
     addObjectsToMap(objects) {
         objects.forEach(o => {
             if (!o.isDeleted) {
@@ -319,6 +614,12 @@ class World {
             }
         });
     }
+
+    /**
+    * Draws a single object on the map.
+    * 
+    * @param {MovableObject} mo - Object to render.
+    */
     addToMap(mo) {
         if (mo.otherDirection) {
             this.flipImage(mo);
@@ -329,6 +630,11 @@ class World {
         }
     }
 
+    /**
+    * Flips an object horizontally.
+    * 
+    * @param {MovableObject} mo - Object to flip.
+    */
     flipImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
@@ -336,6 +642,11 @@ class World {
         mo.x = mo.x * -1;
     }
 
+    /**
+    * Restores the original object direction.
+    * 
+    * @param {MovableObject} mo - Object to restore.
+    */
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();

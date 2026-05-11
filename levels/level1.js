@@ -1,5 +1,11 @@
+/** @type {Level} */
 let level1;
 
+/**
+ * Initializes level 1.
+ * 
+ * @returns {void}
+ */
 function initLevel() {
     level1 = new Level(
 
@@ -66,6 +72,11 @@ function initLevel() {
         ]
     );
 
+/**
+ * Creates and returns coin objects.
+ * 
+ * @returns {CollectableCoins[]}
+ */
     function placeCoins() {
         let coins = [];
         for (let i = 0; i < 10; i++) {
@@ -76,7 +87,11 @@ function initLevel() {
         return coins;
     };
 
-
+/**
+ * Creates and returns magic staff objects.
+ * 
+ * @returns {CollectableMagic[]}
+ */
     function placeMagicStaff() {
         let magicPoints = [];
         for (let i = 0; i < 10; i++) {

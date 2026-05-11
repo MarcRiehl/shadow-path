@@ -1,7 +1,13 @@
+/**
+ * Status bar displaying the character health.
+ * @extends DrawableObject
+ */
 class Statusbar extends DrawableObject {
 
+    /** @type {number} Current health percentage */
     percentage = 100;
 
+    /** @type {string[]} Health bar image paths */
     IMAGES_HEALTH_BAR = [
         './img/7_statusbars/1_statusbar/01_hitbar/hitbar-00.png',
         './img/7_statusbars/1_statusbar/01_hitbar/hitbar-01.png',
@@ -16,6 +22,9 @@ class Statusbar extends DrawableObject {
         './img/7_statusbars/1_statusbar/01_hitbar/hitbar-10.png'
     ];
 
+    /**
+     * Creates the health status bar.
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES_HEALTH_BAR);
@@ -26,13 +35,22 @@ class Statusbar extends DrawableObject {
         this.height = 30;
     }
 
+    /**
+     * Updates the displayed health percentage.
+     * @param {number} percentage Current health percentage
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_HEALTH_BAR[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+     * Returns the correct health bar image index.
+     * @returns {number}
+     */
     resolveImageIndex() {
+
         if (this.percentage == 100) {
             return 10;
         } else if (this.percentage > 90) {
@@ -53,10 +71,8 @@ class Statusbar extends DrawableObject {
             return 2;
         } else if (this.percentage > 10) {
             return 1;
-        }
-        else {
+        } else {
             return 0;
         }
-
     }
 }

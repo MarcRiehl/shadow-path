@@ -1,3 +1,8 @@
+/**
+ * Returns the start screen HTML.
+ * 
+ * @returns {string}
+ */
 function getHTMLForStartScreen() {
     return `
     <div id="start-button">
@@ -6,6 +11,11 @@ function getHTMLForStartScreen() {
     
     `}
 
+/**
+* Returns the sound button HTML.
+* 
+* @returns {string}
+*/
 function getHTMLForSoundButton() {
     return `
     <div id="sound-button">
@@ -20,6 +30,11 @@ function getHTMLForSoundButton() {
     </div>
     `}
 
+/**
+* Returns the menu HTML.
+* 
+* @returns {string}
+*/
 function getHTMLForMenu() {
     return `
     <div id="impressum-menu">
@@ -32,6 +47,11 @@ function getHTMLForMenu() {
     </div>
     `}
 
+/**
+ * Returns the win screen HTML.
+ * 
+ * @returns {string}
+ */
 function getHTMLForScreenWin() {
     return `
     <div class="win-lost-menu">
@@ -46,6 +66,11 @@ function getHTMLForScreenWin() {
     </div>
     `}
 
+/**
+ * Returns the lost screen HTML.
+ * 
+ * @returns {string}
+ */
 function getHTMLForScreenLost() {
     return `
     <div class="win-lost-menu">
@@ -60,7 +85,12 @@ function getHTMLForScreenLost() {
     </div>
     `}
 
-    function getHTMLForImpressum() {
+/**
+ * Returns the impressum screen HTML.
+ * 
+ * @returns {string}
+ */
+function getHTMLForImpressum() {
     return `
     <div class="modal-content">
         <span class="close-btn" onclick="closeModalImpressum()">&times;</span>
@@ -160,7 +190,12 @@ function getHTMLForScreenLost() {
     </div>
     `}
 
-    function getHTMLForInstructions() {
+/**
+ * Returns the instuctions screen HTML.
+ * 
+ * @returns {string}
+ */
+function getHTMLForInstructions() {
     return `
     <div class="modal-content">
         <span class="close-btn" onclick="closeModalInstructions()">&times;</span>

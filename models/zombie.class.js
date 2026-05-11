@@ -1,14 +1,30 @@
+/**
+ * Enemy zombie with walking animation.
+ * @extends MovableObject
+ */
 class Zombie extends MovableObject {
+
+    /** @type {number} Vertical position */
     y = 265;
+
+    /** @type {number} Zombie height */
     height = 180;
+
+    /** @type {number} Zombie width */
     width = 127;
+
+    /** @type {number} Health points */
     energy = 5;
+
+    /** @type {{top:number,bottom:number,left:number,right:number}} Collision offsets */
     offset = {
         top: 45,
         bottom: 30,
         left: 40,
         right: 40
-    }
+    };
+
+    /** @type {string[]} Walking animation image paths */
     IMAGES_WALKING = [
         './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_000.png',
         './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_002.png',
@@ -23,6 +39,8 @@ class Zombie extends MovableObject {
         './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_020.png',
         './img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_022.png'
     ];
+
+    /** @type {string[]} Death animation image paths */
     IMAGES_DEAD = [
         './img/3_enemies/zombie_villager_1/dying/0_Zombie_Villager_Dying_000.png',
         './img/3_enemies/zombie_villager_1/dying/0_Zombie_Villager_Dying_001.png',
@@ -41,8 +59,10 @@ class Zombie extends MovableObject {
         './img/3_enemies/zombie_villager_1/dying/0_Zombie_Villager_Dying_014.png'
     ];
 
-
-
+    /**
+     * Creates a zombie enemy with random position and speed.
+     * @param {number} x Horizontal start position
+     */
     constructor(x) {
         super().loadImage('./img/3_enemies/zombie_villager_1/walking/0_Zombie_Villager_Walking_000.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -53,10 +73,16 @@ class Zombie extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Starts movement and walking animation.
+     */
     animate() {
+        // Move zombie left
         setInterval(() => {
-           this.moveLeft();
+            this.moveLeft();
         }, 1000 / 60);
+
+        // Play walking animation
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
         }, 300);

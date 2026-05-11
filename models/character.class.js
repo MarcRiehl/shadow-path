@@ -1,13 +1,25 @@
+/**
+ * Main playable character class.
+ * Handles movement, animations, gravity, combat, and idle states.
+ * @extends MovableObject
+ */
 class Character extends MovableObject {
+    /** @type {number} Character height */
     height = 200;
+    /** @type {number} Character width */
     width = 150;
+    /** @type {number} Vertical position */
     y = 250;
+    /** @type {number} Movement speed */
     speed = 10;
+    /** @type {World} Reference to the game world */
     world;
+    /** @type {number} Time without player input */
     idleTimer = 0;
+    /** @type {number[]} Stores active interval IDs */
     intervalIds = [];
 
-
+    /** @type {{top:number,bottom:number,left:number,right:number}} Collision offsets */
     offset = {
         top: 40,
         bottom: 35,
@@ -15,6 +27,7 @@ class Character extends MovableObject {
         right: 60
     }
 
+    /** @type {string[]} character walking image paths */
     IMAGES_WALKING = [
         './img/2_character_angel/walking/0_fallen_angels_walking_000.png',
         './img/2_character_angel/walking/0_fallen_angels_walking_001.png',
@@ -44,6 +57,7 @@ class Character extends MovableObject {
 
     ];
 
+    /** @type {string[]} character jumping image paths */
     IMAGES_JUMPING = [
         './img/2_character_angel/jump_loop/0_fallen_angels_jump_loop_000.png',
         './img/2_character_angel/jump_loop/0_fallen_angels_jump_loop_001.png',
@@ -53,6 +67,7 @@ class Character extends MovableObject {
         './img/2_character_angel/jump_loop/0_fallen_angels_jump_loop_005.png'
     ];
 
+    /** @type {string[]} character dying image paths */
     IMAGES_DEAD = [
         './img/2_character_angel/dying/0_fallen_angels_dying_000.png',
         './img/2_character_angel/dying/0_fallen_angels_dying_001.png',
@@ -72,6 +87,8 @@ class Character extends MovableObject {
 
 
     ];
+
+    /** @type {string[]} character hurt image paths */
     IMAGES_HURT = [
         './img/2_character_angel/hurt/0_fallen_angels_hurt_000.png',
         './img/2_character_angel/hurt/0_fallen_angels_hurt_001.png',
@@ -86,6 +103,8 @@ class Character extends MovableObject {
         './img/2_character_angel/hurt/0_fallen_angels_hurt_010.png',
         './img/2_character_angel/hurt/0_fallen_angels_hurt_011.png'
     ];
+
+    /** @type {string[]} character idle image paths */
     IMAGES_SHORT_IDLE = [
         './img/2_character_angel/idle/0_fallen_angels_idle_001.png',
         './img/2_character_angel/idle/0_fallen_angels_idle_002.png',
@@ -105,6 +124,8 @@ class Character extends MovableObject {
         './img/2_character_angel/idle/0_fallen_angels_idle_016.png',
         './img/2_character_angel/idle/0_fallen_angels_idle_017.png'
     ];
+
+    /** @type {string[]} character long idle image paths */
     IMAGES_LONG_IDLE = [
         './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_000.png',
         './img/2_character_angel/idle_blinking/0_fallen_angels_idle_blinking_001.png',
@@ -127,6 +148,7 @@ class Character extends MovableObject {
 
     ];
 
+    /** @type {string[]} character throw image paths */
     IMAGES_THROW_MAGIC = [
         './img/2_character_angel/slashing/0_fallen_angels_slashing_000.png',
         './img/2_character_angel/slashing/0_fallen_angels_slashing_001.png',
@@ -142,6 +164,10 @@ class Character extends MovableObject {
         './img/2_character_angel/slashing/0_fallen_angels_slashing_011.png'
     ];
 
+    /**
+     * Creates the character and loads all animations.
+     * Also starts gravity and animation loops.
+     */
     constructor() {
         super().loadImage('./img/2_character_angel/walking/0_fallen_angels_walking_000.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -155,11 +181,21 @@ class Character extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Sets up the main animation loop for the character, handling movement, state changes, and idle animations.
+     * Uses multiple intervals to manage different aspects of the character's behavior, such as movement, animation frames, and idle state transitions.
+     */
     animate() {
+        /**
+        * Controls character movement and jumping.
+        * 
+        * @local
+        * @type {number}
+        * i - Animation index counter.
+        */
         let i = 0;
         this.intervalIds.forEach(id => clearInterval(id));
         this.intervalIds = [];
-
         this.intervalIds.push(setInterval(() => {
             if ((this.world.keyboard.RIGHT || this.world.mobilControl.RIGHT) && this.x < this.world.level.level_end_x && !this.isDead()) {
                 this.characterMoveRight();
@@ -172,10 +208,16 @@ class Character extends MovableObject {
                 this.idleTimer = 0;
                 AudioHub.playOne(AudioHub.CHARACTER_JUMPING);
             }
-
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60));
 
+        /**
+        * Controls character animations based on the current state.
+        * 
+        * @local
+        * @type {number}
+        * i - Current index of the death animation.
+        */
         this.intervalIds.push(setInterval(() => {
             if (this.isDead()) {
                 if (i < this.IMAGES_DEAD.length - 1) {
@@ -189,7 +231,6 @@ class Character extends MovableObject {
                         this.world.checkCharacterIsDead();
                     }, 1500);
                 }
-
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.isHurt()) {
@@ -202,12 +243,24 @@ class Character extends MovableObject {
             }
         }, 40));
 
+        /**
+         * Continuously checks if the character is dead.
+         * Stops movement and actions when dead.
+         */
         this.intervalIds.push(setInterval(() => {
             if (this.isDead()) {
                 this.characterIsDead();
             }
         }, 1000 / 60));
 
+        /**
+        * Plays idle animations and sounds
+        * when the character is inactive.
+        * 
+        * @local
+        * @type {number}
+        * idleTimer - Time without player movement.
+        */
         this.intervalIds.push(setInterval(() => {
             if (!this.isAboveGround() && !this.isDead() && !this.world.characterDead) {
                 this.idleTimer += 100;
@@ -227,6 +280,10 @@ class Character extends MovableObject {
         }, 100));
     }
 
+    /**
+     * Moves the character to the right.
+     * Resets idle timer and plays walking sound.
+     */
     characterMoveRight() {
         this.moveRight();
         this.otherDirection = false;
@@ -236,6 +293,10 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Moves the character to the left.
+     * Resets idle timer and plays walking sound.
+     */
     characterMoveLeft() {
         this.moveLeft();
         this.otherDirection = true;
@@ -243,6 +304,9 @@ class Character extends MovableObject {
         AudioHub.playOne(AudioHub.CHARACTER_WALKING);
     }
 
+    /**
+     * Stops character movement and sounds after death.
+     */
     characterIsDead() {
         this.speed = 0;
         this.speedY = 0;
@@ -252,13 +316,18 @@ class Character extends MovableObject {
         AudioHub.stopIdle(AudioHub.CHARACTER_IDLE);
     }
 
+    /**
+     * Makes the character jump.
+     */
     jump() {
         this.speedY = 30;
     }
 
+    /**
+     * Performs a smaller jump animation.
+     */
     littleJump() {
         this.speedY = 20;
         this.y = 250;
-
     }
 }

@@ -1,3 +1,6 @@
+/**
+ * Manages all game audio.
+ */
 class AudioHub {
     static CHARACTER_WALKING = new Audio('./assets/audio/character/walk/stone-chain-walk-4.ogg');
     static CHARACTER_IDLE = new Audio('./assets/audio/character/idle/idle-blinking.mp3');
@@ -34,43 +37,77 @@ class AudioHub {
         AudioHub.HIT_BOSS
     ];
 
-
+    /**
+     * Plays a sound.
+     * 
+     * @param {HTMLAudioElement} sound
+     * @returns {void}
+     */
     static playOne(sound) {
         if (sound.readyState == 4) {
-            if(playSound == true){
-            sound.volume = 0.6;
-            sound.play();
+            if (playSound == true) {
+                sound.volume = 0.6;
+                sound.play();
             }
         }
     }
 
+    /**
+     * Plays idle sound.
+     * 
+     * @param {HTMLAudioElement} sound
+     * @returns {void}
+     */
     static playIdle(sound) {
         if (sound.readyState == 4) {
-            if(playSound == true){
-            sound.volume = 0.1;
-            sound.playbackRate = 0.58;
-            sound.play();
+            if (playSound == true) {
+                sound.volume = 0.1;
+                sound.playbackRate = 0.58;
+                sound.play();
             }
         }
     }
 
+    /**
+     * Stops idle sound.
+     * 
+     * @param {HTMLAudioElement} sound
+     * @returns {void}
+     */
     static stopIdle(sound) {
-        if(playSound == true){
-        sound.pause();
-        sound.volume = 0;
-        sound.currentTime = 0;
+        if (playSound == true) {
+            sound.pause();
+            sound.volume = 0;
+            sound.currentTime = 0;
         }
     }
 
+    /**
+     * Pauses a sound.
+     * 
+     * @param {HTMLAudioElement} sound
+     * @returns {void}
+     */
     static pauseOne(sound) {
         sound.pause();
     }
 
+    /**
+     * Stops a sound.
+     * 
+     * @param {HTMLAudioElement} sound
+     * @returns {void}
+     */
     static stopOne(sound) {
         sound.pause();
         sound.currentTime = 0;
     }
 
+    /**
+     * Mutes all sounds.
+     * 
+     * @returns {void}
+     */
     static stopAll() {
         playSound = false;
         AudioHub.allSounds.forEach(sound => {
@@ -78,20 +115,37 @@ class AudioHub {
         });
     }
 
+    /**
+     * Stops all sounds.
+     * 
+     * @returns {void}
+     */
     static stopAllStart() {
-        if(playSound == true){
-        AudioHub.allSounds.forEach(sound => {
-        sound.pause();
-        sound.currentTime = 0;
-        });
+        if (playSound == true) {
+            AudioHub.allSounds.forEach(sound => {
+                sound.pause();
+                sound.currentTime = 0;
+            });
         }
     }
-    static playOneStart(sound){
-        if(playSound == true){
+
+    /**
+     * Plays start sound.
+     * 
+     * @param {HTMLAudioElement} sound
+     * @returns {void}
+     */
+    static playOneStart(sound) {
+        if (playSound == true) {
 
         }
     }
 
+    /**
+     * Enables all sounds.
+     * 
+     * @returns {void}
+     */
     static playAll() {
         playSound = true;
         AudioHub.allSounds.forEach(sound => {
