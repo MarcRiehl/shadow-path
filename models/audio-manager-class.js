@@ -12,6 +12,8 @@ class AudioHub {
     static EXPLOSION = new Audio('./assets/audio/enemies/explosion-small.wav');
     static OUTRO = new Audio('./assets/audio/startscreen/outro.mp3');
     static BOSS_FIGHT = new Audio('./assets/audio/boss/boss-fight.mp3');
+    static HIT_CHARACTER = new Audio('./assets/audio/character/hit/punch_3.wav');
+    static HIT_BOSS = new Audio('./assets/audio/boss/slap.wav');
 
 
     static allSounds = [
@@ -27,7 +29,9 @@ class AudioHub {
         AudioHub.THROW_FIREBALL,
         AudioHub.EXPLOSION,
         AudioHub.OUTRO,
-        AudioHub.BOSS_FIGHT
+        AudioHub.BOSS_FIGHT,
+        AudioHub.HIT_CHARACTER,
+        AudioHub.HIT_BOSS
     ];
 
 

@@ -1,7 +1,7 @@
 class Character extends MovableObject {
     height = 200;
     width = 150;
-    y = 240; //war 155
+    y = 250; //war 155
     speed = 10;
     world;
     idleTimer = 0;
@@ -254,7 +254,7 @@ class Character extends MovableObject {
 
     littleJump() {
         this.speedY = 20;
-        this.y = 240;
+        this.y = 250;
 
     }
 }

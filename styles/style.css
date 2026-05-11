@@ -14,8 +14,6 @@
     font-display: swap;
 }
 
-
-
 * {
     margin: 0;
     padding: 0;
@@ -33,6 +31,15 @@ body {
     flex-direction: column;
     align-items: center;
     background: url("../assets/img_site/background.jpg") center center/cover no-repeat;
+    color:#1b1b1b;
+}
+
+a {
+  color:#1b1b1b;
+}
+
+a:hover {
+  color:#555555;
 }
 
 #canvas {

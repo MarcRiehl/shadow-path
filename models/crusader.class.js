@@ -1,5 +1,5 @@
 class Crusader extends MovableObject {
-    y = 290;
+    y = 300;
     height = 140;
     width = 105;
     energy = 5;

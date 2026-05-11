@@ -91,6 +91,7 @@ class World {
                 this.lastEnemyHit = now;
                 this.character.hit(5);
                 this.character.isHurt();
+                 AudioHub.playOne(AudioHub.HIT_CHARACTER);
                 this.statusBar.setPercentage(this.character.energy); // Statusbar Health
             }
         });
@@ -149,6 +150,7 @@ class World {
                 if (enemy.isColliding(magic)) {
                     this.lastEndbossHit = now;
                     enemy.hit(5);
+                    AudioHub.playOne(AudioHub.HIT_BOSS);
                     clearInterval(magic.throwInterval);
                     magic.playAnimation(magic.IMAGES_EXPLODE_BALL);
                     magic.width = 100;

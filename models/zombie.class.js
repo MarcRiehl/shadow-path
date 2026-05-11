@@ -1,5 +1,5 @@
 class Zombie extends MovableObject {
-    y = 255;
+    y = 265;
     height = 180;
     width = 127;
     energy = 5;
