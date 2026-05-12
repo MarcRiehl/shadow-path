@@ -20,8 +20,8 @@ class Crusader extends MovableObject {
     offset = {
         top: 40,
         bottom: 30,
-        left: 30,
-        right: 30
+        left: 25,
+        right: 25
     };
 
     /** @type {string[]} Walking animation image paths */
@@ -80,7 +80,7 @@ class Crusader extends MovableObject {
     animate() {
         // Move enemy left
         setInterval(() => {
-            this.moveLeft();
+            // this.moveLeft();
         }, 1000 / 60);
 
         // Play walking animation

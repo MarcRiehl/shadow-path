@@ -41,14 +41,27 @@ class MovableObject extends DrawableObject {
     };
 
     /**
-     * Applies gravity to the object.
-     */
+    * Applies gravity and handles landing detection.
+    * 
+    * @local
+    * @type {boolean}
+    * currentlyAboveGround - Current ground state.
+    */
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
+            let currentlyAboveGround = this.isAboveGround();
+            if (currentlyAboveGround || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
+                if (this.y > 250) {
+                    this.y = 250;
+                    this.speedY = 0;
+                }
             }
+            if (this.wasAboveGround && !this.isAboveGround()) {
+                this.charcterIsLanding();
+            }
+            this.wasAboveGround = this.isAboveGround();
         }, 1000 / 25);
     }
 
@@ -60,7 +73,7 @@ class MovableObject extends DrawableObject {
         if (this instanceof ThrowableObject) {
             return !this.isExploded;
         } else {
-            return this.y < 250;
+            return this.y < 249;
         }
     }
 

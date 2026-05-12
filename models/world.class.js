@@ -137,6 +137,13 @@ class World {
     intervalIds = [];
 
     /**
+    * Stores the previous ground state.
+    * 
+    * @type {boolean}
+    */
+    wasAboveGround = false;
+
+    /**
      * Creates a new game world.
      * @param {HTMLCanvasElement} canvas - Game canvas.
      * @param {Object} keyboard - Keyboard input handler.
@@ -476,6 +483,9 @@ class World {
         });
     }
 
+    /**
+    * Checks if the character is near the endboss.
+    */
     checkEndbossIsNear() {
         if (this.character.x > 4000) {
             this.endbossBarVisible = true;
@@ -485,7 +495,18 @@ class World {
     }
 
     /**
-    * Checks if the character is near the endboss area.
+    * Plays enemy death animation
+    * and removes the enemy.
+    * 
+    * @param {Enemy} enemy - Defeated enemy.
+    * 
+    * @local
+    * @type {number}
+    * deadAnimation - Interval for death animation.
+    * 
+    * @local
+    * @type {number}
+    * i - Enemy index in the array.
     */
     checkEnemyIsDead(enemy) {
         if (enemy.dead) return;
@@ -529,7 +550,7 @@ class World {
             this.level.endboss.splice(index, 1);
             endScreenWin();
             this.resetAll();
-        }, 4000);
+        }, 1000);
     }
 
     /**
@@ -625,6 +646,7 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
+        mo.showFrameHelper(this.ctx); //Frame Help
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }

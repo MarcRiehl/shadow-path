@@ -21,11 +21,11 @@ function getHTMLForSoundButton() {
     <div id="sound-button">
         <div id="sound-on">
             <img class="sound-button" src="./assets/buttons/button-sound-on.png" alt="button-sound-on"
-                onclick="toogleSound()">
+                onclick="toggleSound()">
         </div>
         <div id="sound-mute" class="d-none">
             <img class="sound-button" src="./assets/buttons/button-sound-mute.png" alt="button-sound-mute"
-                onclick="toogleSound()">
+                onclick="toggleSound()">
         </div>
     </div>
     `}

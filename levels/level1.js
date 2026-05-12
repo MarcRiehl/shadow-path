@@ -32,7 +32,9 @@ function initLevel() {
             new Cloud(0),
             new Cloud(300),
             new Cloud(400),
-            new Cloud(800)
+            new Cloud(800),
+            new Cloud(1400),
+            new Cloud(1600)
         ],
         [
             new BackgroundObject('./img/5_background_shadow_path/layers/s-0-c.png', -720),

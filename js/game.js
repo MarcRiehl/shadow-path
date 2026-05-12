@@ -13,8 +13,12 @@ let keyboard = new Keyboard();
 /** @type {MobilControl} */
 let mobilControl = new MobilControl();
 
-/** @type {boolean} */
-let playSound = true;
+/**
+ * Saved sound setting from local storage.
+ * 
+ * @type {string}
+ */
+let playSound = localStorage.getItem("playSound") || "true";
 
 /** @type {boolean} */
 let gameWin = false;
@@ -47,6 +51,7 @@ function loadGame() {
   document.getElementById("bottom-menu").classList.remove("d-none");
   document.getElementById("mobil-control").classList.remove("d-none");
   AudioHub.stopOne(AudioHub.OUTRO);
+  this.loadSoundState();
 }
 
 /**
@@ -78,26 +83,61 @@ function startGame() {
 function showMobileControls() {
   if (window.innerWidth <= 1366) {
     document.getElementById('mobil-control').style.display = 'block';
+    document.getElementById("mobil-control").classList.remove("d-none");
   }
 }
 
 /**
- * Toggles game sound.
+ * Toggles game sound on and off.
  * 
- * @returns {void}
+ * @local
+ * @type {HTMLElement}
+ * buttonSoundOn - Sound enabled button.
+ * 
+ * @local
+ * @type {HTMLElement}
+ * buttonSoundMute - Sound muted button.
  */
-function toogleSound() {
-  let buttonSoundOn = document.getElementById(`sound-on`);
-  let buttonSoundMute = document.getElementById(`sound-mute`);
-  if (playSound) {
-    buttonSoundOn.classList.add("d-none");
-    buttonSoundMute.classList.remove("d-none");
-    AudioHub.stopAll();
-  } else {
-    AudioHub.playAll();
-    buttonSoundOn.classList.remove("d-none");
-    buttonSoundMute.classList.add("d-none");
-  }
+function toggleSound() {
+    let buttonSoundOn = document.getElementById("sound-on");
+    let buttonSoundMute = document.getElementById("sound-mute");
+    if (playSound === "true") {
+        playSound = "false";
+        localStorage.setItem("playSound", playSound);
+        buttonSoundOn.classList.add("d-none");
+        buttonSoundMute.classList.remove("d-none");
+        AudioHub.stopAll();
+    } else {
+        playSound = "true";
+        localStorage.setItem("playSound", playSound);
+        buttonSoundOn.classList.remove("d-none");
+        buttonSoundMute.classList.add("d-none");
+        AudioHub.playAll();
+    }
+}
+
+/**
+ * Loads the saved sound state
+ * and updates the sound buttons.
+ * 
+ * @local
+ * @type {HTMLElement}
+ * buttonSoundOn - Sound enabled button.
+ * 
+ * @local
+ * @type {HTMLElement}
+ * buttonSoundMute - Sound muted button.
+ */
+function loadSoundState() {
+    let buttonSoundOn = document.getElementById("sound-on");
+    let buttonSoundMute = document.getElementById("sound-mute");
+    if (playSound === "false") {
+        buttonSoundOn.classList.add("d-none");
+        buttonSoundMute.classList.remove("d-none");
+    } else {
+        buttonSoundOn.classList.remove("d-none");
+        buttonSoundMute.classList.add("d-none");
+    }
 }
 
 /**
@@ -110,6 +150,7 @@ function endScreenLost() {
   endScreen.classList.remove("d-none");
   endScreen.innerHTML = getHTMLForScreenLost();
   AudioHub.playOne(AudioHub.GAME_OVER);
+  document.getElementById("mobil-control").classList.add("d-none");
 }
 
 /**
@@ -122,6 +163,7 @@ function endScreenWin() {
   winScreen.innerHTML = getHTMLForScreenWin();
   winScreen.classList.remove("d-none");
   AudioHub.playOne(AudioHub.OUTRO);
+  document.getElementById("mobil-control").classList.add("d-none");
 }
 
 /**
@@ -154,7 +196,6 @@ function openModalInstructions() {
   let instructions = document.getElementById("instructions");
   instructions.innerHTML = getHTMLForInstructions();
   instructions.classList.remove('d-none');
-
 }
 
 /**

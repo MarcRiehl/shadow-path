@@ -18,7 +18,7 @@ class Character extends MovableObject {
     idleTimer = 0;
     /** @type {number[]} Stores active interval IDs */
     intervalIds = [];
-
+x= 3800;
     /** @type {{top:number,bottom:number,left:number,right:number}} Collision offsets */
     offset = {
         top: 40,
@@ -267,13 +267,13 @@ class Character extends MovableObject {
                 if (this.idleTimer >= 10000) {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
                     setTimeout(() => {
-                        if (!this.isDead() && !this.world.characterDead && !this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.SPACE && !this.world.mobilControl.RIGHT && !this.world.mobilControl.LEFT && !this.world.mobilControl.SPACE && !this.isAboveGround()) {
+                        if (this.checkEntry(this.world, this)) {
                             if (!this.world.characterDead && !this.world.endbossDead) {
                                 AudioHub.playIdle(AudioHub.CHARACTER_IDLE);
                             }
                         }
                     }, 1000);
-                } else if (this.idleTimer >= 1000) {
+                } else if (this.idleTimer >= 2000) {
                     this.playAnimation(this.IMAGES_SHORT_IDLE);
                 }
             }
@@ -328,6 +328,34 @@ class Character extends MovableObject {
      */
     littleJump() {
         this.speedY = 20;
-        this.y = 250;
     }
+
+    /**
+    * Checks if the character can enter idle state.
+    * 
+    * @param {World} world - Current game world.
+    * @param {Character} character - Current player character.
+    * 
+    * @returns {boolean} True if idle state is allowed.
+    */
+    checkEntry(world, character) {
+        return !character.isDead() &&
+            !world.characterDead &&
+            !world.keyboard.RIGHT &&
+            !world.keyboard.LEFT &&
+            !world.keyboard.SPACE &&
+            !world.mobilControl.RIGHT &&
+            !world.mobilControl.LEFT &&
+            !world.mobilControl.SPACE &&
+            !character.isAboveGround();
+    }
+
+    /**
+    * Plays landing animation and sound.
+    */
+    charcterIsLanding() {
+        this.playAnimation(this.IMAGES_WALKING);
+        AudioHub.playOne(AudioHub.CHARACTER_LAND);
+    }
+
 }

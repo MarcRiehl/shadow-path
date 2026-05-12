@@ -20,8 +20,8 @@ class Zombie extends MovableObject {
     offset = {
         top: 45,
         bottom: 30,
-        left: 40,
-        right: 40
+        left: 35,
+        right: 35
     };
 
     /** @type {string[]} Walking animation image paths */
@@ -79,7 +79,7 @@ class Zombie extends MovableObject {
     animate() {
         // Move zombie left
         setInterval(() => {
-            this.moveLeft();
+            // this.moveLeft();
         }, 1000 / 60);
 
         // Play walking animation

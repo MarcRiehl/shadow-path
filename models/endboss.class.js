@@ -83,6 +83,20 @@ class Endboss extends MovableObject {
         './img/4_enemie_boss_troll/dying/troll_02_1_die_009.png'
     ];
 
+        /** @type {string[]} Attack animation image paths */
+    IMAGES_ATTACK = [
+        './img/4_enemie_boss_troll/attack/troll_02_1_attack_000.png',
+        './img/4_enemie_boss_troll/attack/troll_02_1_attack_001.png',
+        './img/4_enemie_boss_troll/attack/troll_02_1_attack_002.png',
+        './img/4_enemie_boss_troll/attack/troll_02_1_attack_003.png',
+        './img/4_enemie_boss_troll/attack/troll_02_1_attack_004.png',
+        './img/4_enemie_boss_troll/attack/troll_02_1_attack_005.png',
+        './img/4_enemie_boss_troll/attack/troll_02_1_attack_006.png',
+        './img/4_enemie_boss_troll/attack/troll_02_1_attack_007.png',
+        './img/4_enemie_boss_troll/attack/troll_02_1_attack_008.png',
+        './img/4_enemie_boss_troll/attack/troll_02_1_attack_009.png'
+    ];
+
     /**
      * Creates the endboss and loads all animations.
      */
@@ -93,10 +107,9 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_DEAD);
-
+        this.loadImages(this.IMAGES_ATTACK);
         this.x = 4800;
         this.otherDirection = true;
-
         this.animate();
     }
 
