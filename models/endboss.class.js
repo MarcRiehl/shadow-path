@@ -102,7 +102,6 @@ class Endboss extends MovableObject {
      */
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
-
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_IDLE);
@@ -114,45 +113,57 @@ class Endboss extends MovableObject {
     }
 
     /**
-     * Starts boss behavior and animation loops.
-     */
-    animate() {
+    * Starts boss behavior and animation loops.
+    */
+    /**
+    * Starts the endboss animation and AI behavior loop.
+    * 
+    * The method controls:
+    * - First contact jump animation
+    * - Attack animations
+    * - Idle animation when the character is dead
+    * - Boss fight music activation
+    * - Interval management for animations
+    * 
+    * Variables:
+    * @param {number} i Counter for first-contact jump animation timing.
+    * @param {number} j Reserved counter variable for future animations or logic.
+    */
+animate() {
 
-        let i = 0;
-        let j = 0;
+    /** @type {number} Counter for first-contact animation phases */
+    let i = 0;
 
-        // Clear existing intervals
-        this.intervalIds.forEach(id => clearInterval(id));
-        this.intervalIds = [];
+    /** @type {number} Additional animation counter (currently unused) */
+    let j = 0;
 
-        /**
-         * Main boss AI loop.
-         */
-        this.intervalIds.push(setInterval(() => {
-            if (this.isDead()) {
-                return;
-            }
-            if (i < 10 && this.firstContact && world.character.x > 4600) {
-                this.jumpFirstContact(i);
-            } else if (this.firstContact) {
-                this.animationFirstContact();
-            }
-            if (this.x < 4400) {
-                this.animationAttack();
-            }
-            i++;
-            if (world.character.x > 4200 && world.character.isDead()) {
-                this.animationCharacterDeadIdle();
-            }
+    this.intervalIds.forEach(id => clearInterval(id));
+    this.intervalIds = [];
+    this.intervalIds.push(setInterval(() => {
+        if (this.isDead()) {
+            return;
+        }
+        if (i < 10 && this.firstContact && world.character.x > 4600) {
+            this.jumpFirstContact(i);
+        } else if (this.firstContact) {
+            this.animationFirstContact();
+        }
+        if (this.x < 4400) {
+            this.animationAttack();
+        }
+        i++;
+        if (world.character.x > 4200 && world.character.isDead()) {
+            this.animationCharacterDeadIdle();
+        }
+        if (world.character.x > 4600 && !this.firstContact) {
+            i = 0;
+            this.firstContact = true;
+        }
+        if (world.character.x > 4000) {
+            AudioHub.playOne(AudioHub.BOSS_FIGHT);
+        }
+    }, 200));
 
-            if (world.character.x > 4600 && !this.firstContact) {
-                i = 0;
-                this.firstContact = true;
-            }
-            if (world.character.x > 4000) {
-                AudioHub.playOne(AudioHub.BOSS_FIGHT);
-            }
-        }, 200));
 
         /**
          * Death animation loop.
@@ -196,7 +207,7 @@ class Endboss extends MovableObject {
      * Plays aggressive attack movement animation.
      */
     animationAttack() {
-        this.playAnimation(this.IMAGES_WALKING);
+        this.playAnimation(this.IMAGES_ATTACK);
         this.x = world.character.x - Math.random() * 150;
         this.speed = 0.1 + Math.random() * 0.1;
     }

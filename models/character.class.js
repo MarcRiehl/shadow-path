@@ -23,8 +23,8 @@ x= 3800;
     offset = {
         top: 40,
         bottom: 35,
-        left: 60,
-        right: 60
+        left: 55,
+        right: 55
     }
 
     /** @type {string[]} character walking image paths */
@@ -182,17 +182,15 @@ x= 3800;
     }
 
     /**
-     * Sets up the main animation loop for the character, handling movement, state changes, and idle animations.
-     * Uses multiple intervals to manage different aspects of the character's behavior, such as movement, animation frames, and idle state transitions.
-     */
+    * Sets up the main animation loop for the character, handling movement, state changes, and idle animations.
+    * Uses multiple intervals to manage different aspects of the character's behavior, such as movement, animation frames, and idle state transitions.
+    * Variables:
+    * Variables:
+    * @local
+    * @type {number}
+    * i - Animation index counter.
+    */
     animate() {
-        /**
-        * Controls character movement and jumping.
-        * 
-        * @local
-        * @type {number}
-        * i - Animation index counter.
-        */
         let i = 0;
         this.intervalIds.forEach(id => clearInterval(id));
         this.intervalIds = [];

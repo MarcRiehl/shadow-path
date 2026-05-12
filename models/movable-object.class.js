@@ -59,7 +59,7 @@ class MovableObject extends DrawableObject {
                 }
             }
             if (this.wasAboveGround && !this.isAboveGround()) {
-                this.charcterIsLanding();
+                world.character.charcterIsLanding();
             }
             this.wasAboveGround = this.isAboveGround();
         }, 1000 / 25);
