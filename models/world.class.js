@@ -403,7 +403,7 @@ class World {
     /**
     * Handles magic hits on the endboss.
     * 
-     * @param {ThrowableObject} magic - Exploding magic projectile.
+    * @param {ThrowableObject} magic - Exploding magic projectile.
     */
     magicCollisionsEnbossHit(magic) {
         AudioHub.playOne(AudioHub.HIT_BOSS);
@@ -435,6 +435,7 @@ class World {
                 this.character.hit(5);
                 this.character.isHurt();
                 this.statusBar.setPercentage(this.character.energy);
+                AudioHub.playOne(AudioHub.HIT_CHARACTER);
             }
         });
     }
@@ -487,10 +488,8 @@ class World {
     * Checks if the character is near the endboss.
     */
     checkEndbossIsNear() {
-        if (this.character.x > 4000) {
+        if (this.character.x > 3600) {
             this.endbossBarVisible = true;
-        } else {
-            this.endbossBarVisible = false;
         }
     }
 
@@ -596,7 +595,6 @@ class World {
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
-
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
         this.addToMap(this.magicBar);
@@ -646,7 +644,6 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-        mo.showFrameHelper(this.ctx); //Frame Help
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }

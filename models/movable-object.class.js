@@ -31,6 +31,9 @@ class MovableObject extends DrawableObject {
 
     /** @type {number[]} Active interval IDs */
     intervalIds;
+    
+    /** @type {number[]} Current index of the death animation frame.*/
+    deadImageIndex = 0;
 
     /** @type {{top:number,bottom:number,left:number,right:number}} Collision offsets */
     offset = {
@@ -53,9 +56,9 @@ class MovableObject extends DrawableObject {
             if (currentlyAboveGround || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-                if (this.y > 250) {
-                    this.y = 250;
-                    this.speedY = 0;
+                if (world.character.y > 250) {
+                    world.character.y = 250;
+                    world.character.speedY = 0;
                 }
             }
             if (this.wasAboveGround && !this.isAboveGround()) {

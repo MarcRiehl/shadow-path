@@ -16,6 +16,9 @@ class Endboss extends MovableObject {
     /** @type {number} Health points */
     energy = 25;
 
+    /** @type {number[]} Current index of the death animation frame.*/
+    deadImageIndex = 0;
+
     /** @type {{top:number,bottom:number,left:number,right:number}} Collision offsets */
     offset = {
         top: 180,
@@ -83,7 +86,7 @@ class Endboss extends MovableObject {
         './img/4_enemie_boss_troll/dying/troll_02_1_die_009.png'
     ];
 
-        /** @type {string[]} Attack animation image paths */
+    /** @type {string[]} Attack animation image paths */
     IMAGES_ATTACK = [
         './img/4_enemie_boss_troll/attack/troll_02_1_attack_000.png',
         './img/4_enemie_boss_troll/attack/troll_02_1_attack_001.png',
@@ -107,7 +110,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_ATTACK);
-        this.x = 4800;
+        this.x = 5000;
         this.otherDirection = true;
         this.animate();
     }
@@ -118,79 +121,79 @@ class Endboss extends MovableObject {
     /**
     * Starts the endboss animation and AI behavior loop.
     * 
-    * The method controls:
-    * - First contact jump animation
-    * - Attack animations
-    * - Idle animation when the character is dead
-    * - Boss fight music activation
-    * - Interval management for animations
-    * 
     * Variables:
     * @param {number} i Counter for first-contact jump animation timing.
-    * @param {number} j Reserved counter variable for future animations or logic.
     */
-animate() {
+    animate() {
+        let i = 0;
+        this.intervalIds.forEach(id => clearInterval(id));
+        this.intervalIds = [];
+        this.intervalIds.push(setInterval(() => {
+            if (this.isDead()) {
+                return;
+            }
+            this.contactCharacterEndboss(i);
+            this.playBossFightSound();
+            i++;
+            this.endbossIdle();
+        }, 200));
+        this.intervalIds.push(setInterval(() => {
+            this.deadAnimationLoop();
+        }, 40));
+    }
 
-    /** @type {number} Counter for first-contact animation phases */
-    let i = 0;
-
-    /** @type {number} Additional animation counter (currently unused) */
-    let j = 0;
-
-    this.intervalIds.forEach(id => clearInterval(id));
-    this.intervalIds = [];
-    this.intervalIds.push(setInterval(() => {
-        if (this.isDead()) {
-            return;
+    /**
+     * Plays the boss fight music when the character
+     * reaches the boss area.
+     * 
+     * The sound starts once the character's x-position
+     * is greater than 4400.
+     */
+    playBossFightSound() {
+        if (world.character.x > 4400) {
+            AudioHub.playOne(AudioHub.BOSS_FIGHT);
         }
-        if (i < 10 && this.firstContact && world.character.x > 4600) {
+    }
+
+    /**
+    * Handles the endboss behavior after the character
+    * enters the boss area.
+    * 
+    * @param {number} i Counter used for timing the
+    * first-contact jump animation.
+    */
+    contactCharacterEndboss(i) {
+        if (i < 16 && this.firstContact && world.character.x > 4400) {
             this.jumpFirstContact(i);
         } else if (this.firstContact) {
-            this.animationFirstContact();
-        }
-        if (this.x < 4400) {
             this.animationAttack();
         }
-        i++;
-        if (world.character.x > 4200 && world.character.isDead()) {
-            this.animationCharacterDeadIdle();
+        if (world.character.x > this.x + 100) {
+            this.playAnimation(this.IMAGES_WALKING);
         }
         if (world.character.x > 4600 && !this.firstContact) {
             i = 0;
             this.firstContact = true;
+            console.log(world.character.x);
         }
-        if (world.character.x > 4000) {
-            AudioHub.playOne(AudioHub.BOSS_FIGHT);
-        }
-    }, 200));
-
-
-        /**
-         * Death animation loop.
-         */
-        this.intervalIds.push(setInterval(() => {
-            if (this.isDead()) {
-                if (j < this.IMAGES_DEAD.length - 1) {
-                    this.img = this.imageCache[this.IMAGES_DEAD[j]];
-                    this.y = -20;
-                    j++;
-
-                } else {
-                    this.loadImage('./img/4_enemie_boss_troll/dying/troll_02_1_die_009.png');
-                    this.intervalIds.forEach(id => clearInterval(id));
-                    this.intervalIds = [];
-                }
-            }
-        }, 40));
     }
 
+    /**
+    * Plays the endboss idle animation when
+    * the character is dead and inside the boss area.
+    */
+    endbossIdle() {
+        if (world.character.x > 4400 && world.character.isDead()) {
+            this.animationCharacterDeadIdle();
+        }
+    }
     /**
      * Plays jump animation during first contact.
      * @param {number} i Animation counter
      */
     jumpFirstContact(i) {
         this.playAnimation(this.IMAGES_JUMP);
-        this.x = world.character.x - 20;
+        this.x = this.x - 20;
         this.speed = 0.5;
     }
 
@@ -219,5 +222,25 @@ animate() {
         this.playAnimation(this.IMAGES_IDLE);
         this.speed = 0;
         this.x = world.character.x + 120;
+    }
+
+    /**
+     * Handles the endboss death animation sequence.
+     * 
+     * @param {number} deadImageIndex Current index of the
+     * death animation frame.
+     */
+    deadAnimationLoop() {
+        if (this.isDead()) {
+            if (this.deadImageIndex < this.IMAGES_DEAD.length - 1) {
+                this.img = this.imageCache[this.IMAGES_DEAD[this.deadImageIndex]];
+                this.y = -20;
+                this.deadImageIndex++;
+            } else {
+                this.loadImage('./img/4_enemie_boss_troll/dying/troll_02_1_die_009.png');
+                this.intervalIds.forEach(id => clearInterval(id));
+                this.intervalIds = [];
+            }
+        }
     }
 }

@@ -6,19 +6,28 @@
 class Character extends MovableObject {
     /** @type {number} Character height */
     height = 200;
+
     /** @type {number} Character width */
     width = 150;
+
     /** @type {number} Vertical position */
     y = 250;
+
     /** @type {number} Movement speed */
     speed = 10;
+
     /** @type {World} Reference to the game world */
     world;
+
     /** @type {number} Time without player input */
     idleTimer = 0;
+
     /** @type {number[]} Stores active interval IDs */
     intervalIds = [];
-x= 3800;
+
+    /** @type {number[]} Current index of the death animation frame.*/
+    deadImageIndex = 0;
+
     /** @type {{top:number,bottom:number,left:number,right:number}} Collision offsets */
     offset = {
         top: 40,
@@ -182,63 +191,24 @@ x= 3800;
     }
 
     /**
-    * Sets up the main animation loop for the character, handling movement, state changes, and idle animations.
-    * Uses multiple intervals to manage different aspects of the character's behavior, such as movement, animation frames, and idle state transitions.
-    * Variables:
-    * Variables:
-    * @local
-    * @type {number}
-    * i - Animation index counter.
-    */
+     * Starts the main animation and control loops
+     * for the character.
+     * 
+     * Existing intervals are cleared before
+     * starting new animation loops.
+     */
     animate() {
-        let i = 0;
         this.intervalIds.forEach(id => clearInterval(id));
         this.intervalIds = [];
+
         this.intervalIds.push(setInterval(() => {
-            if ((this.world.keyboard.RIGHT || this.world.mobilControl.RIGHT) && this.x < this.world.level.level_end_x && !this.isDead()) {
-                this.characterMoveRight();
-            }
-            if ((this.world.keyboard.LEFT || this.world.mobilControl.LEFT) && this.x > 0 && !this.isDead()) {
-                this.characterMoveLeft();
-            }
-            if ((this.world.keyboard.SPACE || this.world.mobilControl.SPACE) && !this.isAboveGround()) {
-                this.jump();
-                this.idleTimer = 0;
-                AudioHub.playOne(AudioHub.CHARACTER_JUMPING);
-            }
+            this.characterControl();
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60));
 
-        /**
-        * Controls character animations based on the current state.
-        * 
-        * @local
-        * @type {number}
-        * i - Current index of the death animation.
-        */
         this.intervalIds.push(setInterval(() => {
-            if (this.isDead()) {
-                if (i < this.IMAGES_DEAD.length - 1) {
-                    this.img = this.imageCache[this.IMAGES_DEAD[i]];
-                    i++;
-                } else {
-                    this.loadImage('./img/2_character_angel/dying/0_fallen_angels_dying_014.png');
-                    this.intervalIds.forEach(id => clearInterval(id));
-                    this.intervalIds = [];
-                    setTimeout(() => {
-                        this.world.checkCharacterIsDead();
-                    }, 1500);
-                }
-            } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else {
-                if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.mobilControl.RIGHT || this.world.mobilControl.LEFT) && !this.isAboveGround()) {
-                    this.playAnimation(this.IMAGES_WALKING);
-                    AudioHub.playOne(AudioHub.CHARACTER_WALKING);
-                }
-            }
+            this.characterAnimations();
+            this.deadAnimationLoop();
         }, 40));
 
         /**
@@ -252,12 +222,12 @@ x= 3800;
         }, 1000 / 60));
 
         /**
-        * Plays idle animations and sounds
-        * when the character is inactive.
-        * 
-        * @local
-        * @type {number}
-        * idleTimer - Time without player movement.
+         * Plays idle animations and sounds
+         * when the character is inactive.
+         * 
+         * @local
+         * @type {number}
+         * idleTimer - Time without player movement.
         */
         this.intervalIds.push(setInterval(() => {
             if (!this.isAboveGround() && !this.isDead() && !this.world.characterDead) {
@@ -276,6 +246,63 @@ x= 3800;
                 }
             }
         }, 100));
+    }
+
+    /**
+     * Handles character movement and jump controls.
+     * 
+     */
+    characterControl() {
+        if ((this.world.keyboard.RIGHT || this.world.mobilControl.RIGHT) && this.x < this.world.level.level_end_x && !this.isDead()) {
+            this.characterMoveRight();
+        }
+        if ((this.world.keyboard.LEFT || this.world.mobilControl.LEFT) && this.x > 0 && !this.isDead()) {
+            this.characterMoveLeft();
+        }
+        if ((this.world.keyboard.SPACE || this.world.mobilControl.SPACE) && !this.isAboveGround()) {
+            this.jump();
+            this.idleTimer = 0;
+            AudioHub.playOne(AudioHub.CHARACTER_JUMPING);
+        }
+    }
+
+    /**
+     * Handles the character animation states.
+     * 
+     */
+    characterAnimations() {
+        if (this.isAboveGround()) {
+            this.playAnimation(this.IMAGES_JUMPING);
+        } else if (this.isHurt()) {
+            this.playAnimation(this.IMAGES_HURT);
+        } else {
+            if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.mobilControl.RIGHT || this.world.mobilControl.LEFT) && !this.isAboveGround()) {
+                this.playAnimation(this.IMAGES_WALKING);
+                AudioHub.playOne(AudioHub.CHARACTER_WALKING);
+            }
+        }
+    }
+
+    /**
+     * Handles the character death animation sequence.
+     * 
+     * @param {number} deadImageIndex Current index of the
+     * death animation frame.
+     */
+    deadAnimationLoop() {
+        if (this.isDead()) {
+            if (this.deadImageIndex < this.IMAGES_DEAD.length - 1) {
+                this.img = this.imageCache[this.IMAGES_DEAD[this.deadImageIndex]];
+                this.deadImageIndex++;
+            } else {
+                this.loadImage('./img/2_character_angel/dying/0_fallen_angels_dying_014.png');
+                this.intervalIds.forEach(id => clearInterval(id));
+                this.intervalIds = [];
+                setTimeout(() => {
+                    this.world.checkCharacterIsDead();
+                }, 1500);
+            }
+        }
     }
 
     /**

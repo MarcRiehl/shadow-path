@@ -16,12 +16,23 @@ class AudioHub {
     static EXPLOSION = new Audio('./assets/audio/enemies/explosion-small.wav');
     static OUTRO = new Audio('./assets/audio/startscreen/outro.mp3');
     static BOSS_FIGHT = new Audio('./assets/audio/boss/boss-fight.mp3');
-    static HIT_CHARACTER = new Audio('./assets/audio/character/hit/punch_3.wav');
-    static HIT_BOSS = new Audio('./assets/audio/boss/slap.wav');
+    static HIT_CHARACTER = new Audio('./assets/audio/character/hit/player-hurt.mp3');
+    static HIT_BOSS = new Audio('./assets/audio/boss/boss-hit.mp3');
 
     
 
 
+    /**
+     * Collection of all game audio files.
+     * 
+     * This array is used for:
+     * - Global audio control
+     * - Muting and unmuting sounds
+     * - Stopping all active sounds
+     * - Managing game sound effects and music
+     * 
+     * @type {HTMLAudioElement[]}
+     */
     static allSounds = [
         AudioHub.CHARACTER_WALKING,
         AudioHub.CHARACTER_IDLE,
