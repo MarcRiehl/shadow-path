@@ -98,17 +98,18 @@
 
  .sound-control {
      position: absolute;
-     right: 0%;
+     left: 86%;
      top: 4%;
      display: flex;
      align-items: center;
      pointer-events: none;
      z-index: 5;
+     gap: 10px;
  }
 
  .sound-control>div {
      pointer-events: auto;
-     width: clamp(40px, 6%, 80px);
+     width: clamp(40px, 6%, 60px);
  }
 
  .sound-button {
@@ -129,6 +130,26 @@
  .sound-button:hover {
      filter: contrast(90%) drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.7));
  }
+
+ .fullscreen-button {
+     width: 100%;
+     height: auto;
+     object-fit: contain;
+     display: block;
+     cursor: pointer;
+ }
+
+ .fullscreen-button img.sound-button {
+     width: 100%;
+     height: 100%;
+     object-fit: contain;
+     display: block;
+ }
+
+ .fullscreen-button:hover {
+     filter: contrast(90%) drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.7));
+ }
+
 
  .bottom-menu {
      position: absolute;
@@ -166,6 +187,10 @@
      display: block;
  }
 
+ .impressum-button:hover {
+     filter: contrast(90%) drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.7));
+ }
+
  #instructions-menu {
      pointer-events: auto;
      width: clamp(40px, 6%, 80px);
@@ -182,12 +207,16 @@
      display: block;
  }
 
+ .instructions-button:hover {
+     filter: contrast(90%) drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.7));
+ }
+
  .win-lost-menu {
      position: absolute;
-     left: 30%;
      bottom: 30%;
      display: flex;
      align-items: center;
+     justify-content: center;
      gap: clamp(8px, 2vw, 18px);
      pointer-events: none;
  }
@@ -240,6 +269,7 @@
          width: clamp(30px, 6%, 50px);
          top: 3%;
          right: 5%;
+         left: unset;
      }
 
      .back-main-menu {
@@ -253,6 +283,10 @@
      #instructions-menu {
 
          width: clamp(26px, 6%, 80px);
+     }
+
+     #fullscreen-button {
+         display: none;
      }
  }
 
@@ -299,10 +333,10 @@
          width: clamp(40px, 6%, 50px);
          top: 3%;
          right: 3%;
+         left: unset;
      }
 
      .win-lost-menu {
-         left: 35%;
          bottom: 30%;
          gap: clamp(8px, 2vw, 18px);
      }
@@ -322,6 +356,10 @@
          max-width: 90%;
      }
 
+     #fullscreen-button {
+         display: none;
+     }
+
  }
 
  @media (height <=360px) {
@@ -334,6 +372,7 @@
          width: clamp(20px, 6%, 50px);
          top: 3%;
          right: 3%;
+         left: unset;
      }
 
      .back-main-menu {
@@ -345,7 +384,6 @@
      }
 
      .win-lost-menu {
-         left: 35%;
          bottom: 30%;
      }
 
@@ -375,11 +413,11 @@
          width: clamp(20px, 6%, 50px);
          top: 3%;
          right: 3%;
+         left: unset;
      }
 
      .win-lost-menu {
          gap: clamp(8px, 2vw, 18px);
-         left: 30%;
          bottom: 25%;
      }
 
@@ -405,11 +443,25 @@
          height: 220px;
          max-width: 90%;
      }
+
+     #fullscreen-button {
+         display: none;
+     }
  }
 
-  @media (hover: hover) {
+ @media (hover: hover) {
      #mobil-control {
          display: none !important;
+     }
+
+ }
+
+ @media (width >=1280px) {
+     .sound-control {
+         width: clamp(80px, 8%, 120px);
+         top: 3%;
+         right: 1%;
+         left: unset;
      }
 
  }

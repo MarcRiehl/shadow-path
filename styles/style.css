@@ -1,45 +1,45 @@
 @font-face {
-    font-family: 'Breath';
-    src: url('../assets/fonts/breathefire.ttf') format('truetype');
-    font-weight: 300 900;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Breath';
+  src: url('../assets/fonts/breathefire.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Luckie';
-    src: url('../assets/fonts/luckiestguy.ttf') format('truetype');
-    font-weight: 300 900;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Luckie';
+  src: url('../assets/fonts/luckiestguy.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.d-none{
+.d-none {
   display: none !important;
 }
 
 
 body {
-    font-family: "Luckie", sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: url("../assets/img_site/background.jpg") center center/cover no-repeat;
-    color:#1b1b1b;
+  font-family: "Luckie", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: url("../assets/img_site/background.jpg") center center/cover no-repeat;
+  color: #1b1b1b;
 }
 
 a {
-  color:#1b1b1b;
+  color: #1b1b1b;
 }
 
 a:hover {
-  color:#555555;
+  color: #555555;
 }
 
 #canvas {
@@ -47,30 +47,39 @@ a:hover {
   height: 100%;
   display: block;
   background: transparent;
-  filter: drop-shadow(0 0 6px rgba(0,0,0,0.7));
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.7));
 }
 
 .canvas-wrapper {
   position: relative;
   width: 100%;
-  max-width: 1280px;   /* anpassen siehe canvas*/
+  max-width: 1280px;
   aspect-ratio: 3/2;
   max-height: 100dvh;
 }
 
+.canvas-wrapper-fullscreen {
+  position: relative;
+  width: unset;
+  max-width: 1440px;
+  aspect-ratio: 3 / 2;
+  max-height: 100dvh;
+  height: 960px;
+}
+
 h1 {
-    font-family: "Breath", sans-serif;
-    font-size: 52px;
-    line-height: 120%;
-    letter-spacing: 2px;
-    color: #FFF;
-    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.7));
+  font-family: "Breath", sans-serif;
+  font-size: 52px;
+  line-height: 120%;
+  letter-spacing: 2px;
+  color: #FFF;
+  filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.7));
 
 }
 
 .wrapper-content {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .wrapper-inner {
@@ -90,4 +99,3 @@ h1 {
   display: block;
   z-index: 1;
 }
-

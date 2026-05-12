@@ -21,6 +21,9 @@ let mobilControl = new MobilControl();
 let playSound = localStorage.getItem("playSound") || "true";
 
 /** @type {boolean} */
+let fullscreen = false;
+
+/** @type {boolean} */
 let gameWin = false;
 
 /**
@@ -49,7 +52,7 @@ function loadGame() {
   document.getElementById("win-screen").classList.add("d-none");
   document.getElementById("start-screen").classList.remove("d-none");
   document.getElementById("bottom-menu").classList.remove("d-none");
-  document.getElementById("mobil-control").classList.remove("d-none");
+  document.getElementById("mobil-control").classList.add("d-none");
   AudioHub.stopOne(AudioHub.OUTRO);
   this.loadSoundState();
 }
@@ -72,6 +75,7 @@ function startGame() {
   document.getElementById("start-screen").classList.add("d-none");
   document.getElementById("end-screen").classList.add("d-none");
   document.getElementById("win-screen").classList.add("d-none");
+  document.getElementById("mobil-control").classList.remove("d-none");
   showMobileControls();
 }
 
@@ -99,21 +103,21 @@ function showMobileControls() {
  * buttonSoundMute - Sound muted button.
  */
 function toggleSound() {
-    let buttonSoundOn = document.getElementById("sound-on");
-    let buttonSoundMute = document.getElementById("sound-mute");
-    if (playSound === "true") {
-        playSound = "false";
-        localStorage.setItem("playSound", playSound);
-        buttonSoundOn.classList.add("d-none");
-        buttonSoundMute.classList.remove("d-none");
-        AudioHub.stopAll();
-    } else {
-        playSound = "true";
-        localStorage.setItem("playSound", playSound);
-        buttonSoundOn.classList.remove("d-none");
-        buttonSoundMute.classList.add("d-none");
-        AudioHub.playAll();
-    }
+  let buttonSoundOn = document.getElementById("sound-on");
+  let buttonSoundMute = document.getElementById("sound-mute");
+  if (playSound === "true") {
+    playSound = "false";
+    localStorage.setItem("playSound", playSound);
+    buttonSoundOn.classList.add("d-none");
+    buttonSoundMute.classList.remove("d-none");
+    AudioHub.stopAll();
+  } else {
+    playSound = "true";
+    localStorage.setItem("playSound", playSound);
+    buttonSoundOn.classList.remove("d-none");
+    buttonSoundMute.classList.add("d-none");
+    AudioHub.playAll();
+  }
 }
 
 /**
@@ -129,16 +133,43 @@ function toggleSound() {
  * buttonSoundMute - Sound muted button.
  */
 function loadSoundState() {
-    let buttonSoundOn = document.getElementById("sound-on");
-    let buttonSoundMute = document.getElementById("sound-mute");
-    if (playSound === "false") {
-        buttonSoundOn.classList.add("d-none");
-        buttonSoundMute.classList.remove("d-none");
-    } else {
-        buttonSoundOn.classList.remove("d-none");
-        buttonSoundMute.classList.add("d-none");
-    }
+  let buttonSoundOn = document.getElementById("sound-on");
+  let buttonSoundMute = document.getElementById("sound-mute");
+  if (playSound === "false") {
+    buttonSoundOn.classList.add("d-none");
+    buttonSoundMute.classList.remove("d-none");
+  } else {
+    buttonSoundOn.classList.remove("d-none");
+    buttonSoundMute.classList.add("d-none");
+  }
 }
+
+/**
+ * Toggles fullscreen mode for the game canvas.
+ * 
+ * @param {HTMLElement} fullscreenOn Button for enabling fullscreen mode.
+ * @param {HTMLElement} fullscreenOff Button for disabling fullscreen mode.
+ * @param {HTMLElement} canvasWrapper Container element of the game canvas.
+ */
+function toggleFullscreen() {
+  let fullscreenOn = document.getElementById("fullscreen-off");
+  let fullscreenOff = document.getElementById("fullscreen-on");
+  let canvasWrapper = document.getElementById("canvas-wrapper");
+  if (fullscreen == false) {
+    fullscreen = true;
+    fullscreenOn.classList.add("d-none");
+    fullscreenOff.classList.remove("d-none");
+    canvasWrapper.classList.remove("canvas-wrapper");
+    canvasWrapper.classList.add("canvas-wrapper-fullscreen");
+  } else {
+    fullscreen = false;
+    fullscreenOn.classList.remove("d-none");
+    fullscreenOff.classList.add("d-none");
+    canvasWrapper.classList.add("canvas-wrapper");
+    canvasWrapper.classList.remove("canvas-wrapper-fullscreen");
+  }
+}
+
 
 /**
  * Shows the lose screen.

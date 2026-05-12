@@ -80,7 +80,7 @@ class Crusader extends MovableObject {
     animate() {
         // Move enemy left
         setInterval(() => {
-            // this.moveLeft();
+            this.moveLeft();
         }, 1000 / 60);
 
         // Play walking animation

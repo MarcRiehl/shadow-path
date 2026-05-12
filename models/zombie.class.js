@@ -79,7 +79,7 @@ class Zombie extends MovableObject {
     animate() {
         // Move zombie left
         setInterval(() => {
-            // this.moveLeft();
+            this.moveLeft();
         }, 1000 / 60);
 
         // Play walking animation

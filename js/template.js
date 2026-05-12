@@ -28,6 +28,16 @@ function getHTMLForSoundButton() {
                 onclick="toggleSound()">
         </div>
     </div>
+    <div id="fullscreen-button">
+            <div id="fullscreen-off">
+            <img class="fullscreen-button" src="./assets/buttons/button-full-screen.png" alt="button-sound-on"
+                onclick="toggleFullscreen()">
+        </div>
+            <div id="fullscreen-on" class="d-none">
+            <img class="fullscreen-button" src="./assets/buttons/button-full-screen-on.png" alt="button-sound-mute"
+                onclick="toggleFullscreen()">
+        </div>
+    </div>
     `}
 
 /**
