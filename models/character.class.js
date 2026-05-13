@@ -200,12 +200,24 @@ class Character extends MovableObject {
     animate() {
         this.intervalIds.forEach(id => clearInterval(id));
         this.intervalIds = [];
-
+        
+        /**
+         * Main movement and camera update loop.
+         * 
+         * The interval handles:
+         * - Character movement controls
+         * - Camera position updates
+         * 
+         * Runs at 60 frames per second.
+         */
         this.intervalIds.push(setInterval(() => {
             this.characterControl();
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60));
 
+        /**
+        * Animation loop for the character.
+        */
         this.intervalIds.push(setInterval(() => {
             this.characterAnimations();
             this.deadAnimationLoop();
