@@ -174,7 +174,6 @@ class Endboss extends MovableObject {
         if (world.character.x > 4600 && !this.firstContact) {
             i = 0;
             this.firstContact = true;
-            console.log(world.character.x);
         }
     }
 

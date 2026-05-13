@@ -378,26 +378,46 @@ class World {
     */
     checkMagicCollisionsEndboss() {
         let now = Date.now();
-        this.throwableObjects.forEach(magic => {
-            this.level.endboss.forEach((enemy, index) => {
-                if (now - this.lastEndbossHit < 1000) {
-                    return;
-                }
-                if (enemy.isColliding(magic)) {
-                    this.lastEndbossHit = now;
-                    enemy.hit(5);
-                    this.magicCollisionsEnbossHit(magic);
-                    setTimeout(() => {
-                        magic.isDeleted = true;
-                        this.throwableObjects.splice(index, 1);
-                    }, 200);
-                    this.endbossBar.setPercentage(enemy.energy);
-                }
-                if (enemy.isDead()) {
-                    this.checkEndbossIsDead(index);
-                }
+
+        this.throwableObjects.forEach((magic, magicIndex) => {
+            this.level.endboss.forEach((enemy, enemyIndex) => {
+                this.handleMagicEndbossCollision(
+                    magic,
+                    magicIndex,
+                    enemy,
+                    enemyIndex,
+                    now
+                );
             });
         });
+    }
+
+    /**
+     * Handles collision between magic projectile and endboss.
+     * 
+     * @param {Object} magic - Magic projectile.
+     * @param {number} magicIndex - Index of magic projectile.
+     * @param {Object} enemy - Endboss enemy.
+     * @param {number} enemyIndex - Index of endboss.
+     * @param {number} now - Current timestamp.
+     */
+    handleMagicEndbossCollision(magic, magicIndex, enemy, enemyIndex, now) {
+        if (now - this.lastEndbossHit < 1000) {
+            return;
+        }
+        if (enemy.isColliding(magic)) {
+            this.lastEndbossHit = now;
+            enemy.hit(5);
+            this.magicCollisionsEnbossHit(magic);
+            setTimeout(() => {
+                magic.isDeleted = true;
+                this.throwableObjects.splice(magicIndex, 1);
+            }, 200);
+            this.endbossBar.setPercentage(enemy.energy);
+        }
+        if (enemy.isDead()) {
+            this.checkEndbossIsDead(enemyIndex);
+        }
     }
 
     /**
@@ -644,7 +664,6 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-                mo.showFrameHelper(this.ctx); //Frame Help
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
