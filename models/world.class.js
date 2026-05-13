@@ -644,6 +644,7 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
+                mo.showFrameHelper(this.ctx); //Frame Help
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
