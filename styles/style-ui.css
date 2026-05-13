@@ -98,7 +98,7 @@
 
  .sound-control {
      position: absolute;
-     left: 86%;
+     left: 90%;
      top: 4%;
      display: flex;
      align-items: center;
@@ -456,7 +456,13 @@
 
  }
 
- @media (width >=1280px) {
+@media(max-width: 1400px){
+  #fullscreen-button {
+         display: none;
+     }
+}
+
+ @media (width >=1400px) {
      .sound-control {
          width: clamp(80px, 8%, 120px);
          top: 3%;
