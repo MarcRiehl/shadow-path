@@ -301,42 +301,42 @@ window.addEventListener('keyup', (event) => {
  */
 window.addEventListener('load', () => {
   document.getElementById("leftBtn").addEventListener("touchstart", (e) => {
-    e.preventDefault();
+    if (e.cancelable) e.preventDefault();
     mobilControl.LEFT = true;
   });
 
   document.getElementById("leftBtn").addEventListener("touchend", (e) => {
-    e.preventDefault();
+    if (e.cancelable) e.preventDefault();
     mobilControl.LEFT = false;
   });
 
   document.getElementById("rightBtn").addEventListener("touchstart", (e) => {
-    e.preventDefault();
+    if (e.cancelable) e.preventDefault();
     mobilControl.RIGHT = true;
   });
 
   document.getElementById("rightBtn").addEventListener("touchend", (e) => {
-    e.preventDefault();
+    if (e.cancelable) e.preventDefault();
     mobilControl.RIGHT = false;
   });
 
   document.getElementById("spaceBtn").addEventListener("touchstart", (e) => {
-    e.preventDefault();
+    if (e.cancelable) e.preventDefault();
     mobilControl.SPACE = true;
   });
 
   document.getElementById("spaceBtn").addEventListener("touchend", (e) => {
-    e.preventDefault();
+    if (e.cancelable) e.preventDefault();
     mobilControl.SPACE = false;
   });
 
   document.getElementById("dBtn").addEventListener("touchstart", (e) => {
-    e.preventDefault();
+    if (e.cancelable) e.preventDefault();
     mobilControl.KEY_D = true;
   });
 
   document.getElementById("dBtn").addEventListener("touchend", (e) => {
-    e.preventDefault();
+    if (e.cancelable) e.preventDefault();
     mobilControl.KEY_D = false;
   });
 });

@@ -18,14 +18,14 @@
     left: -70px;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
-    filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.7));
+    filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.7));
 }
 
 .mobil-control-right {
     right: -70px;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
-    filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.7));
+    filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.7));
 }
 
 #mobil-control button {
@@ -50,7 +50,6 @@
     background: transparent url("../assets/buttons/button-arrow-left.png") center center/cover no-repeat;
 }
 
-
 #rightBtn {
     background: transparent url("../assets/buttons/button-arrow-right.png") center center/cover no-repeat;
 }
@@ -60,8 +59,13 @@
     background: transparent url("../assets/buttons/button-jump.png") center center/cover no-repeat;
 }
 
-
-
 #dBtn {
     background: transparent url("../assets/buttons/button-throw.png") center center/cover no-repeat;
+}
+
+#leftBtn,
+#rightBtn,
+#spaceBtn,
+#dBtn {
+    touch-action: none;
 }
