@@ -121,7 +121,6 @@ class Endboss extends MovableObject {
     /**
     * Starts the endboss animation and AI behavior loop.
     * 
-    * Variables:
     * @param {number} i Counter for first-contact jump animation timing.
     */
     animate() {
@@ -137,17 +136,11 @@ class Endboss extends MovableObject {
             i++;
             this.endbossIdle();
         }, 200));
-        this.intervalIds.push(setInterval(() => {
-            this.deadAnimationLoop();
-        }, 40));
+        this.deadAnimationLoop();
     }
 
     /**
-     * Plays the boss fight music when the character
-     * reaches the boss area.
-     * 
-     * The sound starts once the character's x-position
-     * is greater than 4400.
+     * Plays the boss fight music when the character reaches the boss area.
      */
     playBossFightSound() {
         if (world.character.x > 4400) {
@@ -156,11 +149,9 @@ class Endboss extends MovableObject {
     }
 
     /**
-    * Handles the endboss behavior after the character
-    * enters the boss area.
+    * Handles the endboss behavior after the character enters the boss area.
     * 
-    * @param {number} i Counter used for timing the
-    * first-contact jump animation.
+    * @param {number} i Counter used for timing the first-contact jump animation.
     */
     contactCharacterEndboss(i) {
         if (i < 16 && this.firstContact && world.character.x > 4400) {
@@ -224,22 +215,22 @@ class Endboss extends MovableObject {
     }
 
     /**
-     * Handles the endboss death animation sequence.
-     * 
-     * @param {number} deadImageIndex Current index of the
-     * death animation frame.
+     * The interval handles the death animation sequence of the object.
      */
     deadAnimationLoop() {
-        if (this.isDead()) {
-            if (this.deadImageIndex < this.IMAGES_DEAD.length - 1) {
-                this.img = this.imageCache[this.IMAGES_DEAD[this.deadImageIndex]];
-                this.y = -20;
-                this.deadImageIndex++;
-            } else {
-                this.loadImage('./img/4_enemie_boss_troll/dying/troll_02_1_die_009.png');
-                this.intervalIds.forEach(id => clearInterval(id));
-                this.intervalIds = [];
+        this.intervalIds.push(setInterval(() => {
+            if (this.isDead()) {
+                if (this.deadImageIndex < this.IMAGES_DEAD.length - 1) {
+                    this.img = this.imageCache[this.IMAGES_DEAD[this.deadImageIndex]];
+                    this.y = -20;
+                    this.deadImageIndex++;
+                } else {
+                    this.loadImage('./img/4_enemie_boss_troll/dying/troll_02_1_die_009.png');
+                    this.intervalIds.forEach(id => clearInterval(id));
+                    this.intervalIds = [];
+                }
             }
-        }
+        }, 40));
     }
+
 }

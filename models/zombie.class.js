@@ -77,12 +77,10 @@ class Zombie extends MovableObject {
      * Starts movement and walking animation.
      */
     animate() {
-        // Move zombie left
         setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
 
-        // Play walking animation
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
         }, 300);

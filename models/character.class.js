@@ -193,54 +193,55 @@ class Character extends MovableObject {
     /**
      * Starts the main animation and control loops
      * for the character.
-     * 
-     * Existing intervals are cleared before
-     * starting new animation loops.
      */
     animate() {
         this.intervalIds.forEach(id => clearInterval(id));
         this.intervalIds = [];
-        
-        /**
-         * Main movement and camera update loop.
-         * 
-         * The interval handles:
-         * - Character movement controls
-         * - Camera position updates
-         * 
-         * Runs at 60 frames per second.
-         */
+        this.mainMovementInterval();
+        this.animationLoopInterval();
+        this.checkIsDeadInterval();
+        this.checkCharacterIdle();
+    }
+
+    /**
+    * Main movement and camera update loop.
+    */
+    mainMovementInterval() {
         this.intervalIds.push(setInterval(() => {
             this.characterControl();
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60));
+    }
 
-        /**
-        * Animation loop for the character.
-        */
+    /**
+    * Animation loop for the character.
+    */
+    animationLoopInterval() {
         this.intervalIds.push(setInterval(() => {
             this.characterAnimations();
             this.deadAnimationLoop();
         }, 40));
+    }
 
-        /**
-         * Continuously checks if the character is dead.
-         * Stops movement and actions when dead.
-         */
+    /**
+    * Continuously checks if the character is dead.
+    */
+    checkIsDeadInterval() {
         this.intervalIds.push(setInterval(() => {
             if (this.isDead()) {
                 this.characterIsDead();
             }
         }, 1000 / 60));
+    }
 
-        /**
-         * Plays idle animations and sounds
-         * when the character is inactive.
-         * 
-         * @local
-         * @type {number}
-         * idleTimer - Time without player movement.
-        */
+    /**
+     * Plays idle animations and sounds when the character is inactive.
+     * 
+     * @local
+     * @type {number}
+     * idleTimer - Time without player movement.
+    */
+    checkCharacterIdle() {
         this.intervalIds.push(setInterval(() => {
             if (!this.isAboveGround() && !this.isDead() && !this.world.characterDead) {
                 this.idleTimer += 100;
@@ -296,10 +297,7 @@ class Character extends MovableObject {
     }
 
     /**
-     * Handles the character death animation sequence.
-     * 
-     * @param {number} deadImageIndex Current index of the
-     * death animation frame.
+     * Handles the character death animation sequence. death animation frame.
      */
     deadAnimationLoop() {
         if (this.isDead()) {

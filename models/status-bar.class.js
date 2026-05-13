@@ -50,7 +50,6 @@ class Statusbar extends DrawableObject {
      * @returns {number}
      */
     resolveImageIndex() {
-
         if (this.percentage == 100) {
             return 10;
         } else if (this.percentage > 90) {
